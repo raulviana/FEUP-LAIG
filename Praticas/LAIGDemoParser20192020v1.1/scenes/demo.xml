@@ -38,8 +38,8 @@
     <transformations>
         <transformation id="demoTransform">
             <scale x="1" y="1" z="1" />
-            <rotate axis="x" angle="0" />
-            <rotate axis="z" angle="0" />
+            <rotate axis="x" angle="45" />
+            <rotate axis="z" angle="65" />
         </transformation>
     </transformations>
 

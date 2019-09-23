@@ -477,6 +477,8 @@ class MySceneGraph {
                 switch (grandChildren[j].nodeName) {
                     case 'translate':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
+                        console.log("coordinates:");
+                        console.log(coordinates);
                         if (!Array.isArray(coordinates))
                             return coordinates;
 
@@ -488,7 +490,21 @@ class MySceneGraph {
                         transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'rotate':
-                        
+                         //getting the angle and the axis values and apliyng the appropiate transformation 
+                         var axis = this.reader.getString(grandChildren[j], 'axis');
+                         console.log("axis:");
+                         console.log(axis);
+                         var vetor = [];
+                         if(axis == 'x') vetor = [1, 0, 0];
+                         else if(axis == 'y') vetor = [0, 1, 0];
+                         else vetor = [0, 0, 1];
+                         console.log("vetor:");
+                         console.log(vetor);
+
+                         var angle = this.reader.getString(grandChildren[j],'angle');
+                         console.log("angle:");
+                         console.log(DEGREE_TO_RAD * angle);
+                         transfMatrix = mat4.rotate(transfMatrix, transfMatrix, DEGREE_TO_RAD * angle, vetor);
                         break;
                 }
             }
