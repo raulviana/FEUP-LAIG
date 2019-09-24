@@ -253,7 +253,7 @@ class MySceneGraph {
                 return "no ID defined for texture";
 
             // Checks for repeated IDs.
-            if (this.primitives[viewId] != null)
+            if (this.camera[viewId] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + viewId + ")";
 
             var near = this.reader.getFloat(children[i], 'near');
