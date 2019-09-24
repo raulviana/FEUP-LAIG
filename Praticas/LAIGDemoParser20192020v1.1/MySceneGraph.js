@@ -398,7 +398,23 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        //this.onXMLMinorError("To do: Parse textures.");
+
+        this.textures = [];
+        var currentTexture = texturesNode.children;
+        var singleTextureDefined = false;
+
+        for(var i = 0; i < currentTexture.length; i++){
+            var textureID = this.reader.getString(currentTexture[i], 'id');
+            var filePath = null;
+            filePath = this.reader.getString(currentTexture[i], 'file');
+
+            var newtexture = new CGFtexture(this.scene, "/" + filePath);
+            this.textures[textureID] = newtexture;
+            console.log('textures:');
+            console.log(this.textures);
+        }
+
         return null;
     }
 
@@ -431,8 +447,33 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
+            // Get Shininess
+            //TODO - get shininess error  handling
+            var shininness = this.reader.getFloat(children[i], 'shininess');
+
+            //Getting the names of the material specs
+            grandChildren = children[i].children;
+            for(var i = 0; i < grandChildren.length; i++){
+                nodeNames.push(grandChildren[i].nodeName);
+            }
+            
+            //getting the values of the material specs
+            var emission = [];
+            var ambient = [];
+            var diffuse = [];
+            var specular = [];
+            for (var i = 0; i < nodeNames.length; i++){
+                switch(nodeNames[i]){
+                    case 'emission':
+
+                    break;
+
+                }
+            }
+
             //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            //this.onXMLMinorError("To do: Parse materials.");
+
         }
 
         //this.log("Parsed materials");
@@ -836,7 +877,7 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //To test the parsing/creation of the primitives, call the display function directly
-        this.primitives['demoCylinder'].display();
+        this.primitives['demoRectangle'].display();
 
     }
 }
