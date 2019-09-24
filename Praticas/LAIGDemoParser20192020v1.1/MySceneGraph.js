@@ -37,7 +37,7 @@ class MySceneGraph {
         // File reading 
         this.reader = new CGFXMLreader();
 
-        this.transformations= {};
+        this.transformations = {};
         this.primitives = {};
         this.materials = {};
         this.textures = {};
@@ -232,7 +232,57 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        //this.onXMLMinorError("To do: Parse views and create cameras.");
+
+        var children = viewsNode.children;
+
+        this.camera = [];
+
+        var grandChildren = [];
+
+        for (var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName != "perspective") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var viewId = this.reader.getString(children[i], 'id');
+
+            if (viewId == null)
+                return "no ID defined for texture";
+
+            // Checks for repeated IDs.
+            if (this.primitives[viewId] != null)
+                return "ID must be unique for each primitive (conflict: ID = " + viewId + ")";
+
+            var near = this.reader.getFloat(children[i], 'near');
+            var far = this.reader.getFloat(children[i], 'far');
+            var angle = this.reader.getFloat(children[i], 'angle');
+
+            var angleRad = angle * DEGREE_TO_RAD;
+
+            grandChildren = children[i].children;
+
+            if (grandChildren[0].nodeName != "from")
+                this.onXMLMinorError("unknown tag <" + grandChildren[0].nodeName + ">");
+
+            var fromX = this.reader.getFloat(grandChildren[0], 'x');
+            var fromY = this.reader.getFloat(grandChildren[0], 'y');
+            var fromZ = this.reader.getFloat(grandChildren[0], 'z');
+
+            if (grandChildren[1].nodeName != "to")
+                this.onXMLMinorError("unknown tag <" + grandChildren[1].nodeName + ">");
+
+            var toX = this.reader.getFloat(grandChildren[0], 'x');
+            var toY = this.reader.getFloat(grandChildren[0], 'y');
+            var toZ = this.reader.getFloat(grandChildren[0], 'z');
+
+            var cam = new CGFcamera(angleRad, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+
+            this.camera[viewId] = cam;
+
+        }
 
         return null;
     }
@@ -404,7 +454,7 @@ class MySceneGraph {
         var currentTexture = texturesNode.children;
         var singleTextureDefined = false;
 
-        for(var i = 0; i < currentTexture.length; i++){
+        for (var i = 0; i < currentTexture.length; i++) {
             var textureID = this.reader.getString(currentTexture[i], 'id');
             var filePath = null;
             filePath = this.reader.getString(currentTexture[i], 'file');
@@ -453,10 +503,10 @@ class MySceneGraph {
 
             //Getting the names of the material specs
             grandChildren = children[i].children;
-            for(var i = 0; i < grandChildren.length; i++){
+            for (var i = 0; i < grandChildren.length; i++) {
                 nodeNames.push(grandChildren[i].nodeName);
             }
-            
+
             //getting the values of the material specs
             var emission = [];
             var ambient = [];
@@ -464,8 +514,8 @@ class MySceneGraph {
             var specular = [];
             var a, r, g, b;
             //within each material parse trough its values
-            for (var i = 0; i < nodeNames.length; i++){
-                switch(nodeNames[i]){
+            for (var i = 0; i < nodeNames.length; i++) {
+                switch (nodeNames[i]) {
                     case 'emission':
                         r = this.reader.getFloat(grandChildren[i], 'r');
                         g = this.reader.getFloat(grandChildren[i], 'g');
@@ -477,7 +527,7 @@ class MySceneGraph {
                         emission.push(a);
                         console.log('emission:');
                         console.log(emission);
-                    break;
+                        break;
                     case 'ambient':
                         r = this.reader.getFloat(grandChildren[i], 'r');
                         g = this.reader.getFloat(grandChildren[i], 'g');
@@ -489,7 +539,7 @@ class MySceneGraph {
                         ambient.push(a);
                         console.log('ambient:');
                         console.log(ambient);
-                    break;
+                        break;
                     case 'diffuse':
                         r = this.reader.getFloat(grandChildren[i], 'r');
                         g = this.reader.getFloat(grandChildren[i], 'g');
@@ -501,7 +551,7 @@ class MySceneGraph {
                         diffuse.push(a);
                         console.log('diffuse:');
                         console.log(diffuse);
-                    break;
+                        break;
                     case 'specular':
                         r = this.reader.getFloat(grandChildren[i], 'r');
                         g = this.reader.getFloat(grandChildren[i], 'g');
@@ -513,7 +563,7 @@ class MySceneGraph {
                         specular.push(a);
                         console.log('specular:');
                         console.log(specular);
-                    break;
+                        break;
 
                 }
             }
@@ -525,7 +575,7 @@ class MySceneGraph {
             newMaterial.setSpecular(specular[0], specular[1], specular[2], specular[3]);
             newMaterial.setEmission(emission[0], emission[1], emission[2], emission[3]);
             this.materials[materialID] = newMaterial;
-           
+
 
         }
 
@@ -578,27 +628,27 @@ class MySceneGraph {
 
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
-                    case 'scale':                        
+                    case 'scale':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID ", transformationID);
-                        if(!Array.isArray(coordinates)) return coordinates;
+                        if (!Array.isArray(coordinates)) return coordinates;
                         transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'rotate':
-                         //getting the angle and the axis values and apliyng the appropiate transformation 
-                         var axis = this.reader.getString(grandChildren[j], 'axis');
-                         console.log("axis:");
-                         console.log(axis);
-                         var vetor = [];
-                         if(axis == 'x') vetor = [1, 0, 0];
-                         else if(axis == 'y') vetor = [0, 1, 0];
-                         else vetor = [0, 0, 1];
-                         console.log("vetor:");
-                         console.log(vetor);
+                        //getting the angle and the axis values and apliyng the appropiate transformation 
+                        var axis = this.reader.getString(grandChildren[j], 'axis');
+                        console.log("axis:");
+                        console.log(axis);
+                        var vetor = [];
+                        if (axis == 'x') vetor = [1, 0, 0];
+                        else if (axis == 'y') vetor = [0, 1, 0];
+                        else vetor = [0, 0, 1];
+                        console.log("vetor:");
+                        console.log(vetor);
 
-                         var angle = this.reader.getString(grandChildren[j],'angle');
-                         console.log("angle:");
-                         console.log(DEGREE_TO_RAD * angle);
-                         transfMatrix = mat4.rotate(transfMatrix, transfMatrix, DEGREE_TO_RAD * angle, vetor);
+                        var angle = this.reader.getString(grandChildren[j], 'angle');
+                        console.log("angle:");
+                        console.log(DEGREE_TO_RAD * angle);
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, DEGREE_TO_RAD * angle, vetor);
                         break;
                 }
             }
