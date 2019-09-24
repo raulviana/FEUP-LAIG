@@ -455,7 +455,21 @@ class MySceneGraph {
         var singleTextureDefined = false;
 
         for (var i = 0; i < currentTexture.length; i++) {
+
+            if (currentTexture[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + currentTexture[i].nodeName + ">");
+                continue;
+            }
+
             var textureID = this.reader.getString(currentTexture[i], 'id');
+
+            if (textureID == null)
+                return "no ID defined for texture";
+
+            // Checks for repeated IDs.
+            if (this.camera[textureID] != null)
+                return "ID must be unique for each primitive (conflict: ID = " + textureID + ")";
+
             var filePath = null;
             filePath = this.reader.getString(currentTexture[i], 'file');
 
@@ -513,6 +527,7 @@ class MySceneGraph {
             var diffuse = [];
             var specular = [];
             var a, r, g, b;
+
             //within each material parse trough its values
             for (var i = 0; i < nodeNames.length; i++) {
                 switch (nodeNames[i]) {
@@ -521,6 +536,12 @@ class MySceneGraph {
                         g = this.reader.getFloat(grandChildren[i], 'g');
                         b = this.reader.getFloat(grandChildren[i], 'b');
                         a = this.reader.getFloat(grandChildren[i], 'a');
+
+                        if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
+                            this.onXMLMinorError("Wrong values in <emission>");
+                            continue;
+                        }
+
                         emission.push(r);
                         emission.push(g);
                         emission.push(b);
@@ -533,6 +554,12 @@ class MySceneGraph {
                         g = this.reader.getFloat(grandChildren[i], 'g');
                         b = this.reader.getFloat(grandChildren[i], 'b');
                         a = this.reader.getFloat(grandChildren[i], 'a');
+
+                        if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
+                            this.onXMLMinorError("Wrong values in <ambient>");
+                            continue;
+                        }
+
                         ambient.push(r);
                         ambient.push(g);
                         ambient.push(b);
@@ -545,6 +572,12 @@ class MySceneGraph {
                         g = this.reader.getFloat(grandChildren[i], 'g');
                         b = this.reader.getFloat(grandChildren[i], 'b');
                         a = this.reader.getFloat(grandChildren[i], 'a');
+
+                        if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
+                            this.onXMLMinorError("Wrong values in <diffuse>");
+                            continue;
+                        }
+
                         diffuse.push(r);
                         diffuse.push(g);
                         diffuse.push(b);
@@ -557,6 +590,12 @@ class MySceneGraph {
                         g = this.reader.getFloat(grandChildren[i], 'g');
                         b = this.reader.getFloat(grandChildren[i], 'b');
                         a = this.reader.getFloat(grandChildren[i], 'a');
+
+                        if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
+                            this.onXMLMinorError("Wrong values in <specular>");
+                            continue;
+                        }
+
                         specular.push(r);
                         specular.push(g);
                         specular.push(b);
@@ -621,8 +660,8 @@ class MySceneGraph {
                 switch (grandChildren[j].nodeName) {
                     case 'translate':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
-                        console.log("coordinates:");
-                        console.log(coordinates);
+                        //console.log("coordinates:");
+                        //console.log(coordinates);
                         if (!Array.isArray(coordinates))
                             return coordinates;
 
@@ -636,18 +675,18 @@ class MySceneGraph {
                     case 'rotate':
                         //getting the angle and the axis values and apliyng the appropiate transformation 
                         var axis = this.reader.getString(grandChildren[j], 'axis');
-                        console.log("axis:");
-                        console.log(axis);
+                        //console.log("axis:");
+                        //console.log(axis);
                         var vetor = [];
                         if (axis == 'x') vetor = [1, 0, 0];
                         else if (axis == 'y') vetor = [0, 1, 0];
                         else vetor = [0, 0, 1];
-                        console.log("vetor:");
-                        console.log(vetor);
+                        //console.log("vetor:");
+                        //console.log(vetor);
 
                         var angle = this.reader.getString(grandChildren[j], 'angle');
-                        console.log("angle:");
-                        console.log(DEGREE_TO_RAD * angle);
+                        //console.log("angle:");
+                        //console.log(DEGREE_TO_RAD * angle);
                         transfMatrix = mat4.rotate(transfMatrix, transfMatrix, DEGREE_TO_RAD * angle, vetor);
                         break;
                 }
