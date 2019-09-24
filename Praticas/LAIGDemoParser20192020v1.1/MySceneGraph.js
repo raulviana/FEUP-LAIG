@@ -529,6 +529,7 @@ class MySceneGraph {
             var a, r, g, b;
 
             //within each material parse trough its values
+            //TODO - usar funcao parsecolor() para aceder aos valores de cada material
             for (var i = 0; i < nodeNames.length; i++) {
                 switch (nodeNames[i]) {
                     case 'emission':
@@ -606,10 +607,10 @@ class MySceneGraph {
 
                 }
             }
-            //creating new material an adding it to the materials list
+            //creating new material and adding it to the materials list
             var newMaterial = new CGFappearance(this.scene);
             newMaterial.setShininess(shininness);
-            newMaterial.setAmbient(ambient[0], ambient[1], ambient[2], ambient[4]);
+            newMaterial.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
             newMaterial.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
             newMaterial.setSpecular(specular[0], specular[1], specular[2], specular[3]);
             newMaterial.setEmission(emission[0], emission[1], emission[2], emission[3]);
@@ -889,11 +890,25 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-            this.onXMLMinorError("To do: Parse components.");
+           // this.onXMLMinorError("To do: Parse components.");
+
+
+            //creates a node in the graph
+            this.nodes[componentID] = new GraphNode(this, componentID);
+        
             // Transformations
 
             // Materials
-
+            //NOT GOOD..
+            /*
+            var material = nodeNames[materialsIndex].children;
+            console.log(material);
+            var materialID = this.reader.getString(material, 'id');
+            this.nodes[componentID].materialID = materialID;
+            console.log('materialID:');
+            console.log(this.nodes[componentID].materialID);
+            */
+           
             // Texture
 
             // Children
@@ -1017,9 +1032,9 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph
-
+        
         //To test the parsing/creation of the primitives, call the display function directly
-        this.primitives['demoRectangle'].display();
+        //this.primitives['demoRectangle'].display();
 
     }
 }
