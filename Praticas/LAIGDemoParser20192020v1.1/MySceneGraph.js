@@ -462,21 +462,74 @@ class MySceneGraph {
             var ambient = [];
             var diffuse = [];
             var specular = [];
+            var a, r, g, b;
+            //within each material parse trough its values
             for (var i = 0; i < nodeNames.length; i++){
                 switch(nodeNames[i]){
                     case 'emission':
-
+                        r = this.reader.getFloat(grandChildren[i], 'r');
+                        g = this.reader.getFloat(grandChildren[i], 'g');
+                        b = this.reader.getFloat(grandChildren[i], 'b');
+                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        emission.push(r);
+                        emission.push(g);
+                        emission.push(b);
+                        emission.push(a);
+                        console.log('emission:');
+                        console.log(emission);
+                    break;
+                    case 'ambient':
+                        r = this.reader.getFloat(grandChildren[i], 'r');
+                        g = this.reader.getFloat(grandChildren[i], 'g');
+                        b = this.reader.getFloat(grandChildren[i], 'b');
+                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        ambient.push(r);
+                        ambient.push(g);
+                        ambient.push(b);
+                        ambient.push(a);
+                        console.log('ambient:');
+                        console.log(ambient);
+                    break;
+                    case 'diffuse':
+                        r = this.reader.getFloat(grandChildren[i], 'r');
+                        g = this.reader.getFloat(grandChildren[i], 'g');
+                        b = this.reader.getFloat(grandChildren[i], 'b');
+                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        diffuse.push(r);
+                        diffuse.push(g);
+                        diffuse.push(b);
+                        diffuse.push(a);
+                        console.log('diffuse:');
+                        console.log(diffuse);
+                    break;
+                    case 'specular':
+                        r = this.reader.getFloat(grandChildren[i], 'r');
+                        g = this.reader.getFloat(grandChildren[i], 'g');
+                        b = this.reader.getFloat(grandChildren[i], 'b');
+                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        specular.push(r);
+                        specular.push(g);
+                        specular.push(b);
+                        specular.push(a);
+                        console.log('specular:');
+                        console.log(specular);
                     break;
 
                 }
             }
-
-            //Continue here
-            //this.onXMLMinorError("To do: Parse materials.");
+            //creating new material an adding it to the materials list
+            var newMaterial = new CGFappearance(this.scene);
+            newMaterial.setShininess(shininness);
+            newMaterial.setAmbient(ambient[0], ambient[1], ambient[2], ambient[4]);
+            newMaterial.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
+            newMaterial.setSpecular(specular[0], specular[1], specular[2], specular[3]);
+            newMaterial.setEmission(emission[0], emission[1], emission[2], emission[3]);
+            this.materials[materialID] = newMaterial;
+           
 
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed materials");
         return null;
     }
 
