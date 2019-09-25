@@ -878,6 +878,7 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            //get the elements of the current component
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -890,19 +891,40 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-           // this.onXMLMinorError("To do: Parse components.");
-
-
+ 
             //creates a node in the graph
             this.nodes[componentID] = new GraphNode(this, componentID);
-        
+
             // Transformations
+            var compTransformations = grandChildren[transformationIndex].children;
+            for(var j = 0; j < compTransformations.length; j++){
+                var values = [];
+                switch(compTransformations[j].nodeName){
+                    case "translate":
+                        values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for translaction transformation");
+                        mat4.translate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values)
+                        break;
+                    case "scale":
+                        values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for scale transformation");
+                        mat4.scale(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values);
+                        break;
+                    case "rotate":
+                        var angle = this.reader.getFloat(compTransformations[j], 'angle');
+                        var axis = this.reader.getString(compTransformations[j], 'axis');
+                        if(axis == 'x') values = [1, 0, 0];
+                        else if(axis == 'y') values = [0, 1, 0];
+                        else values = [0 ,0 ,1];
+                        mat4.rotate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, DEGREE_TO_RAD * angle, values);
+                        break;
+
+                }
+            }
 
             // Materials
             //NOT GOOD..
-            /*
-            var material = nodeNames[materialsIndex].children;
+    /*        var material = nodeNames[materialsIndex].children;
             console.log(material);
+            
             var materialID = this.reader.getString(material, 'id');
             this.nodes[componentID].materialID = materialID;
             console.log('materialID:');
@@ -910,7 +932,9 @@ class MySceneGraph {
             */
            
             // Texture
-
+            var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
+            this.nodes[componentID].textureID = textureId;
+           
             // Children
         }
     }

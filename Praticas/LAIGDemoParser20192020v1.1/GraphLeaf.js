@@ -3,7 +3,7 @@
  * GraphLeaf, class represents a graph's leaf.
  * @constructor
  **/
-class GraphLeaf extends GraphNode{
+class GraphLeaf{
     constructor(graph, element) {
         this.graph = graph;
         this.primitive;
