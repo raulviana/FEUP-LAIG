@@ -16,7 +16,7 @@ class GraphNode {
     this.leaves = [];
 
     // The material ID.
-    this.materialID = null;
+    this.materials = [];
 
     // The texture ID.
     this.textureID = null;

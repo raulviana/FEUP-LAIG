@@ -874,6 +874,15 @@ class MySceneGraph {
             if (componentID == null)
                 return "no ID defined for componentID";
 
+            //creates a node in the graph
+            this.nodes[componentID] = new GraphNode(this, componentID);
+
+            /*
+            if(this.idRoot != null) return "Only one root node possible";
+            else{
+                this.idRoot = componentID;
+            }*/
+
             // Checks for repeated IDs.
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
@@ -891,9 +900,6 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
- 
-            //creates a node in the graph
-            this.nodes[componentID] = new GraphNode(this, componentID);
 
             // Transformations
             var compTransformations = grandChildren[transformationIndex].children;
@@ -1061,8 +1067,31 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph
         
-        //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoRectangle'].display();
+        
+        //Another function need to be called in order to display graph recursively
+        this.displayRecursive(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
+        
+    }
+
+    displayRecursive(idNode, idMaterialFather, idTextureFather){
+
+        var currentNode = this.nodes[idNode];
+
+        var materials = idMaterialFather;
+        var texture = idTextureFather;
+
+        //Multiplying the transformations matrix to the scene one 
+        this.scene.multMatrix(currentNode.transformMatrix);
+
+        //check heritage materials
+
+        //check heritage textures
+
+        //apply texture and material
+
+        //percorre os filhos, se for primitiva aplica material e textura e desenha, se não chama recursivamente 
+
+
 
     }
 }
