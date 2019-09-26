@@ -921,21 +921,25 @@ class MySceneGraph {
             }
 
             // Materials
-            //NOT GOOD..
-    /*        var material = nodeNames[materialsIndex].children;
-            console.log(material);
+            var compMaterials = grandChildren[materialsIndex].children;
+            var materialsIDList = [];
+            for(var k = 0; k < compMaterials.length; k++){
+                materialsIDList.push(this.reader.getString(compMaterials[k], 'id'));
+            }
+            this.nodes[componentID].materials = materialsIDList;
+            console.log(materialsIDList);
             
-            var materialID = this.reader.getString(material, 'id');
-            this.nodes[componentID].materialID = materialID;
-            console.log('materialID:');
-            console.log(this.nodes[componentID].materialID);
-            */
-           
             // Texture
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
             this.nodes[componentID].textureID = textureId;
            
             // Children
+            var compCildren = grandChildren[childrenIndex].children;
+            for(var k = 0; k < compCildren.length; k++){
+                var childrenID = this.reader.getString(compCildren[k], 'id');
+                this.nodes[componentID].addChild(childrenID);
+                console.log(childrenID);
+            }
         }
     }
 
