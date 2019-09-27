@@ -1069,23 +1069,55 @@ class MySceneGraph {
         
         
         //Another function need to be called in order to display graph recursively
-        this.displayRecursive(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
+        
+        this.displayRecursive(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textureID);
         
     }
 
-    displayRecursive(idNode, idMaterialFather, idTextureFather){
+    displayRecursive(idNode, MaterialsFather, idTextureFather){
 
         var currentNode = this.nodes[idNode];
+    
+        var descendants = currentNode.children;
+    
+        var materials = MaterialsFather;
+        var IDTexture = idTextureFather;
+        
+        //check heritage
+        if(currentNode.textureID != "inherit"){
+            IDTexture = currentNode.textureID;
+        }
+        else IDTexture = idTextureFather;
 
-        var materials = idMaterialFather;
-        var texture = idTextureFather;
+        if(currentNode.materials[0] != "inherit"){
+            materials = currentNode.materials;
+        }
+        else materials = MaterialsFather;
+        
+       
 
         //Multiplying the transformations matrix to the scene one 
         this.scene.multMatrix(currentNode.transformMatrix);
 
-        //check heritage materials
 
-        //check heritage textures
+        var currentTexture = this.textures[IDTexture];
+        var currentMaterial = this.materials[materials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
+
+        for(var i = 0; i < descendants.length; i++){
+            console.log(descendants[i]);
+            if(descendants[i] == "primitiveref"){
+
+                currentMaterial.apply();
+                currentTexture.bind();
+                this.nodes[descendants[i]].primitive.display();
+                return null;
+            }
+            else{
+                this.scene.pushMatrix();
+                this.displayRecursive(descendants[i], materials, IDTexture);
+                this.scene.popMatrix();
+            }
+        }
 
         //apply texture and material
 

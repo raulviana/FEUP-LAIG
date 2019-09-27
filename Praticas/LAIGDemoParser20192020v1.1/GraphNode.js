@@ -12,9 +12,6 @@ class GraphNode {
     // IDs of child nodes.
     this.children = [];
 
-    // IDs of child nodes.
-    this.leaves = [];
-
     // The material ID.
     this.materials = [];
 
@@ -26,16 +23,13 @@ class GraphNode {
 }
 
 /**
- * Adds the reference (ID) of another node to this node's children array.
+ * Adds referenced node ID to this node's children array.
  */
 addChild = function(nodeID) {
     this.children.push(nodeID);
 }
-
-/**
- * Adds a leaf to this node's leaves array.
- */
-addLeaf = function(leaf) {
-    this.leaves.push(leaf);
+getChildren = function (){
+    return this.children;
 }
+
 }
