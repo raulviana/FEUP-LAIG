@@ -1095,7 +1095,6 @@ class MySceneGraph {
         else materials = MaterialsFather;
         
        
-
         //Multiplying the transformations matrix to the scene one 
         this.scene.multMatrix(currentNode.transformMatrix);
 
@@ -1109,7 +1108,6 @@ class MySceneGraph {
                 currentMaterial.apply();
                 currentTexture.bind();
                 this.primitives[descendants[i]].display();
-                return null;
             }
             else{
                 this.scene.pushMatrix();
