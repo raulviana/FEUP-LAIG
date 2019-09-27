@@ -1104,12 +1104,11 @@ class MySceneGraph {
         var currentMaterial = this.materials[materials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
 
         for(var i = 0; i < descendants.length; i++){
-            console.log(descendants[i]);
-            if(descendants[i] == "primitiveref"){
-
+            var descendantID = descendants[i];
+            if(this.primitives[descendantID] != null){
                 currentMaterial.apply();
                 currentTexture.bind();
-                this.nodes[descendants[i]].primitive.display();
+                this.primitives[descendants[i]].display();
                 return null;
             }
             else{
