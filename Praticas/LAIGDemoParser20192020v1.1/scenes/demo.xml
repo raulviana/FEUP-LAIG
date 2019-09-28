@@ -67,7 +67,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" length_s= 3.0 length_t=2.0/>
+            <texture id="demoTexture" />
             <children>
                 <primitiveref id="demoRectangle" />
                 <componentref id="other"/>

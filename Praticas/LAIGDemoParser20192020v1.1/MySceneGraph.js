@@ -921,9 +921,7 @@ class MySceneGraph {
             var texture_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
             var texture_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
             this.nodes[componentID].textureID = textureId;
-            this.textures[textureId][1] = texture_s;
-            this.textures[textureId][2] = texture_t;
-            console.log(this.textures[textureId]);
+            
            
             // Children
             var compCildren = grandChildren[childrenIndex].children;
@@ -1087,13 +1085,14 @@ class MySceneGraph {
 
 
         var currentTexture = this.textures[IDTexture];
+        console.log(currentTexture);
         var currentMaterial = this.materials[materials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
 
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
                 currentMaterial.apply();
-                currentTexture.bind();
+                currentTexture[0].bind();
                 this.primitives[descendants[i]].display();
             }
             else{
