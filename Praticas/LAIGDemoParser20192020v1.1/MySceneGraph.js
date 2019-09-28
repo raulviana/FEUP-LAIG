@@ -450,7 +450,6 @@ class MySceneGraph {
         //For each texture in textures block, check ID and file URL
         //this.onXMLMinorError("To do: Parse textures.");
 
-        this.textures = [];
         var currentTexture = texturesNode.children;
         var singleTextureDefined = false;
 
@@ -471,12 +470,11 @@ class MySceneGraph {
                 return "ID must be unique for each primitive (conflict: ID = " + textureID + ")";
 
             var filePath = null;
-            filePath = this.reader.getString(currentTexture[i], 'file');
+            var filePath = this.reader.getString(currentTexture[i], 'file');
 
-            var newtexture = new CGFtexture(this.scene, "/" + filePath);
-            this.textures[textureID] = newtexture;
-            console.log('textures:');
-            console.log(this.textures);
+            var newTexture = [];
+            newTexture[0] = new CGFtexture(this.scene, "/" + filePath);
+            this.textures[textureID] = newTexture;
         }
 
         return null;
@@ -547,8 +545,6 @@ class MySceneGraph {
                         emission.push(g);
                         emission.push(b);
                         emission.push(a);
-                        console.log('emission:');
-                        console.log(emission);
                         break;
                     case 'ambient':
                         r = this.reader.getFloat(grandChildren[i], 'r');
@@ -565,8 +561,6 @@ class MySceneGraph {
                         ambient.push(g);
                         ambient.push(b);
                         ambient.push(a);
-                        console.log('ambient:');
-                        console.log(ambient);
                         break;
                     case 'diffuse':
                         r = this.reader.getFloat(grandChildren[i], 'r');
@@ -583,8 +577,6 @@ class MySceneGraph {
                         diffuse.push(g);
                         diffuse.push(b);
                         diffuse.push(a);
-                        console.log('diffuse:');
-                        console.log(diffuse);
                         break;
                     case 'specular':
                         r = this.reader.getFloat(grandChildren[i], 'r');
@@ -601,8 +593,6 @@ class MySceneGraph {
                         specular.push(g);
                         specular.push(b);
                         specular.push(a);
-                        console.log('specular:');
-                        console.log(specular);
                         break;
 
                 }
@@ -661,8 +651,6 @@ class MySceneGraph {
                 switch (grandChildren[j].nodeName) {
                     case 'translate':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID " + transformationID);
-                        //console.log("coordinates:");
-                        //console.log(coordinates);
                         if (!Array.isArray(coordinates))
                             return coordinates;
 
@@ -676,18 +664,12 @@ class MySceneGraph {
                     case 'rotate':
                         //getting the angle and the axis values and apliyng the appropiate transformation 
                         var axis = this.reader.getString(grandChildren[j], 'axis');
-                        //console.log("axis:");
-                        //console.log(axis);
                         var vetor = [];
                         if (axis == 'x') vetor = [1, 0, 0];
                         else if (axis == 'y') vetor = [0, 1, 0];
                         else vetor = [0, 0, 1];
-                        //console.log("vetor:");
-                        //console.log(vetor);
 
                         var angle = this.reader.getString(grandChildren[j], 'angle');
-                        //console.log("angle:");
-                        //console.log(DEGREE_TO_RAD * angle);
                         transfMatrix = mat4.rotate(transfMatrix, transfMatrix, DEGREE_TO_RAD * angle, vetor);
                         break;
                 }
@@ -933,18 +915,21 @@ class MySceneGraph {
                 materialsIDList.push(this.reader.getString(compMaterials[k], 'id'));
             }
             this.nodes[componentID].materials = materialsIDList;
-            console.log(materialsIDList);
             
             // Texture
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
+            var texture_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
+            var texture_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
             this.nodes[componentID].textureID = textureId;
+            this.textures[textureId][1] = texture_s;
+            this.textures[textureId][2] = texture_t;
+            console.log(this.textures[textureId]);
            
             // Children
             var compCildren = grandChildren[childrenIndex].children;
             for(var k = 0; k < compCildren.length; k++){
                 var childrenID = this.reader.getString(compCildren[k], 'id');
                 this.nodes[componentID].addChild(childrenID);
-                console.log(childrenID);
             }
         }
     }
@@ -1082,13 +1067,15 @@ class MySceneGraph {
     
         var materials = MaterialsFather;
         var IDTexture = idTextureFather;
+        var texture_s, texture_t;
         
-        //check heritage
+        //check texture heritage 
         if(currentNode.textureID != "inherit"){
             IDTexture = currentNode.textureID;
         }
         else IDTexture = idTextureFather;
 
+        //check material heritage
         if(currentNode.materials[0] != "inherit"){
             materials = currentNode.materials;
         }
@@ -1113,14 +1100,7 @@ class MySceneGraph {
                 this.scene.pushMatrix();
                 this.displayRecursive(descendants[i], materials, IDTexture);
                 this.scene.popMatrix();
-            }
+            } 
         }
-
-        //apply texture and material
-
-        //percorre os filhos, se for primitiva aplica material e textura e desenha, se não chama recursivamente 
-
-
-
     }
 }

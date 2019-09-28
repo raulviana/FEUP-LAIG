@@ -67,7 +67,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture"/>
+            <texture id="demoTexture" length_s= 3.0 length_t=2.0/>
             <children>
                 <primitiveref id="demoRectangle" />
                 <componentref id="other"/>
@@ -79,7 +79,7 @@
                 <scale x="2" y="2" z="2" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
             <texture id="demoTexture"/>
             <children>
