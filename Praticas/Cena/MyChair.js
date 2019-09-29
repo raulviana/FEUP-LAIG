@@ -11,29 +11,36 @@ class MyChair extends CGFobject {
     initBuffers() {
 
         this.chairBody = new MyUnitCubeQuad(this.scene);
-        this.leg = new MyCylinder(this.scene, 20, 1.7, 0.1);
+        this.leg = new MyCylinder(this.scene, 20, 1, 1.7, 0.1, 0.1);
 
     }
 
     display() {
         // leg 1
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.85, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.leg.display();
+        this.scene.popMatrix();
 
         //leg 2
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 2);
+        this.scene.translate(0, 0.85, 2);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 
         //leg 3
         this.scene.pushMatrix();
-        this.scene.translate(2, 0, 0);
+        this.scene.translate(2, 0.85, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 
         //leg 4
         this.scene.pushMatrix();
-        this.scene.translate(2, 0, 2);
+        this.scene.translate(2, 0.85, 2);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 

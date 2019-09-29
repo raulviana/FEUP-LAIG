@@ -21,11 +21,11 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        //this.cylinder = new MyCylinder(this, 10, 1, 3.0, 0.2, 0.2);
-        this.cylinder2 = new MyCylinder(this, 10, 2, 3.0, 0.2, 0.2);
+        this.cylinder = new MyCylinder(this, 10, 4, 3.0, 0.2, 0.2);
         this.cube = new MyUnitCubeQuad(this);
-        this.table = new MyTable(this);
-        this.chair = new MyChair(this);
+        //this.table = new MyTable(this);
+        //this.chair = new MyChair(this);
+        this.sphere = new MySphere(this, 1, 20, 10);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -72,14 +72,9 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-       // this.cylinder.display();
 
-        this.pushMatrix();
-       // this.translate(-1, 0, 0);
-        this.cylinder2.display();
-        this.popMatrix();
+        this.cylinder.display();
         
-        //this.cube.display();
         /*this.table.display();
 
         this.pushMatrix();

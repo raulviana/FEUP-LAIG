@@ -22,9 +22,13 @@ class MyCylinder extends CGFobject {
         var alphaAng = 2 * Math.PI / this.slices;
 
         var stackHeight = this.height / this.stacks; //height of each stack of the cylinder
-        var tempHeight = this.height / 2; //this variable will save the height of the new stack
+        var tempHeight = -this.height / 2; //this variable will save the height of the new stack
 
-        for (var j = 0; j < 1; j++) {
+
+        console.log(this.slices);
+        console.log(this.stacks);
+
+        for (var j = 0; j < this.stacks; j++) {
         
             ang = 0;
             
@@ -36,9 +40,9 @@ class MyCylinder extends CGFobject {
                 var caa = Math.cos(ang + alphaAng) * this.radius1;
 
                 // vertices of the face of the prism
-                this.vertices.push(ca, sa, tempHeight - stackHeight);
+                this.vertices.push(ca, sa, tempHeight + stackHeight);
                 this.vertices.push(ca, sa, tempHeight);
-                this.vertices.push(caa, saa, tempHeight - stackHeight);
+                this.vertices.push(caa, saa, tempHeight + stackHeight);
                 this.vertices.push(caa, saa, tempHeight);
 
                 // normals of the face of the prism
@@ -60,14 +64,16 @@ class MyCylinder extends CGFobject {
                 this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 1);
 
                 ang += alphaAng;
-
+                
+                console.log(this.vertices.length);
+                console.log(this.normals.length);
+                console.log(this.indices.length);
+                console.log(this.texCoords.length);
             }
-
             tempHeight = tempHeight + stackHeight;
             
         }
 
-        console.log(this.vertices.length);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
