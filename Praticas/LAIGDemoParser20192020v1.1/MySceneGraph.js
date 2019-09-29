@@ -461,6 +461,8 @@ class MySceneGraph {
             }
 
             var textureID = this.reader.getString(currentTexture[i], 'id');
+            var length_s = this.reader.getString(currentTexture[i], 'length_s');
+            var length_t = this.reader.getString(currentTexture[i], 'length_t');
 
             if (textureID == null)
                 return "no ID defined for texture";
@@ -471,10 +473,19 @@ class MySceneGraph {
 
             var filePath = null;
             var filePath = this.reader.getString(currentTexture[i], 'file');
+            
+            var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
+            var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
+            var coords = [];
+            coords = [length_s, length_t];
+            console.log("first:_coords: ");
+            console.log(coords);
 
-            var newTexture = [];
-            newTexture[0] = new CGFtexture(this.scene, "/" + filePath);
-            this.textures[textureID] = newTexture;
+            var newTexture = new CGFtexture(this.scene, "/" + filePath);
+            if(length_s == null || length_t == null){
+                this.textures[textureID] = [newTexture];    
+            }
+            else this.textures[textureID] = [newTexture, coords];
         }
 
         return null;
@@ -918,8 +929,6 @@ class MySceneGraph {
             
             // Texture
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
-            var texture_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
-            var texture_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
             this.nodes[componentID].textureID = textureId;
             
            
@@ -1063,9 +1072,8 @@ class MySceneGraph {
     
         var descendants = currentNode.children;
     
-        var materials = MaterialsFather;
+        var compMaterials = MaterialsFather;
         var IDTexture = idTextureFather;
-        var texture_s, texture_t;
         
         //check texture heritage 
         if(currentNode.textureID != "inherit"){
@@ -1075,19 +1083,22 @@ class MySceneGraph {
 
         //check material heritage
         if(currentNode.materials[0] != "inherit"){
-            materials = currentNode.materials;
+            compMaterials = currentNode.materials;
         }
-        else materials = MaterialsFather;
+        else compMaterials = MaterialsFather;
         
        
-        //Multiplying the transformations matrix to the scene one 
+        //Multiplying the node's transformations matrix to the scene one 
         this.scene.multMatrix(currentNode.transformMatrix);
 
 
-        var currentTexture = this.textures[IDTexture];
+        var currentTexture = [];
+        currentTexture = this.textures[IDTexture];
+        console.log(this.textures);
         console.log(currentTexture);
-        var currentMaterial = this.materials[materials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
+        var currentMaterial = this.materials[compMaterials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
 
+        //Visit the node desendants, in case of primitive, display them, in case of intermediate nodes call descendants recursively
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
@@ -1097,7 +1108,7 @@ class MySceneGraph {
             }
             else{
                 this.scene.pushMatrix();
-                this.displayRecursive(descendants[i], materials, IDTexture);
+                this.displayRecursive(descendants[i], compMaterials, IDTexture);
                 this.scene.popMatrix();
             } 
         }

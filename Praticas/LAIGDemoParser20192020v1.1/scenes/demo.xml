@@ -24,6 +24,7 @@
 
     <textures>
         <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="green" file="scenes/images/green.jpg" />
     </textures>
 
     <materials>
@@ -76,15 +77,14 @@
         <component id="other">
             <transformation>
                 <translate x="0.5" y="0" z="-1" />
-                <scale x="2" y="2" z="2" />
+                <scale x="2" y="2" z="1" />
             </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="demoTexture"/>
+            <texture id="green" />
             <children>
                 <primitiveref id="demoRectangle" />
-                <primitiveref id="demoCylinder" />
             </children>
         </component>
     </components>
