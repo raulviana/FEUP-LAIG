@@ -18,29 +18,28 @@ class MyTable extends CGFobject {
     display() {
         // leg 1
         this.scene.pushMatrix();
-        this.scene.translate(0, 1.5, 0);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 
         //leg 2
         this.scene.pushMatrix();
-        this.scene.translate(0, 1.5, 4);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.translate(0, 0, 4);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 
         //leg 3
         this.scene.pushMatrix();
-        this.scene.translate(6, 1.5, 0);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.translate(6, 0, 0);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 
         //leg 4
         this.scene.pushMatrix();
-        this.scene.translate(6, 1.5, 4);
-        this.scene.rotate(Math.PI / 2, 1, 0, 0);
+        this.scene.translate(6, 0, 4);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.leg.display();
         this.scene.popMatrix();
 

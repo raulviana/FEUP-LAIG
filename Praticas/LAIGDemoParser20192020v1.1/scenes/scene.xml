@@ -1,0 +1,233 @@
+<lxs>
+    <scene root="sceneRoot" axis_length="5"/>
+
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="green" file="scenes/images/green.jpg" />
+    </textures>
+
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="demoTransform">
+            <scale x="5" y="1" z="5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="Rectangle">
+            <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
+        </primitive>
+        <primitive id="Triangle">
+            <triangle x1="0" y1="0" z1="0" x2="1" y2="0" z2="0" x3="3" y3="3" z3="0" />
+        </primitive>
+        <primitive id="Cylinder">
+            <cylinder top="1" base="1"  height="3" stacks="10" slices="10" />
+        </primitive>
+        <primitive id="Sphere">
+            <sphere radius="5" slices="100" stacks="100"/>
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="sceneRoot">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <componentref id="table"/>
+            </children>
+        </component>
+        <component id="table">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="tableTop" />
+                <componentref id="tableLegs" />
+            </children>
+        </component>
+        <component id="tableTop">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="tableTop">
+            <transformation>
+                <translate x="3" y="3" z="2" />
+                <scale x="6.5" y="0.2" z="4.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="cube" />
+            </children>
+        </component>
+        <component id="cube">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="retangle1" />
+                <componentref id="retangle2" />
+                <componentref id="retangle3" />
+                <componentref id="retangle4" />
+                <componentref id="retangle5" />
+                <componentref id="retangle6" />
+            </children>
+        </component>
+        <component id="retangle1">
+            <transformation>
+                <translate x="-0.5" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <component id="retangle2">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <component id="retangle3">
+            <transformation>
+                <translate x="0" y="-0.5" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <component id="retangle4">
+            <transformation>
+                <translate x="0.5" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <component id="retangle5">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="y" angle="-180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <component id="retangle6">
+            <transformation>
+                <translate x="0" y="0" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+        <!--Table Legs-->
+        <component id="tableLegs">
+            <transformation>
+                <scale x="0.6" y="1" z="0.6" />
+                <translate x="0" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <components id="leg1" />
+            </children>
+        </component>
+        <component id="leg1">
+            <transformation>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="Cylinder" />
+            </children>
+        </component>
+
+            
+    </components>
+    
+</lxs>

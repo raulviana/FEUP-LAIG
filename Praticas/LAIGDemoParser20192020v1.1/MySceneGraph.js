@@ -461,8 +461,8 @@ class MySceneGraph {
             }
 
             var textureID = this.reader.getString(currentTexture[i], 'id');
-            var length_s = this.reader.getString(currentTexture[i], 'length_s');
-            var length_t = this.reader.getString(currentTexture[i], 'length_t');
+        //    var length_s = this.reader.getString(currentTexture[i], 'length_s');
+        //    var length_t = this.reader.getString(currentTexture[i], 'length_t');
 
             if (textureID == null)
                 return "no ID defined for texture";
@@ -474,18 +474,16 @@ class MySceneGraph {
             var filePath = null;
             var filePath = this.reader.getString(currentTexture[i], 'file');
             
-            var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
-            var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
+         //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
+         //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
             var coords = [];
-            coords = [length_s, length_t];
-            console.log("first:_coords: ");
-            console.log(coords);
+         //   coords = [length_s, length_t];
 
             var newTexture = new CGFtexture(this.scene, "/" + filePath);
-            if(length_s == null || length_t == null){
+        //    if(length_s == null || length_t == null){
                 this.textures[textureID] = [newTexture];    
-            }
-            else this.textures[textureID] = [newTexture, coords];
+         //   }
+        //    else this.textures[textureID] = [newTexture, coords];
         }
 
         return null;
@@ -812,6 +810,15 @@ class MySceneGraph {
             }
 
             if (primitiveType == 'cylinder') {
+                 // top
+                 var top = this.reader.getFloat(grandChildren[0], 'top');
+                 if (!(top != null && !isNaN(top)))
+                     return "unable to parse top of the primitive coordinates for ID = " + primitiveId;
+ 
+                 // base
+                 var base = this.reader.getFloat(grandChildren[0], 'base');
+                 if (!(base != null && !isNaN(base)))
+                     return "unable to parse base of the primitive coordinates for ID = " + primitiveId;
                 // slices
                 var slices = this.reader.getFloat(grandChildren[0], 'slices');
                 if (!(slices != null && !isNaN(slices)))
@@ -822,12 +829,12 @@ class MySceneGraph {
                 if (!(height != null && !isNaN(height)))
                     return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
 
-                // radius
-                var radius = this.reader.getFloat(grandChildren[0], 'radius');
-                if (!(radius != null && !isNaN(radius)))
-                    return "unable to parse radius of the primitive coordinates for ID = " + primitiveId;
+                // stacks
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(stacks != null && !isNaN(stacks)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
 
-                var cylin = new MyCylinder(this.scene, primitiveId, slices, height, radius);
+                var cylin = new MyCylinder(this.scene, primitiveId, slices, stacks, height, top, base);
 
                 this.primitives[primitiveId] = cylin;
             }
@@ -1094,8 +1101,6 @@ class MySceneGraph {
 
         var currentTexture = [];
         currentTexture = this.textures[IDTexture];
-        console.log(this.textures);
-        console.log(currentTexture);
         var currentMaterial = this.materials[compMaterials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
 
         //Visit the node desendants, in case of primitive, display them, in case of intermediate nodes call descendants recursively

@@ -3,11 +3,13 @@
 * @constructor
 */
 class MyCylinder extends CGFobject {
-    constructor(scene, id, slices, height, radius) {
+    constructor(scene, id, slices, stacks, height, radius1, radius2) {
         super(scene);
         this.slices = slices;
+        this.stacks = stacks;
         this.height = height;
-        this.radius = radius;
+        this.radius1 = radius1;
+        this.radius2 = radius2;
         this.initBuffers();
     }
     initBuffers() {
@@ -16,43 +18,63 @@ class MyCylinder extends CGFobject {
         this.normals = [];
         this.texCoords = [];
 
-        var ang = 0;
+        var ang;
         var alphaAng = 2 * Math.PI / this.slices;
 
-        for (var i = 0; i < this.slices; i++) {
-
-            var sa = Math.sin(ang) * this.radius;
-            var saa = Math.sin(ang + alphaAng) * this.radius;
-            var ca = Math.cos(ang) * this.radius;
-            var caa = Math.cos(ang + alphaAng) * this.radius;
-
-            // vertices of the face of the prism
-            this.vertices.push(ca, this.height, sa);
-            this.vertices.push(ca, 0, sa);
-            this.vertices.push(caa, this.height, saa);
-            this.vertices.push(caa, 0, saa);
-
-            // normals of the face of the prism
-            this.normals.push(Math.cos(ang), 0, Math.sin(ang));
-            this.normals.push(Math.cos(ang), 0, Math.sin(ang));
-            this.normals.push(Math.cos(ang + alphaAng), 0, Math.sin(ang + alphaAng));
-            this.normals.push(Math.cos(ang + alphaAng), 0, Math.sin(ang + alphaAng));
-
-            // indices of the face of the prism
-            this.indices.push(4 * i, (4 * i + 1), (4 * i + 2));
-            this.indices.push((4 * i + 1), (4 * i + 3), (4 * i + 2));
-            this.indices.push((4 * i + 2), (4 * i + 1), 4 * i);
-            this.indices.push((4 * i + 2), (4 * i + 3), (4 * i + 1));
-
-            // text cords of the face of the prism
-            this.texCoords.push(i * 1.0 / this.slices, 0);
-            this.texCoords.push(i * 1.0 / this.slices, 1);
-            this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 0);
-            this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 1);
+        var stackHeight = this.height / this.stacks; //height of each stack of the cylinder
+        var tempHeight = 0; //this variable will save the height of the new stack
+ 
+        var radiusDif = this.radius2 - this.radius1;
+        var radiusPerStack = radiusDif / this.stacks;
+        var radiusTemp = this.radius1;
 
 
+        for (var j = 0; j < this.stacks; j++) {
+        
+            ang = 0;
+            
+            for (var i = 0; i < this.slices; i++) {
 
-            ang += alphaAng;
+                var sa = Math.sin(ang) * radiusTemp;
+                var saa = Math.sin(ang + alphaAng) * radiusTemp;
+                var ca = Math.cos(ang) * radiusTemp;
+                var caa = Math.cos(ang + alphaAng) * radiusTemp;
+
+                var sa2 = Math.sin(ang) * (radiusTemp + radiusPerStack);
+                var saa2 = Math.sin(ang + alphaAng) * (radiusTemp + radiusPerStack);
+                var ca2 = Math.cos(ang) * (radiusTemp + radiusPerStack);
+                var caa2 = Math.cos(ang + alphaAng) * (radiusTemp + radiusPerStack);
+
+                // vertices of the face of the cylinder
+                this.vertices.push(ca2, sa2, tempHeight + stackHeight);
+                this.vertices.push(ca, sa, tempHeight);
+                this.vertices.push(caa2, saa2, tempHeight + stackHeight);
+                this.vertices.push(caa, saa, tempHeight);
+
+                // normals of the face of the cylinder
+                this.normals.push(Math.cos(ang), 0, Math.sin(ang));
+                this.normals.push(Math.cos(ang), 0, Math.sin(ang));
+                this.normals.push(Math.cos(ang + alphaAng), 0, Math.sin(ang + alphaAng));
+                this.normals.push(Math.cos(ang + alphaAng), 0, Math.sin(ang + alphaAng));
+
+                // indices of the face of the cylinder
+                this.indices.push(4 * i + (this.slices * 4 * j), (4 * i + 1) + (this.slices * 4 * j), (4 * i + 2) + (this.slices * 4 * j));
+                this.indices.push((4 * i + 1) + (this.slices * 4 * j), (4 * i + 3) + (this.slices * 4 * j), (4 * i + 2) + (this.slices * 4 * j));
+                this.indices.push((4 * i + 2) + (this.slices * 4 * j), (4 * i + 1) + (this.slices * 4 * j), 4 * i + (this.slices * 4 * j));
+                this.indices.push((4 * i + 2) + (this.slices * 4 * j), (4 * i + 3) + (this.slices * 4 * j), (4 * i + 1) + (this.slices * 4 * j));
+
+                // text cords of the face of the cylinder
+                this.texCoords.push(i * 1.0 / this.slices, 0);
+                this.texCoords.push(i * 1.0 / this.slices, 1);
+                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 0);
+                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 1);
+
+                ang += alphaAng;
+                
+            }
+            tempHeight += stackHeight;
+            radiusTemp += radiusPerStack;
+            
         }
 
 
