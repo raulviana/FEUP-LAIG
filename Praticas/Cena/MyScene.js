@@ -25,7 +25,7 @@ class MyScene extends CGFscene {
         this.cube = new MyUnitCubeQuad(this);
         this.table = new MyTable(this);
         this.chair = new MyChair(this);
-        this.sphere = new MySphere(this, 1, 20, 10);
+        this.sphere = new MySphere(this, 1, 400, 100);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -73,9 +73,9 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
 
-        //this.cylinder.display();
+        this.sphere.display();
         
-        this.table.display();
+        /*this.table.display();
 
         this.pushMatrix();
         this.translate(-1, 0, 1);
@@ -86,7 +86,7 @@ class MyScene extends CGFscene {
         this.translate(7, 0, 3);
         this.rotate(Math.PI, 0, 1, 0);
         this.chair.display();
-        this.popMatrix();
+        this.popMatrix();*/
 
         // ---- END Primitive drawing section
     }
