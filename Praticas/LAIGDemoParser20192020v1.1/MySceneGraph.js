@@ -1,4 +1,5 @@
 var DEGREE_TO_RAD = Math.PI / 180;
+var EXTENSIONS_LIST = ['jpg', 'png'];
 
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
@@ -448,7 +449,6 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        //this.onXMLMinorError("To do: Parse textures.");
 
         var currentTexture = texturesNode.children;
         var singleTextureDefined = false;
@@ -468,11 +468,15 @@ class MySceneGraph {
                 return "no ID defined for texture";
 
             // Checks for repeated IDs.
-            if (this.camera[textureID] != null)
+            if (this.textures[textureID] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + textureID + ")";
 
             var filePath = null;
             var filePath = this.reader.getString(currentTexture[i], 'file');
+            if(filePath != null){
+                if(! this.isValidFileType(filePath)) this.onXMLError("Texture file type invalid");          
+            }
+            
             
          //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
          //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
@@ -481,11 +485,16 @@ class MySceneGraph {
 
             var newTexture = new CGFtexture(this.scene, "/" + filePath);
         //    if(length_s == null || length_t == null){
-                this.textures[textureID] = [newTexture];    
+                this.textures[textureID] = [newTexture];
+                singleTextureDefined = true;    
          //   }
         //    else this.textures[textureID] = [newTexture, coords];
         }
 
+        if (!singleTextureDefined){
+            this.onXMLError("there must be at least one texture block");
+        }
+        
         return null;
     }
 
@@ -1053,6 +1062,13 @@ class MySceneGraph {
         color.push(...[r, g, b, a]);
 
         return color;
+    }
+
+    /*
+     * Function to ensure only permited file types are loaded
+     */
+    isValidFileType(filename){
+        return EXTENSIONS_LIST.indexOf(filename.split('.').pop()) > -1;
     }
 
     /*

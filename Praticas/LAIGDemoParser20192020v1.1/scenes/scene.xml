@@ -24,7 +24,7 @@
 
     <textures>
         <texture id="demoTexture"  />
-        <texture id="green" file="scenes/images/green.jpg" />
+        <texture id="green"  />
     </textures>
 
     <materials>
@@ -436,7 +436,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="green" />
             <children>
                 <primitiveref id="Sphere" />
             </children>
