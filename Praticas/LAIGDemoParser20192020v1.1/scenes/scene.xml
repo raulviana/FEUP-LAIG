@@ -23,8 +23,8 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture"  />
-        <texture id="green"  />
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="green"  file="scenes/images/green.jpg" />
     </textures>
 
     <materials>
@@ -67,7 +67,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="green" />
             <children>
                 <componentref id="table" />
                 <componentref id="chairs" />

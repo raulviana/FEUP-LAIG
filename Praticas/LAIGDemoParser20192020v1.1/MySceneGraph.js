@@ -1,5 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 var EXTENSIONS_LIST = ['jpg', 'png'];
+var ERROR_PARSING = -1;
 
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
@@ -473,10 +474,14 @@ class MySceneGraph {
 
             var filePath = null;
             var filePath = this.reader.getString(currentTexture[i], 'file');
-            if(filePath != null){
-                if(! this.isValidFileType(filePath)) this.onXMLError("Texture file type invalid");          
+            if(filePath == null){
+                this.onXMLError("Texture must have an image file associated");
+                return ERROR_PARSING;
             }
-            
+            else{
+                if(! this.isValidFileType(filePath)) this.onXMLError("Texture file type invalid"); 
+            }
+                       
             
          //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
          //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
