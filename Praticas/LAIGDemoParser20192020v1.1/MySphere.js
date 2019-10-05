@@ -22,48 +22,40 @@ class MySphere extends CGFobject {
         var angStacks = (Math.PI / 2) / this.stacks;
         var angSlices = 2 * Math.PI / this.slices;
 
-        this.vertices.push(0, 0, -this.radius);
-        this.vertices.push(0, 0, this.radius);
-        this.normals.push(0, 0, -1);
-        this.normals.push(0, 0, 1);
+        var texHeight = 1 / (this.stacks * 2);
+        var texWidht = 1/this.slices;
+        var tempS = 0;
+        var tempT;
 
-        for (var angT = -Math.PI/2 + angStacks; angT < Math.PI/2; angT += angStacks) {
-            for (var angY = 0; angY <= 2 * Math.PI; angY += angSlices) {
-                this.vertices.push(this.radius * Math.cos(angT) * Math.cos(angY), this.radius * Math.cos(angT) * Math.sin(angY), this.radius * Math.sin(angT));
-                this.normals.push(Math.cos(angT) * Math.cos(angY), Math.cos(angT) * Math.sin(angY), Math.sin(angT))
-            }
-        }
-
-        /*for (var angY = 0; angY <= 2 * Math.PI; angY += angSlices) {
-            for (var angT = -Math.PI/2 + angStacks; angT < Math.PI/2; angT += angStacks) {
-                this.vertices.push(this.radius * Math.cos(angT) * Math.cos(angY), this.radius * Math.cos(angT) * Math.sin(angY), this.radius * Math.sin(angT));
-                this.normals.push(Math.cos(angT) * Math.cos(angY), Math.cos(angT) * Math.sin(angY), Math.sin(angT))
-            }
-        }*/
-
-        var nVertices = this.vertices.length/3 - this.slices - 1;
-
-        console.log(this.vertices.length);
-        console.log(nVertices);
-
-        for (var i = 0; i < this.slices; i++) {
-            this.indices.push(1, nVertices + i, nVertices + i + 1);
-            //this.indices.push(nVertices + i + 1, nVertices + i, 1);
-        }
-
-        for (var i = 0; i < this.slices; i++) {
-            this.indices.push(i + 2 + 1, i + 2, 0);
-        }
-
-
-
-        for (var i = 2; i <= ((this.stacks - 1) * 2) * (this.slices + 1); i++) {
-            this.indices.push(i, i + 1, i + this.slices + 1);
-
-            this.indices.push(i + 1, i + this.slices + 2, i + this.slices + 1);
-        }
        
+        for (var angY = 0; angY <= 2 * Math.PI; angY += angSlices) {
+            tempT = 1
+            for (var angT = -Math.PI/2; angT <= Math.PI/2; angT += angStacks) {
+                this.vertices.push(this.radius * Math.cos(angT) * Math.cos(angY), this.radius * Math.cos(angT) * Math.sin(angY), this.radius * Math.sin(angT));
+                this.normals.push(Math.cos(angT) * Math.cos(angY), Math.cos(angT) * Math.sin(angY), Math.sin(angT));
+                this.texCoords.push(tempS, tempT);
+                tempT -= texHeight;
+            }
+            tempS += texWidht;
+        }
 
+        var nVertices = this.vertices.length / 3;
+        var verticesToSee = nVertices - (2*this.stacks + 1);
+
+        for (var i = 0; i < verticesToSee; i++) {
+
+            if ((i+ 1) % (2 * this.stacks + 1) != 0) {
+
+                this.indices.push(i, i + 2 * this.stacks + 1, i + 2 * this.stacks + 2);
+                this.indices.push(i + 2 * this.stacks + 2, i + 2 * this.stacks + 1, i);
+
+                this.indices.push(i, i + 2 * this.stacks + 2, i + 1);
+                this.indices.push(i + 1, i + 2 * this.stacks + 2, i);
+            }
+        }
+
+
+       
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
@@ -76,5 +68,6 @@ class MySphere extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
+
 
 }
