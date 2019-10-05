@@ -3,7 +3,7 @@
 * @constructor
 */
 class MyCylinder extends CGFobject {
-    constructor(scene, slices, stacks, height, radius1, radius2) {
+    constructor(scene, id, slices, stacks, height, radius1, radius2) {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
@@ -29,13 +29,9 @@ class MyCylinder extends CGFobject {
         var radiusTemp = this.radius1;
 
 
-        var stackTexHeight = 1 / this.stacks;
-        var tempTexHeight = 1;
-
         for (var j = 0; j < this.stacks; j++) {
         
             ang = 0;
-            
             
             for (var i = 0; i < this.slices; i++) {
 
@@ -68,15 +64,14 @@ class MyCylinder extends CGFobject {
                 this.indices.push((4 * i + 2) + (this.slices * 4 * j), (4 * i + 3) + (this.slices * 4 * j), (4 * i + 1) + (this.slices * 4 * j));
 
                 // text cords of the face of the cylinder
-                this.texCoords.push(i * 1.0 / this.slices, tempTexHeight - stackTexHeight);
-                this.texCoords.push(i * 1.0 / this.slices, tempTexHeight);
-                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, tempTexHeight - stackTexHeight);
-                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, tempTexHeight);
+                this.texCoords.push(i * 1.0 / this.slices, 0);
+                this.texCoords.push(i * 1.0 / this.slices, 1);
+                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 0);
+                this.texCoords.push(i * 1.0 / this.slices + 1.0 / this.slices, 1);
 
                 ang += alphaAng;
                 
             }
-            tempTexHeight -= stackTexHeight;
             tempHeight += stackHeight;
             radiusTemp += radiusPerStack;
             

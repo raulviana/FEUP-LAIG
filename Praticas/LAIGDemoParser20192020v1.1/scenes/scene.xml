@@ -25,6 +25,12 @@
     <textures>
         <texture id="demoTexture" file="scenes/images/vidral.jpg" />
         <texture id="green"  file="scenes/images/green.jpg" />
+        <texture id="aquarium" file="scenes/images/aquarium.jpg" />
+        <texture id="fabric" file="scenes/images/grey-fabric.jpg" />
+        <texture id="trunk" file="scenes/images/trunk-image.jpg" />
+        <texture id="floor" file="scenes/images/floor.jpg" />
+        <texture id="wood" file="scenes/images/wood.jpg" />
+        <texture id="metalic" file="scenes/images/metalic.jpg" />
     </textures>
 
     <materials>
@@ -67,11 +73,12 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="green" />
+            <texture id="metalic" />
             <children>
                 <componentref id="table" />
                 <componentref id="chairs" />
                 <componentref id="tableLamp" />
+                <componentref id="floor" />
             </children>
         </component>
 
@@ -83,23 +90,13 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="wood" />
             <children>
                 <componentref id="tableTop" />
                 <componentref id="tableLegs" />
             </children>
         </component>
-        <component id="tableTop">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <componentref id="cube" />
-            </children>
-        </component>
+        
         <component id="tableTop">
             <transformation>
                 <translate x="3" y="3" z="2" />
@@ -191,7 +188,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="metalic" />
             <children>
                 <componentref id="chair1" />
                 <componentref id="chair2" />
@@ -205,7 +202,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="metalic" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -221,7 +218,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="fabric" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -235,7 +232,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="fabric" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -301,7 +298,6 @@
                 <translate x="2" y="0" z="0" />
                 <rotate axis="x" angle="-90" />
                 <scale x="0.1" y="0.1" z="0.6" />
-                
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -320,7 +316,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="metalic" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -336,7 +332,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="fabric" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -350,7 +346,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" />
+            <texture id="fabric" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -436,12 +432,28 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="green" />
+            <texture id="aquarium" />
             <children>
                 <primitiveref id="Sphere" />
             </children>
         </component>
-       
+
+        <!--FLOOR-->
+        <component id="floor">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+                <translate x="1" y="-2" z="0" />
+                <scale x="30" y="30" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="floor" />
+            <children>
+                <primitiveref id="Rectangle" />
+            </children>
+        </component>
+
 
         <!--CUBE-->
         <component id="cube">
