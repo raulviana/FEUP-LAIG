@@ -871,11 +871,6 @@ class MySceneGraph {
 
                this.primitives[primitiveId] = sphere;
            }
-            
-
-            else {
-                console.warn("To do: Parse other primitives.");
-            }
         }
 
         this.log("Parsed primitives");

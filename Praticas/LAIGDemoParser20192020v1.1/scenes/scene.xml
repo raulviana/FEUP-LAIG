@@ -33,7 +33,6 @@
         <texture id="metalic" file="scenes/images/metalic.jpg" />
         <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
-        <texture id="movie" file="scenes/images/movie.jpg" />
     </textures>
 
     <materials>
@@ -80,7 +79,7 @@
             <children>
                 <componentref id="table" />
                 <componentref id="chairs" />
-                <componentref id="tableLamp" />
+                <componentref id="tableAquarium" />
                 <componentref id="floor" />
                 <componentref id="walls" />
             </children>
@@ -427,8 +426,8 @@
             </children>
         </component>
 
-        <!--Table Lamp-->
-        <component id="tableLamp">
+        <!--Aquarium-->
+        <component id="tableAquarium">
             <transformation>
                 <sale x="0.1" y="0.1" z="0.1" />
                 <translate x="3" y="3.5" z="2" />
