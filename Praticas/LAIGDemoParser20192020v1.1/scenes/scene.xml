@@ -31,6 +31,9 @@
         <texture id="floor" file="scenes/images/floor.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="metalic" file="scenes/images/metalic.jpg" />
+        <texture id="wall" file="scenes/images/wall.jpg" />
+        <texture id="door" file="scenes/images/door.jpg" />
+        <texture id="movie" file="scenes/images/movie.jpg" />
     </textures>
 
     <materials>
@@ -79,6 +82,7 @@
                 <componentref id="chairs" />
                 <componentref id="tableLamp" />
                 <componentref id="floor" />
+                <componentref id="walls" />
             </children>
         </component>
 
@@ -454,6 +458,64 @@
             </children>
         </component>
 
+        <!--WALLS-->
+        <component id="walls">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="wall1" />
+                <componentref id="wall2" /> 
+                <componentref id="door" />
+            </children>
+        </component>
+        
+        <component id="wall1">
+            <transformation>
+                <translate x="1" y="7.5" z="-13" />
+                <scale x="30" y="15" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wall" />
+            <children>
+                <primitiveref id="Rectangle"  />
+            </children>
+        </component>
+
+        <component id="wall2">
+            <transformation>
+                <rotate axis="y" angle="90" />
+                <translate x="-2" y="7.5" z="-14" />
+                <scale x="30" y="15" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wall" />
+            <children>
+                <primitiveref id="Rectangle"  />
+            </children>
+        </component>
+
+         <component id="door">
+            <transformation>
+                <rotate axis="y" angle="90" />
+                <translate x="-2" y="4.5" z="-13.9" />
+                <scale x="4" y="9" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="door" />
+            <children>
+                <primitiveref id="Rectangle"  />
+            </children>
+        </component>
 
         <!--CUBE-->
         <component id="cube">
