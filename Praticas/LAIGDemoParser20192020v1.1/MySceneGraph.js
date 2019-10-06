@@ -855,7 +855,7 @@ class MySceneGraph {
             if (primitiveType == 'sphere') {
                 // radius
                 var radius = this.reader.getFloat(grandChildren[0], 'radius');
-                if (!(top != null && !isNaN(top)))
+                if (!(radius != null && !isNaN(radius)))
                     return "unable to parse radius of the primitive coordinates for ID = " + primitiveId;
                 // slices
                var slices = this.reader.getFloat(grandChildren[0], 'slices');
@@ -871,6 +871,30 @@ class MySceneGraph {
 
                this.primitives[primitiveId] = sphere;
            }
+           if (primitiveType == 'torus') {
+            // inner
+            var inner = this.reader.getFloat(grandChildren[0], 'inner');
+            if (!(inner != null && !isNaN(inner)))
+                return "unable to parse inner radius of the primitive with ID = " + primitiveId;
+            // outer
+             var outer = this.reader.getFloat(grandChildren[0], 'outer');
+             if (!(outer != null && !isNaN(outer)))
+                 return "unable to parse outer radius of the primitive with ID = " + primitiveId;
+             
+            // slices
+           var slices = this.reader.getFloat(grandChildren[0], 'slices');
+           if (!(slices != null && !isNaN(slices)))
+               return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+           // loops
+           var loops = this.reader.getFloat(grandChildren[0], 'loops');
+           if (!(loops != null && !isNaN(loops)))
+               return "unable to parse loops of the primitive with ID = " + primitiveId;
+
+           var torus = new MyTorus(this.scene, inner, outer, slices, loops);
+
+           this.primitives[primitiveId] = torus;
+       }
             
 
             else {
@@ -1148,8 +1172,8 @@ class MySceneGraph {
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
-                currentMaterial.apply();
-                currentTexture[0].bind();
+             //   currentMaterial.apply();
+             //   currentTexture[0].bind();
                 this.scene.pushMatrix();
                 this.primitives[descendants[i]].display();
                 this.scene.popMatrix();
