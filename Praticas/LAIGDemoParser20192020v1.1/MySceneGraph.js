@@ -5,7 +5,7 @@ var ERROR_PARSING = -1;
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
 var VIEWS_INDEX = 1;
-var AMBIENT_INDEX = 2;
+var GLOBALS_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
@@ -119,12 +119,12 @@ class MySceneGraph {
                 return error;
         }
 
-        // <ambient>
-        if ((index = nodeNames.indexOf("ambient")) == -1)
-            return "tag <ambient> missing";
+        // <globals>
+        if ((index = nodeNames.indexOf("globals")) == -1)
+            return "tag <globals> missing";
         else {
-            if (index != AMBIENT_INDEX)
-                this.onXMLMinorError("tag <ambient> out of order");
+            if (index != GLOBALS_INDEX)
+                this.onXMLMinorError("tag <globals> out of order");
 
             //Parse ambient block
             if ((error = this.parseAmbient(nodes[index])) != null)
@@ -436,8 +436,6 @@ class MySceneGraph {
 
         if (numLights == 0)
             return "at least one light must be defined";
-        else if (numLights > 8)
-            this.onXMLMinorError("too many lights defined; WebGL imposes a limit of 8 lights");
 
         this.log("Parsed lights");
         return null;
@@ -514,6 +512,7 @@ class MySceneGraph {
 
         var grandChildren = [];
         var nodeNames = [];
+        console.log(children.length);
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -538,8 +537,8 @@ class MySceneGraph {
 
             //Getting the names of the material specs
             grandChildren = children[i].children;
-            for (var i = 0; i < grandChildren.length; i++) {
-                nodeNames.push(grandChildren[i].nodeName);
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
             }
 
             //getting the values of the material specs
@@ -551,13 +550,13 @@ class MySceneGraph {
 
             //within each material parse trough its values
             //TODO - usar funcao parsecolor() para aceder aos valores de cada material
-            for (var i = 0; i < nodeNames.length; i++) {
-                switch (nodeNames[i]) {
+            for (var k = 0; k < nodeNames.length; k++) {
+                switch (nodeNames[k]) {
                     case 'emission':
-                        r = this.reader.getFloat(grandChildren[i], 'r');
-                        g = this.reader.getFloat(grandChildren[i], 'g');
-                        b = this.reader.getFloat(grandChildren[i], 'b');
-                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        r = this.reader.getFloat(grandChildren[k], 'r');
+                        g = this.reader.getFloat(grandChildren[k], 'g');
+                        b = this.reader.getFloat(grandChildren[k], 'b');
+                        a = this.reader.getFloat(grandChildren[k], 'a');
 
                         if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
                             this.onXMLMinorError("Wrong values in <emission>");
@@ -570,10 +569,10 @@ class MySceneGraph {
                         emission.push(a);
                         break;
                     case 'ambient':
-                        r = this.reader.getFloat(grandChildren[i], 'r');
-                        g = this.reader.getFloat(grandChildren[i], 'g');
-                        b = this.reader.getFloat(grandChildren[i], 'b');
-                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        r = this.reader.getFloat(grandChildren[k], 'r');
+                        g = this.reader.getFloat(grandChildren[k], 'g');
+                        b = this.reader.getFloat(grandChildren[k], 'b');
+                        a = this.reader.getFloat(grandChildren[k], 'a');
 
                         if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
                             this.onXMLMinorError("Wrong values in <ambient>");
@@ -586,10 +585,10 @@ class MySceneGraph {
                         ambient.push(a);
                         break;
                     case 'diffuse':
-                        r = this.reader.getFloat(grandChildren[i], 'r');
-                        g = this.reader.getFloat(grandChildren[i], 'g');
-                        b = this.reader.getFloat(grandChildren[i], 'b');
-                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        r = this.reader.getFloat(grandChildren[k], 'r');
+                        g = this.reader.getFloat(grandChildren[k], 'g');
+                        b = this.reader.getFloat(grandChildren[k], 'b');
+                        a = this.reader.getFloat(grandChildren[k], 'a');
 
                         if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
                             this.onXMLMinorError("Wrong values in <diffuse>");
@@ -602,10 +601,10 @@ class MySceneGraph {
                         diffuse.push(a);
                         break;
                     case 'specular':
-                        r = this.reader.getFloat(grandChildren[i], 'r');
-                        g = this.reader.getFloat(grandChildren[i], 'g');
-                        b = this.reader.getFloat(grandChildren[i], 'b');
-                        a = this.reader.getFloat(grandChildren[i], 'a');
+                        r = this.reader.getFloat(grandChildren[k], 'r');
+                        g = this.reader.getFloat(grandChildren[k], 'g');
+                        b = this.reader.getFloat(grandChildren[k], 'b');
+                        a = this.reader.getFloat(grandChildren[k], 'a');
 
                         if (!(r >= 0.0 && r <= 1.0) || !(g >= 0.0 && g <= 1.0) || !(b >= 0.0 && b <= 1.0) || !(a >= 0.0 && a <= 1.0)) {
                             this.onXMLMinorError("Wrong values in <specular>");
@@ -855,7 +854,7 @@ class MySceneGraph {
             if (primitiveType == 'sphere') {
                 // radius
                 var radius = this.reader.getFloat(grandChildren[0], 'radius');
-                if (!(top != null && !isNaN(top)))
+                if (!(radius != null && !isNaN(radius)))
                     return "unable to parse radius of the primitive coordinates for ID = " + primitiveId;
                 // slices
                var slices = this.reader.getFloat(grandChildren[0], 'slices');
@@ -871,6 +870,35 @@ class MySceneGraph {
 
                this.primitives[primitiveId] = sphere;
            }
+           if (primitiveType == 'torus') {
+            // inner
+            var inner = this.reader.getFloat(grandChildren[0], 'inner');
+            if (!(inner != null && !isNaN(inner)))
+                return "unable to parse inner radius of the primitive with ID = " + primitiveId;
+            // outer
+             var outer = this.reader.getFloat(grandChildren[0], 'outer');
+             if (!(outer != null && !isNaN(outer)))
+                 return "unable to parse outer radius of the primitive with ID = " + primitiveId;
+             
+            // slices
+           var slices = this.reader.getFloat(grandChildren[0], 'slices');
+           if (!(slices != null && !isNaN(slices)))
+               return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+           // loops
+           var loops = this.reader.getFloat(grandChildren[0], 'loops');
+           if (!(loops != null && !isNaN(loops)))
+               return "unable to parse loops of the primitive with ID = " + primitiveId;
+
+           var torus = new MyTorus(this.scene, inner, outer, slices, loops);
+
+           this.primitives[primitiveId] = torus;
+       }
+            
+
+            else {
+                console.warn("To do: Parse other primitives.");
+            }
         }
 
         this.log("Parsed primitives");
@@ -1144,7 +1172,7 @@ class MySceneGraph {
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
                 currentMaterial.apply();
-                currentTexture[0].bind();
+             //   currentTexture[0].bind();
                 this.scene.pushMatrix();
                 this.primitives[descendants[i]].display();
                 this.scene.popMatrix();
