@@ -332,6 +332,9 @@ class MySceneGraph {
     parseLights(lightsNode) {
         var children = lightsNode.children;
 
+        if(children.length > 8)
+            return this.onXMLError("Only 8 ligths allowed by WebGL");
+
         this.lights = [];
         var numLights = 0;
 
