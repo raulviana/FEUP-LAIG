@@ -1168,14 +1168,15 @@ class MySceneGraph {
 
         var currentTexture = [];
         currentTexture = this.textures[IDTexture];
-        var currentMaterial = this.materials[compMaterials[0]]; // TODO - criar uma variável global que seja incrementada com a acção do botão m/M
+        
+        var currentMaterial = this.materials[compMaterials[(this.scene.counterM % compMaterials.length)]];
 
         //Visit the node desendants, in case of primitive, display them, in case of intermediate nodes call descendants recursively
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
                 currentMaterial.apply();
-             //   currentTexture[0].bind();
+              //  currentTexture[0].bind();
                 this.scene.pushMatrix();
                 this.primitives[descendants[i]].display();
                 this.scene.popMatrix();

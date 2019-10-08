@@ -24,32 +24,28 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
-        <texture id="green"  file="scenes/images/green.jpg" />
         <texture id="aquarium" file="scenes/images/aquarium.jpg" />
         <texture id="fabric" file="scenes/images/grey-fabric.jpg" />
-        <texture id="trunk" file="scenes/images/trunk-image.jpg" />
         <texture id="floor" file="scenes/images/floor.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="metalic" file="scenes/images/metalic.jpg" />
         <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
-        <texture id="movie" file="scenes/images/movie.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
     </textures>
 
     <materials>
         <material id="demoMaterial" shininess="1">
-            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
-            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+            <emission r="0.5" g="0.5" b="0.9" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.8" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0.9" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.9" a="1.0" />
         </material>
         <material id="woodmaterial" shininess="1">
-            <emission r="1" g="0.5" b="0.5" a="1.0" />
-            <ambient r="1" g="0.5" b="0.5" a="1.0" />
+            <emission r="1" g="0.5" b="0.0" a="1.0" />
+            <ambient r="1" g="0.5" b="0.0" a="1.0" />
             <diffuse r="1" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.2" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.2" g="0.5" b="0.0" a="1.0" />
         </material>
         
     </materials>
@@ -107,6 +103,7 @@
             </transformation>
             <materials>
                 <material id="woodmaterial" />
+                <material id="demoMaterial" />
             </materials>
             <texture id="wood" />
             <children>

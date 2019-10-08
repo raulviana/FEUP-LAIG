@@ -34,6 +34,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+
+        this.counterM = 0;
     }
 
     /**
@@ -101,6 +103,22 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = true;
     }
+
+    checkKeys(t) {
+        var text="Keys pressed: ";
+        var keysPressed=false;
+        // Check for key codes e.g. in ​ https://keycode.info/
+        if (this.gui.isKeyPressed("KeyM")) {
+        this.counterM++;
+        text+=" M ";
+        keysPressed=true;
+        }
+        if (keysPressed) console.log(text);
+    }
+    update(t){
+		this.checkKeys(t);
+    }
+      
 
     /**
      * Displays the scene.
