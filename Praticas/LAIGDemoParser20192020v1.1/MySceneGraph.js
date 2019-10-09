@@ -1176,7 +1176,7 @@ class MySceneGraph {
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
                 currentMaterial.apply();
-              //  currentTexture[0].bind();
+                currentTexture[0].bind();
                 this.scene.pushMatrix();
                 this.primitives[descendants[i]].display();
                 this.scene.popMatrix();

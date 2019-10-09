@@ -32,6 +32,7 @@
         <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
+        <texture id="darkRubber" file="scenes/images/darkRubber.jpg" />
     </textures>
 
     <materials>
@@ -41,11 +42,29 @@
             <diffuse r="0.5" g="0.5" b="0.9" a="1.0" />
             <specular r="0.5" g="0.5" b="0.9" a="1.0" />
         </material>
-        <material id="woodmaterial" shininess="1">
+        <material id="woodMaterial" shininess="1">
             <emission r="1" g="0.5" b="0.0" a="1.0" />
             <ambient r="1" g="0.5" b="0.0" a="1.0" />
             <diffuse r="1" g="0.0" b="0.0" a="1.0" />
             <specular r="0.2" g="0.5" b="0.0" a="1.0" />
+        </material>
+        <material id="glassMaterial" shininess="0.088">
+            <emission r="0.01" g="0.01" b="0.01" a="1.0" />
+            <ambient r="0.25" g="0.207" b="0.207" a="1.0" />
+            <diffuse r="1" g="0.83" b="0.83" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
+        <material id="metalMaterial" shininess="0.6">
+            <emission r="0.30" g="0.3" b="0.3" a="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0.77" g="0.77" b="0.77" a="1.0" />
+        </material>
+        <material id="whiterubberMaterial" shininess="0.78">
+            <emission r="0.5" g="0.5" b="0.5" a="1.0" />
+            <ambient r="0.05" g="0.05" b="0.05" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.7" a="1.0" />
         </material>
         
     </materials>
@@ -102,8 +121,10 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="woodmaterial" />
+                <material id="woodMaterial" />
                 <material id="demoMaterial" />
+                <material id="glassMaterial" />
+                <material id="whiterubberMaterial" />
             </materials>
             <texture id="wood" />
             <children>
@@ -215,7 +236,7 @@
                 <translate x="-0.8" y="0" z="1" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="metalMaterial" />
             </materials>
             <texture id="metalic" />
             <children>
@@ -231,7 +252,9 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="fabric" />
             <children>
@@ -245,7 +268,9 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="fabric" />
             <children>
@@ -274,6 +299,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -288,6 +316,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -302,6 +333,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -316,6 +350,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="demoMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -329,7 +366,7 @@
                 <translate x="-6.6" y="0" z="-2.8" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="metalMaterial" />
             </materials>
             <texture id="metalic" />
             <children>
@@ -345,7 +382,9 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="fabric" />
             <children>
@@ -359,7 +398,9 @@
                 <scale x="2.2" y="0.2" z="2.2" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="fabric" />
             <children>
@@ -368,7 +409,6 @@
         </component>
         <component id="chairLegs">
             <transformation>
-                
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -388,6 +428,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -402,6 +445,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -416,6 +462,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -431,6 +480,9 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -445,7 +497,10 @@
                 <translate x="3" y="3.5" z="2" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="glassMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="aquarium" />
             <children>
@@ -459,9 +514,12 @@
                 <rotate axis="x" angle="90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="woodMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="darkRubber" />
             <children>
                 <primitiveref id="Torus" />
             </children>
@@ -475,7 +533,10 @@
                 <scale x="30" y="30" z="1" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="woodMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="floor" />
             <children>
@@ -488,7 +549,10 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="whiterubberMaterial" />
+                <material id="woodMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -505,6 +569,7 @@
             </transformation>
             <materials>
                 <material id="inherit" />
+               
             </materials>
             <texture id="wall" />
             <children>
@@ -534,7 +599,10 @@
                 <scale x="4" y="9" z="1" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="woodMaterial" />
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
             </materials>
             <texture id="door" />
             <children>
