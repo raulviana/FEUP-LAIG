@@ -406,6 +406,19 @@ class MySceneGraph {
                     return "light " + attributeNames[i] + " undefined for ID = " + lightId;
             }
 
+            // Gets the attenuation values
+            var constant, linear, quadratic;
+
+            for(var j = 0; j < grandChildren.length; j++) {
+                if(grandChildren[j].nodeName == "attenuation") {
+                    constant = this.reader.getFloat(children[j], 'constant');
+                    linear = this.reader.getFloat(children[j], 'linear');
+                    quadratic = this.reader.getFloat(children[j], 'quadratic');
+                }
+            }
+
+            global.push(...[constant, linear, quadratic]);
+
             // Gets the additional attributes of the spot light
             if (children[i].nodeName == "spot") {
                 var angle = this.reader.getFloat(children[i], 'angle');
@@ -430,7 +443,7 @@ class MySceneGraph {
                 else
                     return "light target undefined for ID = " + lightId;
 
-                global.push(...[angle, exponent, targetLight])
+                global.push(...[angle, exponent, targetLight]);
             }
 
             this.lights[lightId] = global;
