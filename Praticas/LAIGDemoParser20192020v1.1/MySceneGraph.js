@@ -476,6 +476,8 @@ class MySceneGraph {
             }
 
             var textureID = this.reader.getString(currentTexture[i], 'id');
+        //    var length_s = this.reader.getString(currentTexture[i], 'length_s');
+        //    var length_t = this.reader.getString(currentTexture[i], 'length_t');
 
             if (textureID == null)
                 return "no ID defined for texture";
@@ -493,14 +495,23 @@ class MySceneGraph {
             else{
                 if(! this.isValidFileType(filePath)) this.onXMLError("Texture file type invalid"); 
             }
-       
+                       
+            
+         //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
+         //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
+            var coords = [];
+         //   coords = [length_s, length_t];
+
             var newTexture = new CGFtexture(this.scene, "/" + filePath);
-            this.textures[textureID] = [newTexture];
-            singleTextureDefined = true;   
+        //    if(length_s == null || length_t == null){
+                this.textures[textureID] = [newTexture];
+                singleTextureDefined = true;    
+         //   }
+        //    else this.textures[textureID] = [newTexture, coords];
         }
 
         if (!singleTextureDefined){
-            this.onXMLError("There must be at least one texture in <textures> block");
+            this.onXMLError("there must be at least one texture block");
         }
         
         return null;
@@ -996,23 +1007,9 @@ class MySceneGraph {
             }
             this.nodes[componentID].materials = materialsIDList;
             
-
             // Texture
-            
-        //    var length_s = this.reader.getString(currentTexture[i], 'length_s');
-        //    var length_t = this.reader.getString(currentTexture[i], 'length_t');
-                        
-            
-         //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
-         //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
-         var coords = [];
-         //   coords = [length_s, length_t];
-
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
             this.nodes[componentID].textureID = textureId;
-            if (! (textureId == "inherit" | textureId == "none")){
-                
-            }
             
            
             // Children
