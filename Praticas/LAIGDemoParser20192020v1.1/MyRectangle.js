@@ -6,7 +6,7 @@
  * @param y - Scale of rectangle in Y
  */
 class MyRectangle extends CGFobject {
-	constructor(scene, id, x1, x2, y1, y2) {
+	constructor(scene, x1, x2, y1, y2) {
 		super(scene);
 		this.x1 = x1;
 		this.x2 = x2;
@@ -17,7 +17,7 @@ class MyRectangle extends CGFobject {
 	}
 	
 	initBuffers() {
-		this.vertices = [
+		/*this.vertices = [
 			this.x1, this.y1, 0,	//0
 			this.x2, this.y1, 0,	//1
 			this.x1, this.y2, 0,	//2
@@ -36,7 +36,7 @@ class MyRectangle extends CGFobject {
 			0, 0, 1,
 			0, 0, 1,
 			0, 0, 1
-		];
+		];*/
 		
 		/*
 		Texture coords (s,t)
@@ -48,12 +48,40 @@ class MyRectangle extends CGFobject {
         t
         */
 
-		this.texCoords = [
+		/*this.texCoords = [
 			0, 1,
 			1, 1,
 			0, 0,
 			1, 0
-		]
+		]*/
+
+		this.vertices = [];
+		this.normals = [];
+		this.texCoords = [];
+		this.indices = [];
+
+		var yDif = (this.y2 - this.y1) / 10;
+		var xDif = (this.x2 - this.x1) / 10;
+		
+		for (var i = 0; i < 11; i++) {
+			for (var j = 0; j < 11; j++) {
+				this.vertices.push(this.x1 + j * xDif, this.y1 + i * yDif, 0);
+				this.normals.push(0, 0, 1);
+				this.texCoords.push(0.1 * j, 1 - 0.1 * i);
+			}
+		}
+
+		for(var i = 0; i < 110; i++) {
+			if((i+1) % 11 != 0) {
+				this.indices.push(i, i + 1, i + 12);
+				this.indices.push(i + 12, i + 1, i);
+
+				this.indices.push(i, i + 12, i + 11);
+				this.indices.push(i + 11, i + 12, i);
+			}
+		}
+
+
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}

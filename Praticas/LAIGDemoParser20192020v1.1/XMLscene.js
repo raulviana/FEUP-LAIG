@@ -23,7 +23,7 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.initCameras();
+        
 
         this.enableTextures(true);
 
@@ -36,13 +36,23 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.counterM = 0;
+        this.counterV = 0;
+        this.OnOff = 0;
+
+        this.timeIDs = { 'On': 0, 'Off': 1 };
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
+        //for (var key in this.graph.camera) {
+            var cam = this.graph.camera["otherCamera"];
+            this.camera = cam;            
+            this.interface.setActiveCamera(this.camera);
+
+        //}
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -101,11 +111,13 @@ class XMLscene extends CGFscene {
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
-        this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
+        //this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
 
         this.sceneInited = true;
+
+        this.initCameras();
     }
 
     checkKeys(t) {
@@ -113,9 +125,14 @@ class XMLscene extends CGFscene {
         var keysPressed=false;
         // Check for key codes e.g. in ​ https://keycode.info/
         if (this.gui.isKeyPressed("KeyM")) {
-        this.counterM++;
-        text+=" M ";
-        keysPressed=true;
+            this.counterM++;
+            text+=" M ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyV")) {
+            this.counterV++;
+            text+=" V ";
+            keysPressed=true;
         }
         if (keysPressed) console.log(text);
     }
@@ -142,11 +159,16 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.axis.display();
+        //this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            if(this.OnOff == 0)
+                this.lights[i].enable();
+            else
+                this.lights[i].disable();
+
+            this.lights[i].update();
         }
 
         if (this.sceneInited) {

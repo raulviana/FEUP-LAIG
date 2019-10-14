@@ -22,6 +22,9 @@ class MyInterface extends CGFinterface {
 
         // add a group of controls (and open/expand by defult)
 
+        //Dropbox
+        this.gui.add(this.scene, 'OnOff', this.scene.timeIDs).name('On/Off');
+
         this.initKeys();
 
         return true;
