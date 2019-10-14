@@ -125,14 +125,9 @@ class XMLscene extends CGFscene {
         var keysPressed=false;
         // Check for key codes e.g. in ​ https://keycode.info/
         if (this.gui.isKeyPressed("KeyM")) {
-            this.counterM++;
-            text+=" M ";
-            keysPressed=true;
-        }
-        if (this.gui.isKeyPressed("KeyV")) {
-            this.counterV++;
-            text+=" V ";
-            keysPressed=true;
+        this.counterM++;
+        text+=" M ";
+        keysPressed=true;
         }
         if (keysPressed) console.log(text);
     }

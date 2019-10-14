@@ -1047,7 +1047,15 @@ class MySceneGraph {
             
             // Texture
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
-            this.nodes[componentID].textureID = textureId;
+            if(textureId != "inherit" && textureId != "none"){
+            var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
+            var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
+            }
+            else{
+                length_s = 1;
+                length_t = 1;
+            } 
+            this.nodes[componentID].textureID.push(...[textureId, length_s, length_t]);
             
            
             // Children
@@ -1182,8 +1190,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //To do: Create display loop for transversing the scene graph
-        
         
         //Another function need to be called in order to display graph recursively
         
@@ -1199,12 +1205,20 @@ class MySceneGraph {
     
         var compMaterials = MaterialsFather;
         var IDTexture = idTextureFather;
+
         
         //check texture heritage 
-        if(currentNode.textureID != "inherit"){
-            IDTexture = currentNode.textureID;
+        if(currentNode.textureID[0] != "inherit"){
+            IDTexture = currentNode.textureID[0];
+            var coord_s = currentNode.textureID[1];
+            var coord_t = currentNode.textureID[2];
         }
-        else IDTexture = idTextureFather;
+        else {
+            IDTexture = idTextureFather;
+            var coord_s = 1;  //acho que não pode ser 1, tem de ser a do pai..
+            var coord_t = 1;
+        }
+
 
         //check material heritage
         if(currentNode.materials[0] != "inherit"){

@@ -17,7 +17,7 @@ class GraphNode {
     this.materials = [];
 
     // The texture ID.
-    this.textureID = null;
+    this.textureID = [];
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);

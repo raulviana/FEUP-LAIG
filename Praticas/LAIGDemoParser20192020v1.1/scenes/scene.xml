@@ -6,6 +6,11 @@
             <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
+        <ortho id="orthoCamera" near="0.1" far="500" left="3" right="3" top="3" bottom="3">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
     </views>
 
     <globals>
@@ -57,8 +62,8 @@
             <specular r="0.5" g="0.5" b="0.9" a="1.0" />
         </material>
         <material id="woodMaterial" shininess="1">
-            <emission r="0.8" g="0.5" b="0.0" a="1.0" />
-            <ambient r="0.8" g="0.5" b="0.0" a="1.0" />
+            <emission r="0.8" g="0.5" b="0" a="1.0" />
+            <ambient r="0.8" g="0.5" b="0" a="1.0" />
             <diffuse r="0.8" g="0.0" b="0.0" a="1.0" />
             <specular r="0.2" g="0.5" b="0.0" a="1.0" />
         </material>
@@ -117,7 +122,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="table" />
                 <componentref id="chairs" />
@@ -140,7 +145,7 @@
                 <material id="glassMaterial" />
                 <material id="whiterubberMaterial" />
             </materials>
-            <texture id="wood" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <componentref id="tableTop" />
                 <componentref id="tableLegs" />
@@ -238,7 +243,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="chair1" />
                 <componentref id="chair2" />
@@ -252,7 +257,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -270,7 +275,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1"/>
             <children>
                 <componentref id="cube" />
             </children>
@@ -286,7 +291,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -382,7 +387,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -400,7 +405,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -416,7 +421,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -516,7 +521,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="aquarium" />
+            <texture id="aquarium" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Sphere" />
             </children>
@@ -533,7 +538,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="darkRubber" />
+            <texture id="darkRubber" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Torus" />
             </children>
@@ -552,7 +557,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="floor" />
+            <texture id="floor" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -585,7 +590,7 @@
                 <material id="inherit" />
                
             </materials>
-            <texture id="wall" />
+            <texture id="wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -600,7 +605,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wall" />
+            <texture id="wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -618,7 +623,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="door" />
+            <texture id="door" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -631,7 +636,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="photo" />
+            <texture id="photo" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Triangle"  />
             </children>
