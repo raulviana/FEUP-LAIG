@@ -463,9 +463,9 @@ class MySceneGraph {
 
             for(var j = 0; j < grandChildren.length; j++) {
                 if(grandChildren[j].nodeName == "attenuation") {
-                    constant = this.reader.getFloat(children[j], 'constant');
-                    linear = this.reader.getFloat(children[j], 'linear');
-                    quadratic = this.reader.getFloat(children[j], 'quadratic');
+                    constant = this.reader.getFloat(grandChildren[j], 'constant');
+                    linear = this.reader.getFloat(grandChildren[j], 'linear');
+                    quadratic = this.reader.getFloat(grandChildren[j], 'quadratic');
                 }
             }
 
@@ -583,6 +583,8 @@ class MySceneGraph {
     
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
+
+            nodeNames.length = 0; //cleaning variable from previous cyles
 
             if (children[i].nodeName != "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
