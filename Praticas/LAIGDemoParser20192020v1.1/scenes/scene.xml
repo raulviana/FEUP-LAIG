@@ -6,7 +6,7 @@
             <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
-        <ortho id="orthoCamera" near="0.1" far="500" left="3" right="3" top="3" bottom="3">
+        <ortho id="orthoCamera" near="0.1" far="500" left="-30" right="30" top="30" bottom="-30">
             <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
             <up x="0" y="1" z="0" />
@@ -19,23 +19,23 @@
     </globals>
 
     <lights>
-        <omni id="ligth1" enabled="1">
-            <location x="9.8" y="11.9" z="10" w="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+        <omni id="ligth1" enabled="0">
+            <location x="9.8" y="12" z="10" w="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constante="1.0" linear="0" quadratic="0" />
         </omni>
-        <omni id="ligth2" enabled="1">
-            <location x="5" y="18" z="8" w="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+        <omni id="ligth2" enabled="0">
+            <location x="-5" y="12" z="8" w="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constante="1.0" linear="0" quadratic="0" />
         </omni>
-         <omni id="ligth3" enabled="1">
-            <location x="2" y="15" z="-3" w="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+         <omni id="ligth3" enabled="0">
+            <location x="2" y="12" z="-3" w="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g=".20" b="0.2" a="1.0" />
             <attenuation constante="1.0" linear="0" quadratic="0" />
