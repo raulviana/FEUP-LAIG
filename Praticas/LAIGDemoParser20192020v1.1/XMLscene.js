@@ -23,7 +23,7 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        
+       // this.initCameras();
 
         this.enableTextures(true);
 
@@ -37,23 +37,33 @@ class XMLscene extends CGFscene {
 
         this.counterM = 0;
         this.counterV = 0;
-        this.OnOff = 0;
 
-        this.timeIDs = { 'On': 0, 'Off': 1 };
+        this.light1 = false;
+        this.light2 = false;
+        this.light3 = false;
+       
+        this.selectedCamera = 0;
+        this.view = { 'Default': 0, 'Ortho': 1 };
+       
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
+  
+        var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
 
-        //for (var key in this.graph.camera) {
-            var cam = this.graph.camera["otherCamera"];
-            this.camera = cam;            
-            this.interface.setActiveCamera(this.camera);
+        var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
 
-        //}
+        this.camera = cam; // Sets default view
+        
+        this.interface.setActiveCamera(this.camera);
+
+        
+
     }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -61,19 +71,28 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
+        this.lights = [];
+
         // Reads the lights from the scene graph.
-        for (var key in this.graph.lights) {
+
+        for (var key in this.graph.lightz) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
 
-            if (this.graph.lights.hasOwnProperty(key)) {
-                var light = this.graph.lights[key];
+            if (this.graph.lightz.hasOwnProperty(key)) {
+                this.lights[i] = new CGFlight(this, i);
+                var light = this.graph.lightz[key];
 
+                // Sets position
                 this.lights[i].setPosition(light[2][0], light[2][1], light[2][2], light[2][3]);
+
+                // Sets ilumination values
                 this.lights[i].setAmbient(light[3][0], light[3][1], light[3][2], light[3][3]);
                 this.lights[i].setDiffuse(light[4][0], light[4][1], light[4][2], light[4][3]);
                 this.lights[i].setSpecular(light[5][0], light[5][1], light[5][2], light[5][3]);
 
+
+                // Sets attenuation values
                 this.lights[i].setConstantAttenuation(light[6]);
                 this.lights[i].setLinearAttenuation(light[7]);
                 this.lights[i].setQuadraticAttenuation(light[8]);
@@ -91,10 +110,11 @@ class XMLscene extends CGFscene {
                     this.lights[i].disable();
 
                 this.lights[i].update();
-
                 i++;
             }
         }
+        console.log(this.lights);
+
     }
 
     setDefaultAppearance() {
@@ -111,7 +131,7 @@ class XMLscene extends CGFscene {
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
-        //this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
+        this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
 
@@ -125,9 +145,14 @@ class XMLscene extends CGFscene {
         var keysPressed=false;
         // Check for key codes e.g. in ​ https://keycode.info/
         if (this.gui.isKeyPressed("KeyM")) {
-        this.counterM++;
-        text+=" M ";
-        keysPressed=true;
+            this.counterM++;
+            text+=" M ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyV")) {
+            this.counterV++;
+            text += " V ";
+            keysPressed = true;
         }
         if (keysPressed) console.log(text);
     }
@@ -136,36 +161,70 @@ class XMLscene extends CGFscene {
     }
       
 
+    updateCamera(i){
+        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+        this.camera = cam;
+    }
+
     /**
      * Displays the scene.
      */
     display() {
+
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        
 
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
-
+        
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
+        
         this.pushMatrix();
-        //this.axis.display();
+        this.axis.display();
 
+
+        // Turn On/Off Light 1
+        if (this.light1)
+            this.lights[0].enable();
+        else
+            this.lights[0].disable();
+
+        // Turn On/Off Light 2
+        if (this.light2)
+            this.lights[1].enable();
+        else
+            this.lights[1].disable();
+
+        // Turn On/Off Light 3
+        if (this.light3)
+            this.lights[2].enable();
+        else
+            this.lights[2].disable();
+
+        // Update all lights
         for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            if(this.OnOff == 0)
-                this.lights[i].enable();
-            else
-                this.lights[i].disable();
-
             this.lights[i].update();
         }
 
+
+        // Change view
+        switch (this.selectedCamera) {
+            case 1:
+                this.updateCamera(this.selectedCamera);
+                break;
+            default:
+                this.updateCamera(this.selectedCamera);
+                break;
+        }
+
+        
         if (this.sceneInited) {
             // Draw axis
             this.setDefaultAppearance();

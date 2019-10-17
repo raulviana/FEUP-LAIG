@@ -238,9 +238,14 @@ class MySceneGraph {
 
         var children = viewsNode.children;
 
-        this.camera = [];
-        this.global = [];
+        this.cameraz = [];
         var grandChildren = [];
+
+        var defaultView = this.reader.getString(viewsNode, 'default');
+        this.cameraz.push(defaultView);
+        
+        this.viewIds = [];
+
 
         for (var i = 0; i < children.length; i++) {
 
@@ -255,11 +260,14 @@ class MySceneGraph {
                 return "no ID defined for texture";
 
             // Checks for repeated IDs.
-            if (this.camera[viewId] != null)
+            if (this.cameraz[viewId] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + viewId + ")";
             
+            this.viewIds.push(viewId);
+
             var cam;
 
+            // Checks if view is perspective
             if (children[i].nodeName == "perspective") {
 
                 var near = this.reader.getFloat(children[i], 'near');
@@ -270,6 +278,7 @@ class MySceneGraph {
 
                 grandChildren = children[i].children;
 
+                // Checks position
                 if (grandChildren[0].nodeName != "from")
                     this.onXMLMinorError("unknown tag <" + grandChildren[0].nodeName + ">");
 
@@ -277,6 +286,7 @@ class MySceneGraph {
                 var fromY = this.reader.getFloat(grandChildren[0], 'y');
                 var fromZ = this.reader.getFloat(grandChildren[0], 'z');
 
+                // Checks target
                 if (grandChildren[1].nodeName != "to")
                     this.onXMLMinorError("unknown tag <" + grandChildren[1].nodeName + ">");
 
@@ -284,9 +294,10 @@ class MySceneGraph {
                 var toY = this.reader.getFloat(grandChildren[1], 'y');
                 var toZ = this.reader.getFloat(grandChildren[1], 'z');
 
-                cam = new CGFcamera(angleRad, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+                cam = new CGFcamera(angleRad, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ)); // Creates camera
             }
 
+            // Checks if view is ortho
             if (children[i].nodeName == "ortho") {
                 var near = this.reader.getFloat(children[i], 'near');
                 var far = this.reader.getFloat(children[i], 'far');
@@ -297,6 +308,7 @@ class MySceneGraph {
 
                 grandChildren = children[i].children;
 
+                // Checks position
                 if (grandChildren[0].nodeName != "from")
                     this.onXMLMinorError("unknown tag <" + grandChildren[0].nodeName + ">");
 
@@ -304,6 +316,7 @@ class MySceneGraph {
                 var fromY = this.reader.getFloat(grandChildren[0], 'y');
                 var fromZ = this.reader.getFloat(grandChildren[0], 'z');
 
+                // Checks target
                 if (grandChildren[1].nodeName != "to")
                     this.onXMLMinorError("unknown tag <" + grandChildren[1].nodeName + ">");
 
@@ -318,12 +331,13 @@ class MySceneGraph {
                 var upY = this.reader.getFloat(grandChildren[2], 'y');
                 var upZ = this.reader.getFloat(grandChildren[2], 'z');
 
-                cam = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(upX, upY, upZ));
+                cam = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(upX, upY, upZ)); // Creates camera
             }
-            this.camera[viewId] = cam;
+            this.cameraz[viewId] = cam;
+            console.log(cam);
 
         }
-
+        //console.log(this.viewIds);
         return null;
     }
 
@@ -373,7 +387,7 @@ class MySceneGraph {
         if(children.length > 8)
             return this.onXMLError("Only 8 ligths allowed by WebGL");
 
-        this.lights = [];
+        this.lightz = [];
         var numLights = 0;
 
         var grandChildren = [];
@@ -403,7 +417,7 @@ class MySceneGraph {
                 return "no ID defined for light";
 
             // Checks for repeated IDs.
-            if (this.lights[lightId] != null)
+            if (this.lightz[lightId] != null)
                 return "ID must be unique for each light (conflict: ID = " + lightId + ")";
 
             // Light enable/disable
@@ -484,7 +498,7 @@ class MySceneGraph {
                 global.push(...[angle, exponent, targetLight]);
             }
 
-            this.lights[lightId] = global;
+            this.lightz[lightId] = global;
             numLights++;
         }
 
@@ -566,8 +580,7 @@ class MySceneGraph {
 
         var grandChildren = [];
         var nodeNames = [];
-        console.log(children.length);
-
+    
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
 

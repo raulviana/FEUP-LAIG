@@ -22,8 +22,15 @@ class MyInterface extends CGFinterface {
 
         // add a group of controls (and open/expand by defult)
 
+        var f0 = this.gui.addFolder('Lights');
+
         //Dropbox
-        this.gui.add(this.scene, 'OnOff', this.scene.timeIDs).name('On/Off');
+        this.gui.add(this.scene, 'selectedCamera', this.scene.view).name('Select View');
+
+        //Checkbox
+        f0.add(this.scene, 'light1').name('light 1');
+        f0.add(this.scene, 'light2').name('light 2');
+        f0.add(this.scene, 'light3').name('light 3');
 
         this.initKeys();
 
@@ -41,11 +48,11 @@ class MyInterface extends CGFinterface {
 
     processKeyDown(event) {
         this.activeKeys[event.code]=true;
-    };
+    }
 
     processKeyUp(event) {
         this.activeKeys[event.code]=false;
-    };
+    }
 
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
