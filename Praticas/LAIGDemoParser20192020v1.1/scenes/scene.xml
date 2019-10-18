@@ -6,8 +6,21 @@
             <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
-        <ortho id="orthoCamera" near="0.1" far="500" left="-30" right="30" top="30" bottom="-30">
+        <perspective id="perspective1" near="0.1" far="500" angle="45">
+            <from x="15" y="15" z="-3" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="perspective2" near="0.1" far="500" angle="45">
+            <from x="15" y="5.5" z="2.5" />
+            <to x="3" y="3.5" z="2" />
+        </perspective>
+        <ortho id="orthoCamera1" near="0.1" far="500" left="-30" right="30" top="30" bottom="-30">
             <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <ortho id="orthoCamera2" near="0.1" far="500" left="-20" right="20" top="20" bottom="-20">
+            <from x="0" y="15" z="15" />
             <to x="0" y="-2" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
@@ -20,26 +33,43 @@
 
     <lights>
         <omni id="ligth1" enabled="0">
-            <location x="9.8" y="12" z="10" w="1.0" />
+            <location x="10" y="10" z="2" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
         <omni id="ligth2" enabled="0">
-            <location x="-5" y="12" z="8" w="1.0" />
+            <location x="-8" y="10" z="2" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
-         <omni id="ligth3" enabled="0">
-            <location x="2" y="12" z="-3" w="1.0" />
+        <spot id="spotRed" enabled="1" angle="45.0" exponent="1">
+            <location x="-1.0" y="10.0" z="-2.5" w="1.0" />
+            <target x="4.0" y="-6.5" z="4.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
-            <specular r="0.2" g=".20" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
-        </omni>
+        </spot>
+        <spot id="spotGreen" enabled="1" angle="45.0" exponent="1">
+            <location x="7.0" y="10.0" z="2.5" w="1.0" />
+            <target x="-5.0" y="-6.5" z="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="1.0" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
+        </spot>
+        <spot id="spotBlue" enabled="0" angle="45.0" exponent="1">
+            <location x="-1.0" y="10.0" z="6.5" w="1.0" />
+            <target x="3.0" y="-6.5" z="-4.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="1.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
+        </spot>
     </lights>
 
     <textures>
@@ -576,7 +606,8 @@
             <texture id="inherit" />
             <children>
                 <componentref id="wall1" />
-                <componentref id="wall2" /> 
+                <componentref id="wall2" />
+                <componentref id="wall3" /> 
                 <componentref id="door" />
             </children>
         </component>
@@ -588,7 +619,6 @@
             </transformation>
             <materials>
                 <material id="inherit" />
-               
             </materials>
             <texture id="wall" length_s="1" length_t="1" />
             <children>
@@ -600,6 +630,21 @@
             <transformation>
                 <rotate axis="y" angle="90" />
                 <translate x="-2" y="7.5" z="-14" />
+                <scale x="30" y="15" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wall" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="Rectangle"  />
+            </children>
+        </component>
+
+        <component id="wall3">
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="2" y="7.5" z="-14" />
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
