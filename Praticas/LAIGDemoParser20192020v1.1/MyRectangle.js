@@ -24,26 +24,26 @@ class MyRectangle extends CGFobject {
 		this.texCoords = [];
 		this.indices = [];
 
-		var yDif = (this.y2 - this.y1) / 10;
-		var xDif = (this.x2 - this.x1) / 10;
+		var yDif = (this.y2 - this.y1) / 100;
+		var xDif = (this.x2 - this.x1) / 100;
 		
 
         // Loop that creates vertices, normals and texCoords
-		for (var i = 0; i < 11; i++) {
-			for (var j = 0; j < 11; j++) {
+		for (var i = 0; i < 101; i++) {
+			for (var j = 0; j < 101; j++) {
 				this.vertices.push(this.x1 + j * xDif, this.y1 + i * yDif, 0);
 				this.normals.push(0, 0, 1);
-				this.texCoords.push(0.1 * j, 1 - 0.1 * i);
+				this.texCoords.push(0.01 * j, 1 - 0.01 * i);
 			}
 		}
 
 
         // Loop that creates the indices
-		for(var i = 0; i < 110; i++) {
-			if((i+1) % 11 != 0) {
-				this.indices.push(i, i + 1, i + 12);
+		for(var i = 0; i < 10100; i++) {
+			if((i+1) % 101 != 0) {
+				this.indices.push(i, i + 1, i + 102);
 
-				this.indices.push(i, i + 12, i + 11);
+				this.indices.push(i, i + 102, i + 101);
 			}
 		}
 

@@ -40,10 +40,12 @@ class XMLscene extends CGFscene {
 
         this.light1 = false;
         this.light2 = false;
-        this.light3 = false;
+        this.spotRed = false;
+        this.spotGreen = false;
+        this.spotBlue = false;
        
         this.selectedCamera = 0;
-        this.view = { 'Default': 0, 'Ortho': 1 };
+        this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
        
     }
 
@@ -164,6 +166,7 @@ class XMLscene extends CGFscene {
     updateCamera(i){
         var cam = this.graph.cameraz[this.graph.viewIds[i]];
         this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
     }
 
     /**
@@ -202,12 +205,25 @@ class XMLscene extends CGFscene {
         else
             this.lights[1].disable();
 
-        // Turn On/Off Light 3
-        if (this.light3)
+        // Turn On/Off Red Spotlight
+        if (this.spotRed)
             this.lights[2].enable();
         else
             this.lights[2].disable();
 
+        // Turn On/Off Green Spotlight
+        if (this.spotGreen)
+            this.lights[3].enable();
+        else
+            this.lights[3].disable();
+
+        // Turn On/Off Blue Spotlight
+        if (this.spotBlue)
+            this.lights[4].enable();
+        else
+            this.lights[4].disable();    
+
+       
         // Update all lights
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].update();

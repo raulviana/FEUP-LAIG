@@ -30,7 +30,9 @@ class MyInterface extends CGFinterface {
         //Checkbox
         f0.add(this.scene, 'light1').name('light 1');
         f0.add(this.scene, 'light2').name('light 2');
-        f0.add(this.scene, 'light3').name('light 3');
+        f0.add(this.scene, 'spotRed').name('Spot Red');
+        f0.add(this.scene, 'spotGreen').name('Spot Green');
+        f0.add(this.scene, 'spotBlue').name('Spot Blue');
 
         this.initKeys();
 

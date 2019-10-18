@@ -2,18 +2,28 @@
     <scene root="sceneRoot" axis_length="5"/>
 
     <views default="defaultCamera">
-        <!--<ortho id="defaultCamera" near="0.1" far="500" left="-200" right="200" top="200" bottom="-200">
-            <from x="3" y="5" z="3" />
-            <to x="0" y="0" z="0" />
-            <up x="0" y="1" z="0" />
-        </ortho> -->
-        <perspective id="otherCamera" near="0.1" far="500" angle="45">
-
-            <from x="15" y="10" z="15" />
-
-            <to x="0" y="0" z="0" />
-
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
         </perspective>
+        <perspective id="perspective1" near="0.1" far="500" angle="45">
+            <from x="15" y="15" z="-3" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <perspective id="perspective2" near="0.1" far="500" angle="45">
+            <from x="15" y="5.5" z="2.5" />
+            <to x="3" y="3.5" z="2" />
+        </perspective>
+        <ortho id="orthoCamera1" near="0.1" far="500" left="-30" right="30" top="30" bottom="-30">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <ortho id="orthoCamera2" near="0.1" far="500" left="-20" right="20" top="20" bottom="-20">
+            <from x="0" y="15" z="15" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
     </views>
 
     <globals>
@@ -22,28 +32,44 @@
     </globals>
 
     <lights>
-        <omni id="ligth1" enabled="1">
-            <location x="9.8" y="12" z="10" w="1.0" />
+        <omni id="ligth1" enabled="0">
+            <location x="10" y="10" z="2" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
-            <attenuation constante="1.0" linear="0" quadratic="0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
-        <omni id="ligth2" enabled="1">
-            <location x="-5" y="12" z="-8" w="1.0" />
+        <omni id="ligth2" enabled="0">
+            <location x="-8" y="10" z="2" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
-            <attenuation constante="1.0" linear="0" quadratic="0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
-       <!-- <spot id="ligth3" enabled="1" angle="30" exponent="1">
-            <location x="-7" y="13" z="-7" w="1.0" />
-            <target x="0" y="0" z="0" />
+        <spot id="spotRed" enabled="1" angle="45.0" exponent="1">
+            <location x="-1.0" y="10.0" z="-2.5" w="1.0" />
+            <target x="4.0" y="-6.5" z="4.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
-            <specular r="0.2" g=".20" b="0.2" a="1.0" />
-            <attenuation constante="1.0" linear="0" quadratic="0" />
-        </spot>-->
+            <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
+        </spot>
+        <spot id="spotGreen" enabled="1" angle="45.0" exponent="1">
+            <location x="7.0" y="10.0" z="2.5" w="1.0" />
+            <target x="-5.0" y="-6.5" z="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="1.0" b="0.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
+        </spot>
+        <spot id="spotBlue" enabled="0" angle="45.0" exponent="1">
+            <location x="-1.0" y="10.0" z="6.5" w="1.0" />
+            <target x="3.0" y="-6.5" z="-4.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="1.0" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
+        </spot>
     </lights>
 
     <textures>
@@ -66,8 +92,8 @@
             <specular r="0.5" g="0.5" b="0.9" a="1.0" />
         </material>
         <material id="woodMaterial" shininess="1">
-            <emission r="0.8" g="0.5" b="0.0" a="1.0" />
-            <ambient r="0.8" g="0.5" b="0.0" a="1.0" />
+            <emission r="0.8" g="0.5" b="0" a="1.0" />
+            <ambient r="0.8" g="0.5" b="0" a="1.0" />
             <diffuse r="0.8" g="0.0" b="0.0" a="1.0" />
             <specular r="0.2" g="0.5" b="0.0" a="1.0" />
         </material>
@@ -126,7 +152,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="table" />
                 <componentref id="chairs" />
@@ -149,7 +175,7 @@
                 <material id="glassMaterial" />
                 <material id="whiterubberMaterial" />
             </materials>
-            <texture id="wood" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <componentref id="tableTop" />
                 <componentref id="tableLegs" />
@@ -247,7 +273,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="chair1" />
                 <componentref id="chair2" />
@@ -261,7 +287,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -279,7 +305,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1"/>
             <children>
                 <componentref id="cube" />
             </children>
@@ -295,7 +321,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -391,7 +417,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metalic" />
+            <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
@@ -409,7 +435,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -425,7 +451,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" />
+            <texture id="fabric" length_s="1" length_t="1" />
             <children>
                 <componentref id="cube" />
             </children>
@@ -525,7 +551,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="aquarium" />
+            <texture id="aquarium" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Sphere" />
             </children>
@@ -542,7 +568,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="darkRubber" />
+            <texture id="darkRubber" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Torus" />
             </children>
@@ -561,7 +587,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="floor" />
+            <texture id="floor" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -594,7 +620,7 @@
                 <material id="inherit" />
                
             </materials>
-            <texture id="wall" />
+            <texture id="wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -609,7 +635,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wall" />
+            <texture id="wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -627,7 +653,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="door" />
+            <texture id="door" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -640,7 +666,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="photo" />
+            <texture id="photo" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Triangle"  />
             </children>

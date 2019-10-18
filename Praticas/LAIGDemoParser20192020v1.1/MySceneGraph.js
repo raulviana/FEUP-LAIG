@@ -334,10 +334,8 @@ class MySceneGraph {
                 cam = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(upX, upY, upZ)); // Creates camera
             }
             this.cameraz[viewId] = cam;
-            console.log(cam);
 
         }
-        //console.log(this.viewIds);
         return null;
     }
 
