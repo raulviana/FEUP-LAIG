@@ -105,7 +105,7 @@ class XMLscene extends CGFscene {
                     this.lights[i].setSpotDirection(light[11][0], light[11][1], light[11][2]);
                 }
 
-                this.lights[i].setVisible(true);
+                this.lights[i].setVisible(false);
                 if (light[0])
                     this.lights[i].enable();
                 else
@@ -190,7 +190,7 @@ class XMLscene extends CGFscene {
 
         
         this.pushMatrix();
-        this.axis.display();
+       // this.axis.display();
 
 
         // Turn On/Off Light 1
