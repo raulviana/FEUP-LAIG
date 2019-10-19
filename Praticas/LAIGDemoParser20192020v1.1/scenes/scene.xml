@@ -608,7 +608,8 @@
             <children>
                 <componentref id="wall1" />
                 <componentref id="wall2" />
-                <componentref id="wall3" /> 
+                <componentref id="wall3" />
+                <componentref id="wall4" />
                 <componentref id="door" />
             </children>
         </component>
@@ -629,8 +630,8 @@
 
         <component id="wall2">
             <transformation>
+                <translate x="-14" y="7.5" z="2" />
                 <rotate axis="y" angle="90" />
-                <translate x="-2" y="7.5" z="-14" />
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
@@ -644,8 +645,8 @@
 
         <component id="wall3">
             <transformation>
+                <translate x="1" y="7.5" z="17" />
                 <rotate axis="y" angle="180" />
-                <translate x="2" y="7.5" z="-14" />
                 <scale x="30" y="15" z="1" />
             </transformation>
             <materials>
@@ -655,6 +656,21 @@
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
+        </component>
+
+        <component id="wall4">
+          <transformation>
+            <translate x="16" y="7.5" z="2" />
+            <rotate axis="y" angle="-90" />
+            <scale x="30" y="15" z="1" />
+          </transformation>
+          <materials>
+            <material id="inherit" />
+          </materials>
+          <texture id="wall" length_s="1" length_t="1" />
+          <children>
+            <primitiveref id="Rectangle"  />
+          </children>
         </component>
 
          <component id="door">
