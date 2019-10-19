@@ -58,21 +58,27 @@ class MyRectangle extends CGFobject {
 	 * @param {Array} coords - Array of texture coordinates
 	 */
 	updateTexCoords(coords) {
-		console.log("coords:");
-		console.log(coords);
 		var minS = 0;
     	var minT = 0;
     	var maxS = (this.x2 - this.x1) / coords[0];
-    	var maxT = (this.y1 - this.y2) / coords[1];
-
-    this.texCoords = [
-        minS, maxT,
-        maxS, maxT,
-        minS, minT,
-        maxS, minT
-    ];
-
-    this.updateTexCoordsGLBuffers();
+		var maxT = (this.y1 - this.y2) / coords[1];
+		
+		var nrDivs = 101;
+		
+		var q = (maxS - minS) / nrDivs;
+		var w = (maxT - minT) / nrDivs;
+		
+		
+	
+	
+		this.texCoords.length = 0;
+	
+	    for (var i = minS; i < nrDivs; i++) {
+			for (var j = minT; j < nrDivs; j++) {
+				this.texCoords.push(0.01 * j, 1 - 0.01 * i);
+			}
+		}
+    	this.updateTexCoordsGLBuffers();
 	}
 }
 

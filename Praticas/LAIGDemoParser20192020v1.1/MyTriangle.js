@@ -78,8 +78,27 @@ class MyTriangle extends CGFobject {
 	 * @param {Array} coords - Array of texture coordinates
 	 */
     updateTexCoords(coords) {
-        this.texCoords = [...coords];
+        var a = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2) + Math.pow((this.z1 - this.z3), 2));
+        var b = Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2) + Math.pow((this.z2 - this.z1), 2));
+        var c = Math.sqrt(Math.pow((this.x3 - this.x2), 2) + Math.pow((this.y3 - this.y2), 2) + Math.pow((this.z3 - this.z2), 2));
+
+        var cosBeta = ((a * a) - (b * b) + (c * c)) / (2 * a * c);
+        var sinBeta = Math.sqrt(1-Math.pow(cosBeta, 2));
+
+        var T1 = [0, 0];
+        var T2 = [(a/coords[1]), 0];
+        var T3 = [((c * cosBeta) / coords[1]), 
+                  ((c * sinBeta) / coords[0]) 
+                ];
+        
+        this.texCoords.length = 0;
+
+        this.texCoords = [
+			c-a*cosBeta, 1-a*sinBeta,
+			0, 1,
+			c, 1
+        ]
+
         this.updateTexCoordsGLBuffers();
     }
 }
-

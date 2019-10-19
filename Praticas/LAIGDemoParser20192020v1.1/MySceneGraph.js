@@ -1068,8 +1068,9 @@ class MySceneGraph {
                 length_s = 1;
                 length_t = 1;
             } 
-            this.nodes[componentID].textureID.push(...[textureId, length_s, length_t]);
-            
+            this.nodes[componentID].textureID.push(textureId);
+            this.nodes[componentID].textureID.push(length_s);
+            this.nodes[componentID].textureID.push(length_t);
            
             // Children
             var compCildren = grandChildren[childrenIndex].children;
@@ -1217,19 +1218,16 @@ class MySceneGraph {
         var descendants = currentNode.children;
     
         var compMaterials = MaterialsFather;
-        var IDTexture = idTextureFather;
+        var IDTexture = [];
+        IDTexture = idTextureFather;
 
         
         //check texture heritage 
         if(currentNode.textureID[0] != "inherit"){
-            IDTexture = currentNode.textureID[0];
-            var coord_s = currentNode.textureID[1];
-            var coord_t = currentNode.textureID[2];
+            IDTexture = currentNode.textureID;
         }
         else {
             IDTexture = idTextureFather;
-            var coord_s = 1;  //acho que não pode ser 1, tem de ser a do pai..
-            var coord_t = 1;
         }
 
 
@@ -1245,14 +1243,22 @@ class MySceneGraph {
 
 
         var currentTexture = [];
-        currentTexture = this.textures[IDTexture];
-        
+        currentTexture = this.textures[IDTexture[0]];
+        var coords = [];
+        coords.push(IDTexture[1]);
+        coords.push(IDTexture[2]);
+
+        //select material with M key
         var currentMaterial = this.materials[compMaterials[(this.scene.counterM % compMaterials.length)]];
 
         //Visit the node desendants, in case of primitive, display them, in case of intermediate nodes call descendants recursively
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];
             if(this.primitives[descendantID] != null){
+                if((coords[0] != null && coords[1] != null) &&
+                    (descendantID == 'Rectangle' || descendantID == 'Triangle')){
+                     this.primitives[descendantID].updateTexCoords(coords);    
+                }
                 currentMaterial.apply();
                 currentTexture[0].bind();
                 this.scene.pushMatrix();
