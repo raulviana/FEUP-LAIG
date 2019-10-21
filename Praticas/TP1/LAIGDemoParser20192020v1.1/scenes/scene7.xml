@@ -1,0 +1,395 @@
+<lxs>
+    <scene root="demoRoot" axis_length="5"/>
+
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="tableWoodTexture" file= "scenes/images/tablewood.jpg" />
+    </textures>
+
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="demoTransform">
+            <scale x="5" y="1" z="5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="demoRectangle">
+            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive>
+        <primitive id="demoSphere">
+            <sphere radius="1" slices="10" stacks="10" />
+        </primitive>
+
+
+        <primitive id="deskTopTop">
+            <rectangle x1="-0.25" y1="-0.75" x2="0.25" y2="0.75" />
+        </primitive>
+        <primitive id="deskTopFront">
+            <rectangle x1="-0.025" y1="-0.75" x2="0.025" y2="0.75" />
+        </primitive>
+        <primitive id="deskTopSide">
+            <rectangle x1="-0.025" y1="-0.3" x2="0.025" y2="0.3" />
+        </primitive>
+        <primitive id="deskSide">
+            <rectangle x1="-0.3" y1="-0.3" x2="0.3" y2="0.3" />
+        </primitive>
+        <primitive id="deskSmallDrawer">
+            <rectangle x1="-0.1" y1="-0.3" x2="0.1" y2="0.3" />
+        </primitive>
+        <primitive id="deskBigDrawer">
+            <rectangle x1="-0.2" y1="-0.3" x2="0.2" y2="0.3" />
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id="demoRoot">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <componentref id="desk" />
+                <componentref id="computer" />
+                <componentref id="monitor" />
+                <componentref id="keyboard" />
+                <componentref id="mouse" />
+            </children>
+        </component>
+         <!-- desk -->
+         <component id="desk">
+            <transformation>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <componentref id="deskRightOut" />
+                <componentref id="deskRightInside" />
+                <componentref id="deskLeftOutside" />
+                <componentref id="deskLeftInside" />
+                <componentref id="deskFrontLeft" />
+                <componentref id="deskBottomDrawer" />
+                <componentref id="deskTopDrawer" />
+                <componentref id="deskTop" />
+            </children>
+
+        </component>
+         <component id="deskRightOut">
+            <transformation>
+                <scale x="2" y="1" z="2" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskRightInside">
+            <transformation>
+                <scale x="2" y="1" z="2" />
+                <translate x="1.5" y="1" z="0"/>
+                <rotate axis="y" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskLeftOutside">
+            <transformation>
+                <scale x="2" y="1" z="2" />
+                <translate x="0" y="1" z="0"/>
+                <rotate axis="y" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskLeftInside">
+            <transformation>
+                <scale x="2" y="1" z="2" />
+                <translate x="0.1" y="1" z="0"/>
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskFrontLeft">
+            <transformation>
+                <scale x="0.2" y="0.9" z="1" />
+                <translate x="0.5" y="1" z="1"/>
+                <rotate axis="y" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+         
+         <component id="deskBottomDrawer">
+            <transformation>
+                <scale x="1" y="0.5" z="1" />
+                <translate x="3.5" y="1" z="1"/>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskTopDrawer">
+            <transformation>
+                <scale x="1" y="1" z="1" />
+                <translate x="3.5" y="1" z="1"/>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="deskTop">
+            <transformation>
+                <scale x="2" y="1" z="2" />
+                <translate x="1" y="2" z="0"/>
+                <rotate axis="y" angle="-90" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <!-- computer -->
+
+        <component id="computer">
+            <transformation>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <componentref id="computerFront" />
+                <componentref id="computerRight" />
+                <componentref id="computerLeft" />
+                <componentref id="computerTop" />
+            </children>
+
+        </component>
+
+        <component id="computerFront">
+            <transformation>
+                <scale x="0.5" y="0.5" z="1" />
+                <translate x="1.5" y="5" z="0.8"/>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="computerRight">
+            <transformation>
+                <scale x="1" y="0.5" z="1" />
+                <translate x="1" y="5" z="0.3"/>
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="tableWoodTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="computerLeft">
+            <transformation>
+                <scale x="1" y="0.5" z="1" />
+                <translate x="0.5" y="5" z="0.3"/>
+                <rotate axis="y" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <component id="computerTop">
+            <transformation>
+                <scale x="0.5" y="1" z="0.5" />
+                <translate x="1.5" y="3" z="0.6"/>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+
+        <!-- monitor -->
+
+        <component id="monitor">
+            <transformation>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <componentref id="monitorFront" />
+            </children>
+
+        </component>
+
+        <component id="monitorFront">
+            <transformation>
+                <scale x="1.2" y="0.4" z="1" />
+                <translate x="1.5" y="7" z="0.4"/>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <primitiveref id="demoRectangle" />
+             </children>
+
+        </component>
+        <!-- keyboard -->
+        <component id="keyboard">
+            <transformation>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <componentref id="monitorFront" />
+            </children>
+
+        </component>
+        <!-- mouse -->
+        <component id="mouse">
+            <transformation>
+            </transformation>
+            
+            <materials>
+                <material id="demoMaterial" />
+            </materials> 
+            <texture id="demoTexture">
+            <children>
+                <componentref id="monitorFront" />
+            </children>
+
+        </component>
+
+        
+    </components>
+</lxs>
