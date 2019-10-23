@@ -61,12 +61,12 @@ class MyRectangle extends CGFobject {
 		var minS = 0;
     	var minT = 0;
     	var maxS = (this.x2 - this.x1) / coords[0];
-		var maxT = (this.y1 - this.y2) / coords[1];
+		var maxT = (this.y2 - this.y1) / coords[1];
 		
 		var nrDivs = 101;
 		
-		var q = (maxS - minS) / nrDivs;
-		var w = (maxT - minT) / nrDivs;
+		var q = maxS / nrDivs;
+		var w = maxT/ nrDivs;
 		
 		
 	
@@ -75,7 +75,7 @@ class MyRectangle extends CGFobject {
 	
 	    for (var i = minS; i < nrDivs; i++) {
 			for (var j = minT; j < nrDivs; j++) {
-				this.texCoords.push(0.01 * j, 1 - 0.01 * i);
+				this.texCoords.push( i * q,  j * w);
 			}
 		}
     	this.updateTexCoordsGLBuffers();

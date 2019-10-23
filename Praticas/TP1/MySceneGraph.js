@@ -43,6 +43,8 @@ class MySceneGraph {
         this.primitives = {};
         this.materials = {};
         this.textures = {};
+        this.isBind = false; //information about any texture is bind 
+        this.textureBinded;
 
         /*
          * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -964,7 +966,7 @@ class MySceneGraph {
             
 
             else {
-                console.warn("To do: Parse other primitives.");
+                continue;
             }
         }
 
@@ -1260,11 +1262,25 @@ class MySceneGraph {
                      this.primitives[descendantID].updateTexCoords(coords);    
                 }
                 currentMaterial.apply();
-                currentTexture[0].bind();
+
+                //if texture id is "none" unbinds texture, if not binds, unless it's "inherit" and inherits from "none" id texture
+                    if(IDTexture[0] == 'none' && this.isBind == true) { 
+                        this.textureBinded.unbind();
+                        this.isBind = false;
+                    } 
+                    else{
+                        if(IDTexture[0] != 'inherit' && IDTexture[0] != 'none'){
+                            currentTexture[0].bind();
+                            this.textureBinded = currentTexture[0];
+                            this.isBind = true; 
+                        }
+                    }
+
                 this.scene.pushMatrix();
-                this.primitives[descendants[i]].display();
+                this.primitives[descendants[i]].display(); //desenha a primitiva
                 this.scene.popMatrix();
-            }
+                }
+
             else{
                 this.scene.pushMatrix();
                 this.displayRecursive(descendants[i], compMaterials, IDTexture);
