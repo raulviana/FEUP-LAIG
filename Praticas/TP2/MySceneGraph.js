@@ -98,7 +98,7 @@ class MySceneGraph {
 
         // <scene>
         var index;
-        if ((index = nodeNames.indexOf("scene")) == -1)
+        if ((index = nodeNames.indexOf("scene")) == ERROR_PARSING)
             return "tag <scene> missing";
         else {
             if (index != SCENE_INDEX)
@@ -110,7 +110,7 @@ class MySceneGraph {
         }
 
         // <views>
-        if ((index = nodeNames.indexOf("views")) == -1)
+        if ((index = nodeNames.indexOf("views")) == ERROR_PARSING)
             return "tag <views> missing";
         else {
             if (index != VIEWS_INDEX)
@@ -122,7 +122,7 @@ class MySceneGraph {
         }
 
         // <globals>
-        if ((index = nodeNames.indexOf("globals")) == -1)
+        if ((index = nodeNames.indexOf("globals")) == ERROR_PARSING)
             return "tag <globals> missing";
         else {
             if (index != GLOBALS_INDEX)
@@ -134,7 +134,7 @@ class MySceneGraph {
         }
 
         // <lights>
-        if ((index = nodeNames.indexOf("lights")) == -1)
+        if ((index = nodeNames.indexOf("lights")) == ERROR_PARSING)
             return "tag <lights> missing";
         else {
             if (index != LIGHTS_INDEX)
@@ -145,7 +145,7 @@ class MySceneGraph {
                 return error;
         }
         // <textures>
-        if ((index = nodeNames.indexOf("textures")) == -1)
+        if ((index = nodeNames.indexOf("textures")) == ERROR_PARSING)
             return "tag <textures> missing";
         else {
             if (index != TEXTURES_INDEX)
@@ -157,7 +157,7 @@ class MySceneGraph {
         }
 
         // <materials>
-        if ((index = nodeNames.indexOf("materials")) == -1)
+        if ((index = nodeNames.indexOf("materials")) == ERROR_PARSING)
             return "tag <materials> missing";
         else {
             if (index != MATERIALS_INDEX)
@@ -169,7 +169,7 @@ class MySceneGraph {
         }
 
         // <transformations>
-        if ((index = nodeNames.indexOf("transformations")) == -1)
+        if ((index = nodeNames.indexOf("transformations")) == ERROR_PARSING)
             return "tag <transformations> missing";
         else {
             if (index != TRANSFORMATIONS_INDEX)
@@ -181,7 +181,7 @@ class MySceneGraph {
         }
 
         // <primitives>
-        if ((index = nodeNames.indexOf("primitives")) == -1)
+        if ((index = nodeNames.indexOf("primitives")) == ERROR_PARSING)
             return "tag <primitives> missing";
         else {
             if (index != PRIMITIVES_INDEX)
@@ -193,7 +193,7 @@ class MySceneGraph {
         }
 
         // <components>
-        if ((index = nodeNames.indexOf("components")) == -1)
+        if ((index = nodeNames.indexOf("components")) == ERROR_PARSING)
             return "tag <components> missing";
         else {
             if (index != COMPONENTS_INDEX)

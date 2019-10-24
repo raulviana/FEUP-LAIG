@@ -149,11 +149,6 @@ class XMLscene extends CGFscene {
             text+=" M ";
             keysPressed=true;
         }
-        if (this.gui.isKeyPressed("KeyV")) {
-            this.counterV++;
-            text += " V ";
-            keysPressed = true;
-        }
         if (keysPressed) console.log(text);
     }
     update(t){
