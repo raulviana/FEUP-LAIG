@@ -676,8 +676,9 @@
          <component id="door">
             <transformation>
                 <rotate axis="y" angle="90" />
-                <translate x="-2" y="4.5" z="-13.9" />
-                <scale x="4" y="9" z="1" />
+                <rotate axis="z" angle="-90" />
+                <translate x="-4.5" y="0" z="-13.9" />
+                <scale x="9" y="4" z="1" />
             </transformation>
             <materials>
                 <material id="woodMaterial" />
