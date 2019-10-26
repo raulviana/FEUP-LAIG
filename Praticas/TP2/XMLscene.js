@@ -33,7 +33,7 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(100);
+        this.setUpdatePeriod(60);
 
         this.counterM = 0;
         this.counterV = 0;
@@ -152,7 +152,16 @@ class XMLscene extends CGFscene {
         if (keysPressed) console.log(text);
     }
     update(t){
-		this.checkKeys(t);
+        this.checkKeys(t);
+        
+
+        //time management
+        this.lastTime = this.lastTime || 0.0;
+        this.deltaTime = t - this.lastTime || 0.0;
+        this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
+        this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
+        this.lastTime = t;
+  
     }
       
 

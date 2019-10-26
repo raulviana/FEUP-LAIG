@@ -4,7 +4,7 @@
 */
 
 class KeyFrameAnimation{
-    constructor(){
+    constructor(scene){
 
     }
 
