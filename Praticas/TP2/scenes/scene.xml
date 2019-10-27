@@ -126,18 +126,21 @@
         </transformation>
     </transformations>
 
-    <animation id="x-line" >
-        <keyframe instant="1.0" >
-            <translate x="0.0" y="0.0" z="0.0" />
-            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
-            <scale x="1.0" y="1.0" z="1.0" />
-        <keyframe />
-        <keyframe instant="3.0" >
-            <translate x="4.0" y="0.0" z="0.0" />
-            <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
-            <scale x="1.0" y="1.0" z="1.0" />
-        <keyframe />
-    <animation />
+    <animations>
+        <animation id="x-line" >
+            <keyframe instant="1.0" >
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            
+            <keyframe instant="3.0" >
+                <translate x="4.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+    </animations>
 
     <primitives>
         <primitive id="Rectangle">
