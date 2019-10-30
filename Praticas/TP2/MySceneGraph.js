@@ -793,7 +793,7 @@ class MySceneGraph {
      */
     parseAnimations(animationsNode) {
         var children = animationsNode.children;
-        var keyFrames = [];
+        var keyFrames;
 
         //Any number of animations
         for(var i = 0; i < children.length; i++){
@@ -808,7 +808,33 @@ class MySceneGraph {
                 return ("ID must be unique for each animation");
                        
             keyFrames = children[i].children;
+
             //any number of keyframes
+            for(var j = 0; j < keyFrames.length; j++){
+                var instant = this.reader.getFloat(keyFrames[j], 'instant');
+                var keyTransformations = keyFrames[j].children;
+
+                var trans = [];
+                trans.push(this.reader.getFloat(keyTransformations[0], 'x'));
+                trans.push(this.reader.getFloat(keyTransformations[0], 'y'));
+                trans.push(this.reader.getFloat(keyTransformations[0], 'z'));
+
+                var rot = [];
+                rot.push(this.reader.getFloat(keyTransformations[1], 'angle_x'));
+                rot.push(this.reader.getFloat(keyTransformations[1], 'angle_y'));
+                rot.push(this.reader.getFloat(keyTransformations[1], 'angle_z'));
+
+                var scale = [];
+                scale.push(this.reader.getFloat(keyTransformations[2], 'x'));
+                scale.push(this.reader.getFloat(keyTransformations[2], 'y'));
+                scale.push(this.reader.getFloat(keyTransformations[2], 'z'));
+
+                var frame = [];
+                frame.push(trans);
+                frame.push(rot);
+                frame.push(scale);
+                animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
+            }
          
         }
 
