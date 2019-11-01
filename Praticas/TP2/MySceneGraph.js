@@ -789,7 +789,7 @@ class MySceneGraph {
 
      /**
      * Parses the <animations> block.
-     * @param {animations block element} animaitonsNode
+     * @param {animations block element} animationsNode
      */
     parseAnimations(animationsNode) {
         var children = animationsNode.children;
@@ -806,38 +806,51 @@ class MySceneGraph {
             if(animationID == null) return "no ID defined for animation";
             if(this.animations[animationID] != null) 
                 return ("ID must be unique for each animation");
-                       
+            
+            this.animations[animationID] = new Animation(this.scene);
+
             keyFrames = children[i].children;
 
             //any number of keyframes
             for(var j = 0; j < keyFrames.length; j++){
+                this.keyFrame = new KeyFrameAnimation(this.scene);
+
                 var instant = this.reader.getFloat(keyFrames[j], 'instant');
+                this.keyFrame.instant = instant;
+                
                 var keyTransformations = keyFrames[j].children;
 
                 var trans = [];
                 trans.push(this.reader.getFloat(keyTransformations[0], 'x'));
                 trans.push(this.reader.getFloat(keyTransformations[0], 'y'));
                 trans.push(this.reader.getFloat(keyTransformations[0], 'z'));
+                this.keyFrame.trans = trans;
 
                 var rot = [];
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_x'));
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_y'));
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_z'));
+                this.keyFrame.rot = rot;
 
                 var scale = [];
                 scale.push(this.reader.getFloat(keyTransformations[2], 'x'));
                 scale.push(this.reader.getFloat(keyTransformations[2], 'y'));
                 scale.push(this.reader.getFloat(keyTransformations[2], 'z'));
+                this.keyFrame.scale = scale;
 
-                var frame = [];
+                console.log(this.keyFrame);
+
+                /*var frame = [];
                 frame.push(trans);
                 frame.push(rot);
-                frame.push(scale);
-                animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
+                frame.push(scale);*/
+                
+                this.animations[animationID].keyFrames.push(this.keyFrame);
             }
          
         }
 
+        console.log(this.animations);
     }
 
 
@@ -1110,6 +1123,8 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
+            // T2
+            var animationIndex = nodeNames.indexOf("animationref");
 
             // Transformations
             var compTransformations = grandChildren[transformationIndex].children;
@@ -1135,6 +1150,11 @@ class MySceneGraph {
 
                 }
             }
+
+            /* Animations - T2 */
+            var animationId = this.reader.getString(grandChildren[animationIndex], 'id');
+            this.nodes[componentID].animationID.push(animationId);
+            
 
             // Materials
             var compMaterials = grandChildren[materialsIndex].children;

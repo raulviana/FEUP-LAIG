@@ -4,11 +4,13 @@
 */
 
 
-class Animation {
+class Animation extends CGFobject {
     constructor(scene){
-        if(this.constructor == Animation){
+        super(scene);
+      /*  if(this.constructor == Animation){
             throw new TypeError('Abstract class "Animation" cannot be instantiated');
-        }
+        }*/
+        this.keyFrames = [];
     }
 
 

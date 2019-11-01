@@ -57,7 +57,7 @@ class XMLscene extends CGFscene {
         var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
 
         var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
-
+        console.log(this.graph.cameraz);
         this.camera = cam; // Sets default view
         
         this.interface.setActiveCamera(this.camera);
@@ -166,11 +166,10 @@ class XMLscene extends CGFscene {
       
 
     updateCamera(i){
-        if(this.scene){
-            var cam = this.graph.cameraz[this.graph.viewIds[i]];
-            this.camera = cam;
-            this.interface.setActiveCamera(this.camera);
-        }
+        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+        this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
+        
     }
 
     /**
