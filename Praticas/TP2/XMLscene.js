@@ -33,13 +33,13 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(60);
+        this.setUpdatePeriod(20);
 
         this.counterM = 0;
         this.counterV = 0;
 
-        this.light1 = false;
-        this.light2 = false;
+        this.light1 = true;
+        this.light2 = true;
         this.spotRed = false;
         this.spotGreen = false;
         this.spotBlue = false;
@@ -57,7 +57,6 @@ class XMLscene extends CGFscene {
         var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
 
         var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
-        console.log(this.graph.cameraz);
         this.camera = cam; // Sets default view
         
         this.interface.setActiveCamera(this.camera);
@@ -160,8 +159,14 @@ class XMLscene extends CGFscene {
         this.deltaTime = t - this.lastTime || 0.0;
         this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
+        
+
+        this.ani = this.graph.animations;
+        for (var key in this.ani) {
+            
+            this.ani[key].update(this.deltaTime);
+        }
         this.lastTime = t;
-  
     }
       
 
