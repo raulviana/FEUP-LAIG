@@ -803,7 +803,6 @@ class MySceneGraph {
 
             //any number of keyframes
             for(var j = 0; j < keyFrames.length; j++){
-<<<<<<< Updated upstream
                 var instant = this.reader.getFloat(keyFrames[j], 'instant');
                 var keyTransformations = keyFrames[j].children;
 
@@ -826,23 +825,7 @@ class MySceneGraph {
                 frame.push(trans);
                 frame.push(rot);
                 frame.push(scale);
-                animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
-=======
-                var eachKeyframe = [];
-                eachKeyframe['instant'] = this.reader.getFloat(keyFrames[j], 'instant');
-                var transformations = keyFrames[j].children;
-                
-                var translate = [];
-                translate.push(this.reader.getFloat(transformations[0], 'x'));
-                translate.push(this.reader.getFloat(transformations[0], 'y'));
-                translate.push(this.reader.getFloat(transformations[0], 'z'));
-                var rotate = [];
-                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_x'));
-                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_y'));
-                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_z'));
-                var scale;
-
->>>>>>> Stashed changes
+                this.animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
             }
          
         }
