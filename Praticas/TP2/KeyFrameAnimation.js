@@ -4,8 +4,10 @@
 */
 
 class KeyFrameAnimation{
-    constructor(scene, animationID, instant, frame){
-
+    constructor(scene, animationID, keyframes){
+       // super(scene);
+        this.animationID = animationID;
+        this.keyframes = keyframes;
     }
 
     update(){

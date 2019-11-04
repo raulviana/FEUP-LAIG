@@ -542,8 +542,6 @@ class MySceneGraph {
             }
 
             var textureID = this.reader.getString(currentTexture[i], 'id');
-        //    var length_s = this.reader.getString(currentTexture[i], 'length_s');
-        //    var length_t = this.reader.getString(currentTexture[i], 'length_t');
 
             if (textureID == null)
                 return "no ID defined for texture";
@@ -563,17 +561,11 @@ class MySceneGraph {
             }
                        
             
-         //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
-         //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
-            var coords = [];
-         //   coords = [length_s, length_t];
 
             var newTexture = new CGFtexture(this.scene, "/" + filePath);
-        //    if(length_s == null || length_t == null){
+      
                 this.textures[textureID] = [newTexture];
                 singleTextureDefined = true;    
-         //   }
-        //    else this.textures[textureID] = [newTexture, coords];
         }
 
         if (!singleTextureDefined){
@@ -811,6 +803,7 @@ class MySceneGraph {
 
             //any number of keyframes
             for(var j = 0; j < keyFrames.length; j++){
+<<<<<<< Updated upstream
                 var instant = this.reader.getFloat(keyFrames[j], 'instant');
                 var keyTransformations = keyFrames[j].children;
 
@@ -834,6 +827,22 @@ class MySceneGraph {
                 frame.push(rot);
                 frame.push(scale);
                 animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
+=======
+                var eachKeyframe = [];
+                eachKeyframe['instant'] = this.reader.getFloat(keyFrames[j], 'instant');
+                var transformations = keyFrames[j].children;
+                
+                var translate = [];
+                translate.push(this.reader.getFloat(transformations[0], 'x'));
+                translate.push(this.reader.getFloat(transformations[0], 'y'));
+                translate.push(this.reader.getFloat(transformations[0], 'z'));
+                var rotate = [];
+                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_x'));
+                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_y'));
+                rotate.push(this.reader.getFloat(this.transformations[1], 'angle_z'));
+                var scale;
+
+>>>>>>> Stashed changes
             }
          
         }
