@@ -1339,7 +1339,6 @@ class MySceneGraph {
         else compMaterials = MaterialsFather;
         
         var nodeAnimation = this.animations[currentNode.animationID[0]];
-        
         //Multiplying the node's transformations matrix to the scene one 
         this.scene.multMatrix(currentNode.transformMatrix);
         if(nodeAnimation != undefined){

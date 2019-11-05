@@ -17,27 +17,11 @@ class KeyFrameAnimation extends Animation{
 
     update(t){
         this.startTime += t;
-        /*var breakTime = this.keyFrames[0][0];
         
-
-        if(this.startTime < breakTime) {
-            this.currentTrans.y += t;
-        }
-
-
-        if(this.startTime <= this.keyFrames[this.keyFrames.length - 1][0] && this.startTime > breakTime) {
-            this.currentRot.x += t;
-            this.currentRot.y += t;
-            this.currentRot.z += t;
-        }*/
-
-
         if(this.stage < this.keyFrames.length) {
             var breakTime = this.keyFrames[this.stage][0];
-            var timeDiff;
-            if(this.stage > 0) timeDiff = breakTime - this.keyFrames[this.stage - 1][0];
-            else timeDiff = breakTime;
-        
+            /*var timeDiff;
+
             var transX = this.keyFrames[this.stage][1][0];
             var transY = this.keyFrames[this.stage][1][1];
             var transZ = this.keyFrames[this.stage][1][2];
@@ -48,7 +32,47 @@ class KeyFrameAnimation extends Animation{
 
             var scaleX = this.keyFrames[this.stage][3][0];
             var scaleY = this.keyFrames[this.stage][3][1];
-            var scaleZ = this.keyFrames[this.stage][3][2];
+            var scaleZ = this.keyFrames[this.stage][3][2];*/
+
+            let timeDiff;
+            let transX;
+            let transY;
+            let transZ;
+
+            let rotX;
+            let rotY;
+            let rotZ;
+
+            //let scaleX;
+            //let scaleY;
+            //let scaleZ;
+
+            if(this.stage > 0) {
+                timeDiff = breakTime - this.keyFrames[this.stage - 1][0];
+                transX = this.keyFrames[this.stage][1][0] - this.keyFrames[this.stage - 1][1][0];
+                transY = this.keyFrames[this.stage][1][1] - this.keyFrames[this.stage - 1][1][1];
+                transZ = this.keyFrames[this.stage][1][2] - this.keyFrames[this.stage - 1][1][2];
+                rotX = this.keyFrames[this.stage][2][0] - this.keyFrames[this.stage - 1][2][0];
+                rotY = this.keyFrames[this.stage][2][1] - this.keyFrames[this.stage - 1][2][1];
+                rotZ = this.keyFrames[this.stage][2][2] - this.keyFrames[this.stage - 1][2][2];
+                //scaleX = this.keyFrames[this.stage][3][0] - this.keyFrames[this.stage - 1][3][0];
+                //scaleY = this.keyFrames[this.stage][3][1] - this.keyFrames[this.stage - 1][3][1];
+                //scaleZ = this.keyFrames[this.stage][3][2] - this.keyFrames[this.stage - 1][3][2];
+            }
+            else {
+                timeDiff = breakTime;
+                transX = this.keyFrames[this.stage][1][0];
+                transY = this.keyFrames[this.stage][1][1];
+                transZ = this.keyFrames[this.stage][1][2];
+                rotX = this.keyFrames[this.stage][2][0];
+                rotY = this.keyFrames[this.stage][2][1];
+                rotZ = this.keyFrames[this.stage][2][2];
+                //scaleX = this.keyFrames[this.stage][3][0];
+                //scaleY = this.keyFrames[this.stage][3][1];
+                //scaleZ = this.keyFrames[this.stage][3][2];
+            }
+        
+            
 
             if(this.startTime <= breakTime) {
                 this.currentTrans.x += (transX / timeDiff) * t;
@@ -59,11 +83,10 @@ class KeyFrameAnimation extends Animation{
                 this.currentRot.y += (rotY / timeDiff) * t;
                 this.currentRot.z += (rotZ / timeDiff) * t;
 
-                this.currentScale.x *= scaleX;
-                this.currentScale.y *= scaleY;
-                this.currentScale.z *= scaleZ;
+               // this.currentScale.x *= scaleX;
+               // this.currentScale.y *= scaleY;
+               // this.currentScale.z *= scaleZ;
             }
-
 
             if(this.startTime > breakTime) this.stage++;
 
@@ -73,9 +96,9 @@ class KeyFrameAnimation extends Animation{
 
     apply(){
         this.scene.translate(this.currentTrans.x, this.currentTrans.y, this.currentTrans.z);
-        this.scene.rotate(this.currentRot.z, 0, 0, 1);
-        this.scene.rotate(this.currentRot.y, 0, 1, 0);
-        this.scene.rotate(this.currentRot.x, 1, 0, 0);
+        this.scene.rotate(this.currentRot.z * Math.PI / 180, 0, 0, 1);
+        this.scene.rotate(this.currentRot.y * Math.PI / 180, 0, 1, 0);
+        this.scene.rotate(this.currentRot.x * Math.PI / 180, 1, 0, 0);
         this.scene.scale(this.currentScale.x, this.currentScale.y, this.currentScale.z);
     }
 }

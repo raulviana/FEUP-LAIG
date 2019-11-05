@@ -127,19 +127,48 @@
     </transformations>
 
     <animations>
-        <animation id="x-line" >
-            <keyframe instant="1.0" >
-                <translate x="0.0" y="0.0" z="0.0" />
+        <animation id="y-line" >
+            <keyframe instant="5.0" >
+                <translate x="0.0" y="5.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
             
-            <keyframe instant="3.0" >
-                <translate x="4.0" y="0.0" z="0.0" />
+            <keyframe instant="10.0" >
+                <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
+
+        <animation id="chair_move1" >
+            <keyframe instant="2.0" >
+                <translate x="0.0" y="-4.0" z="2.0" />
+                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            
+            <keyframe instant="5.0" >
+                <translate x="7.0" y="-4.0" z="2.0" />
+                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        
+        <animation id="chair_move2" >
+            <keyframe instant="2.0" >
+                <translate x="0.0" y="-4.0" z="2.0" />
+                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            
+            <keyframe instant="5.0" >
+                <translate x="7.0" y="-4.0" z="2.0" />
+                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+
     </animations>
 
     <primitives>
@@ -302,8 +331,10 @@
                 <!--Chair1-->
         <component id="chair1">
             <transformation>
-                <translate x="-0.8" y="0" z="1" />
+                <translate x="-8" y="2" z="5" />
+                <rotate axis="x" angle="90" />
             </transformation>
+            <animationref id="chair_move1" />
             <materials>
                 <material id="metalMaterial" />
             </materials>
@@ -431,9 +462,11 @@
                    <!--Chair2-->
         <component id="chair2">
             <transformation>
+                <translate x="7" y="2.7" z="-3" />
+                <rotate axis="z" angle="135" />
                 <rotate axis="y" angle="180" />
-                <translate x="-6.6" y="0" z="-2.8" />
             </transformation>
+            <animationref id="chair_move2" />
             <materials>
                 <material id="metalMaterial" />
             </materials>
@@ -565,6 +598,7 @@
                 <sale x="0.1" y="0.1" z="0.1" />
                 <translate x="3" y="3.5" z="2" />
             </transformation>
+            <animationref id="y-line" />
             <materials>
                 <material id="glassMaterial" />
                 <material id="whiterubberMaterial" />
@@ -715,6 +749,7 @@
                 <translate x="1" y="8" z="-12.9" />
                 <rotate axis="z" angle="-45" />
             </transformation>
+            <animationref id="rotate" />
             <materials>
                 <material id="glassMaterial" />
                 <material id="demoMaterial" />
