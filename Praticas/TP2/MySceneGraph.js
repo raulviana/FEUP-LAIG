@@ -542,6 +542,8 @@ class MySceneGraph {
             }
 
             var textureID = this.reader.getString(currentTexture[i], 'id');
+        //    var length_s = this.reader.getString(currentTexture[i], 'length_s');
+        //    var length_t = this.reader.getString(currentTexture[i], 'length_t');
 
             if (textureID == null)
                 return "no ID defined for texture";
@@ -561,11 +563,17 @@ class MySceneGraph {
             }
                        
             
+         //   var length_s = this.reader.getFloat(currentTexture[i], 'length_s');
+         //   var length_t = this.reader.getFloat(currentTexture[i], 'length_t');
+            var coords = [];
+         //   coords = [length_s, length_t];
 
             var newTexture = new CGFtexture(this.scene, "/" + filePath);
-      
+        //    if(length_s == null || length_t == null){
                 this.textures[textureID] = [newTexture];
                 singleTextureDefined = true;    
+         //   }
+        //    else this.textures[textureID] = [newTexture, coords];
         }
 
         if (!singleTextureDefined){
@@ -781,7 +789,7 @@ class MySceneGraph {
 
      /**
      * Parses the <animations> block.
-     * @param {animations block element} animaitonsNode
+     * @param {animations block element} animationsNode
      */
     parseAnimations(animationsNode) {
         var children = animationsNode.children;
@@ -798,38 +806,46 @@ class MySceneGraph {
             if(animationID == null) return "no ID defined for animation";
             if(this.animations[animationID] != null) 
                 return ("ID must be unique for each animation");
-                       
+            
+            this.animations[animationID] = new KeyFrameAnimation(this.scene);
+
             keyFrames = children[i].children;
 
             //any number of keyframes
             for(var j = 0; j < keyFrames.length; j++){
+
+                var AniFrame = [];
+
                 var instant = this.reader.getFloat(keyFrames[j], 'instant');
+                AniFrame.push(instant);
+                
                 var keyTransformations = keyFrames[j].children;
 
                 var trans = [];
                 trans.push(this.reader.getFloat(keyTransformations[0], 'x'));
                 trans.push(this.reader.getFloat(keyTransformations[0], 'y'));
                 trans.push(this.reader.getFloat(keyTransformations[0], 'z'));
+                AniFrame.push(trans);
 
                 var rot = [];
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_x'));
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_y'));
                 rot.push(this.reader.getFloat(keyTransformations[1], 'angle_z'));
+                AniFrame.push(rot);
 
                 var scale = [];
                 scale.push(this.reader.getFloat(keyTransformations[2], 'x'));
                 scale.push(this.reader.getFloat(keyTransformations[2], 'y'));
                 scale.push(this.reader.getFloat(keyTransformations[2], 'z'));
-
-                var frame = [];
-                frame.push(trans);
-                frame.push(rot);
-                frame.push(scale);
-                this.animations[animationID] = new KeyFrameAnimation(this.scene, animationID, instant, frame);
+                AniFrame.push(scale);
+                
+                this.animations[animationID].keyFrames.push(AniFrame);
+                
             }
          
         }
 
+        console.log(this.animations);
     }
 
 
@@ -1102,6 +1118,8 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
+            // T2
+            var animationIndex = nodeNames.indexOf("animationref");
 
             // Transformations
             var compTransformations = grandChildren[transformationIndex].children;
@@ -1127,6 +1145,11 @@ class MySceneGraph {
 
                 }
             }
+
+            /* Animations - T2 */
+            var animationId = this.reader.getString(grandChildren[animationIndex], 'id');
+            this.nodes[componentID].animationID.push(animationId);
+            
 
             // Materials
             var compMaterials = grandChildren[materialsIndex].children;
@@ -1315,10 +1338,12 @@ class MySceneGraph {
         }
         else compMaterials = MaterialsFather;
         
-       
+        var nodeAnimation = this.animations[currentNode.animationID[0]];
         //Multiplying the node's transformations matrix to the scene one 
         this.scene.multMatrix(currentNode.transformMatrix);
-
+        if(nodeAnimation != undefined){
+            nodeAnimation.apply();
+        }
 
         var currentTexture = [];
         currentTexture = this.textures[IDTexture[0]];

@@ -33,24 +33,19 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(60);
+        this.setUpdatePeriod(20);
 
         this.counterM = 0;
         this.counterV = 0;
 
-        this.light1 = false;
-        this.light2 = false;
+        this.light1 = true;
+        this.light2 = true;
         this.spotRed = false;
         this.spotGreen = false;
         this.spotBlue = false;
        
         this.selectedCamera = 0;
         this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
-
-        //P2
-        this.securityTexture = new CGFtextureRTT(this, 0.5, 0.5);
-        this.securityObject = new MySecurityCamera(this);
-        this.seCam = new CGFcamera(0.5, 0.1, 500, vec3.fromValues(15, 5.5, 2.5), vec3.fromValues(3, 3.5, 2));
        
     }
 
@@ -62,7 +57,6 @@ class XMLscene extends CGFscene {
         var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
 
         var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
-
         this.camera = cam; // Sets default view
         
         this.interface.setActiveCamera(this.camera);
@@ -165,23 +159,28 @@ class XMLscene extends CGFscene {
         this.deltaTime = t - this.lastTime || 0.0;
         this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
+        
+
+        this.ani = this.graph.animations;
+        for (var key in this.ani) {
+            
+            this.ani[key].update(this.deltaTime);
+        }
         this.lastTime = t;
-  
     }
       
 
     updateCamera(i){
-        if(this.scene){
-            var cam = this.graph.cameraz[this.graph.viewIds[i]];
-            this.camera = cam;
-            this.interface.setActiveCamera(this.camera);
-        }
+        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+        this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
+        
     }
 
     /**
-     * Renders the scene.
+     * Displays the scene.
      */
-    render(camera) {
+    display() {
 
         // ---- BEGIN Background, camera and axis setup
 
@@ -244,7 +243,14 @@ class XMLscene extends CGFscene {
 
 
         // Change view
-        this.camera = camera;
+        switch (this.selectedCamera) {
+            case 1:
+                this.updateCamera(this.selectedCamera);
+                break;
+            default:
+                this.updateCamera(this.selectedCamera);
+                break;
+        }
 
         
         if (this.sceneInited) {
@@ -257,23 +263,5 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
-    }
-
-    display(){
-
-
-
-        this.securityTexture.attachToFrameBuffer();
-        this.render(this.seCam);
-        this.securityTexture.detachFromFrameBuffer();
-       
-        this.render();
-
-
-        this.gl.disable(this.gl.DEPTH_TEST);
-        this.securityObject.display();
-        this.gl.enable(this.gl.DEPTH_TEST);
-
-
     }
 }
