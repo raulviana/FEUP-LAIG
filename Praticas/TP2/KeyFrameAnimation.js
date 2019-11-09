@@ -20,19 +20,7 @@ class KeyFrameAnimation extends Animation{
         
         if(this.stage < this.keyFrames.length) {
             var breakTime = this.keyFrames[this.stage][0];
-            /*var timeDiff;
 
-            var transX = this.keyFrames[this.stage][1][0];
-            var transY = this.keyFrames[this.stage][1][1];
-            var transZ = this.keyFrames[this.stage][1][2];
-
-            var rotX = this.keyFrames[this.stage][2][0];
-            var rotY = this.keyFrames[this.stage][2][1];
-            var rotZ = this.keyFrames[this.stage][2][2];
-
-            var scaleX = this.keyFrames[this.stage][3][0];
-            var scaleY = this.keyFrames[this.stage][3][1];
-            var scaleZ = this.keyFrames[this.stage][3][2];*/
 
             let timeDiff;
             let transX;
