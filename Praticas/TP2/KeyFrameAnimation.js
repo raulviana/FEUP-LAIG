@@ -19,7 +19,7 @@ class KeyFrameAnimation extends Animation{
         this.startTime += t;
         
         if(this.stage < this.keyFrames.length) {
-            var breakTime = this.keyFrames[this.stage][0];
+            let breakTime = this.keyFrames[this.stage][0];
 
 
             let timeDiff;
@@ -31,9 +31,9 @@ class KeyFrameAnimation extends Animation{
             let rotY;
             let rotZ;
 
-            //let scaleX;
-            //let scaleY;
-            //let scaleZ;
+            let scaleX;
+            let scaleY;
+            let scaleZ;
 
             if(this.stage > 0) {
                 timeDiff = breakTime - this.keyFrames[this.stage - 1][0];
@@ -43,9 +43,9 @@ class KeyFrameAnimation extends Animation{
                 rotX = this.keyFrames[this.stage][2][0] - this.keyFrames[this.stage - 1][2][0];
                 rotY = this.keyFrames[this.stage][2][1] - this.keyFrames[this.stage - 1][2][1];
                 rotZ = this.keyFrames[this.stage][2][2] - this.keyFrames[this.stage - 1][2][2];
-                //scaleX = this.keyFrames[this.stage][3][0] - this.keyFrames[this.stage - 1][3][0];
-                //scaleY = this.keyFrames[this.stage][3][1] - this.keyFrames[this.stage - 1][3][1];
-                //scaleZ = this.keyFrames[this.stage][3][2] - this.keyFrames[this.stage - 1][3][2];
+                scaleX = this.keyFrames[this.stage][3][0] - this.keyFrames[this.stage - 1][3][0];
+                scaleY = this.keyFrames[this.stage][3][1] - this.keyFrames[this.stage - 1][3][1];
+                scaleZ = this.keyFrames[this.stage][3][2] - this.keyFrames[this.stage - 1][3][2];
             }
             else {
                 timeDiff = breakTime;
@@ -55,12 +55,12 @@ class KeyFrameAnimation extends Animation{
                 rotX = this.keyFrames[this.stage][2][0];
                 rotY = this.keyFrames[this.stage][2][1];
                 rotZ = this.keyFrames[this.stage][2][2];
-                //scaleX = this.keyFrames[this.stage][3][0];
-                //scaleY = this.keyFrames[this.stage][3][1];
-                //scaleZ = this.keyFrames[this.stage][3][2];
+                scaleX = this.keyFrames[this.stage][3][0] - 1;
+                scaleY = this.keyFrames[this.stage][3][1] - 1;
+                scaleZ = this.keyFrames[this.stage][3][2] - 1;
             }
         
-            
+            console.log(scaleX);
 
             if(this.startTime <= breakTime) {
                 this.currentTrans.x += (transX / timeDiff) * t;
@@ -71,9 +71,9 @@ class KeyFrameAnimation extends Animation{
                 this.currentRot.y += (rotY / timeDiff) * t;
                 this.currentRot.z += (rotZ / timeDiff) * t;
 
-               // this.currentScale.x *= scaleX;
-               // this.currentScale.y *= scaleY;
-               // this.currentScale.z *= scaleZ;
+                this.currentScale.x += (scaleX / timeDiff) * t;
+                this.currentScale.y += (scaleY / timeDiff) * t;
+                this.currentScale.z += (scaleZ / timeDiff) * t;
             }
 
             if(this.startTime > breakTime) this.stage++;
