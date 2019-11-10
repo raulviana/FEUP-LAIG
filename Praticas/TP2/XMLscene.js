@@ -46,7 +46,10 @@ class XMLscene extends CGFscene {
        
         this.selectedCamera = 0;
         this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
-       
+
+        //TP2
+        this.secObject = new MySecurityCamera(this);         //create retangle object
+        this.secTexture = new CGFtextureRTT(this, 900, 600); //create render-to-texture texture
     }
 
     /**
@@ -60,9 +63,6 @@ class XMLscene extends CGFscene {
         this.camera = cam; // Sets default view
         
         this.interface.setActiveCamera(this.camera);
-
-        
-
     }
 
     /**
@@ -148,12 +148,15 @@ class XMLscene extends CGFscene {
             text+=" M ";
             keysPressed=true;
         }
+        if (this.gui.isKeyPressed("KeyV")) {
+            this.counterV++;
+            text += " V ";
+            keysPressed = true;
+        }
         if (keysPressed) console.log(text);
     }
-    update(t){
-        this.checkKeys(t);
-        
 
+    update(t){
         //time management
         this.lastTime = this.lastTime || 0.0;
         this.deltaTime = t - this.lastTime || 0.0;
@@ -174,94 +177,106 @@ class XMLscene extends CGFscene {
         var cam = this.graph.cameraz[this.graph.viewIds[i]];
         this.camera = cam;
         this.interface.setActiveCamera(this.camera);
-        
     }
 
     /**
-     * Displays the scene.
-     */
-    display() {
+     * Renders the scene.
+    */
 
-        // ---- BEGIN Background, camera and axis setup
+    render(camIndex) {
+        if(this.sceneInited){
 
-        // Clear image and depth buffer everytime we update the scene
-        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+            // ---- BEGIN Background, camera and axis setup
+
+            // Clear image and depth buffer everytime we update the scene
+            this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+            this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         
-
+            // Initialize Model-View matrix as identity (no transformation
+           this.updateProjectionMatrix();
+           this.loadIdentity();
         
-       if(this.sceneInited){
-        // Initialize Model-View matrix as identity (no transformation
-        this.updateProjectionMatrix();
-        this.loadIdentity();
-        // Apply transformations corresponding to the camera position relative to the origin
-        this.applyViewMatrix();
-       } 
-        
-        
+           // Apply transformations corresponding to the camera position relative to the origin
+            this.applyViewMatrix();
 
-        
-        this.pushMatrix();
-       // this.axis.display();
+           this.pushMatrix();
+          // this.axis.display();
 
 
-        // Turn On/Off Light 1
-        if (this.light1)
-            this.lights[0].enable();
-        else
-            this.lights[0].disable();
+          //Updates View
+         this.updateCamera(camIndex);
 
-        // Turn On/Off Light 2
-        if (this.light2)
-            this.lights[1].enable();
-        else
-            this.lights[1].disable();
+          // Turn On/Off Light 1
+          if (this.light1)
+               this.lights[0].enable();
+          else
+               this.lights[0].disable();
 
-        // Turn On/Off Red Spotlight
-        if (this.spotRed)
-            this.lights[2].enable();
-        else
-            this.lights[2].disable();
+           // Turn On/Off Light 2
+           if (this.light2)
+               this.lights[1].enable();
+            else
+                this.lights[1].disable();
 
-        // Turn On/Off Green Spotlight
-        if (this.spotGreen)
-            this.lights[3].enable();
-        else
-            this.lights[3].disable();
+           // Turn On/Off Red Spotlight
+          if (this.spotRed)
+              this.lights[2].enable();
+          else
+              this.lights[2].disable();
 
-        // Turn On/Off Blue Spotlight
-        if (this.spotBlue)
-            this.lights[4].enable();
-        else
-            this.lights[4].disable();    
+           // Turn On/Off Green Spotlight
+           if (this.spotGreen)
+               this.lights[3].enable();
+           else
+              this.lights[3].disable();
+
+           // Turn On/Off Blue Spotlight
+           if (this.spotBlue)
+              this.lights[4].enable();
+          else
+              this.lights[4].disable();    
 
        
-        // Update all lights
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].update();
-        }
+           // Update all lights
+           for (var i = 0; i < this.lights.length; i++) {
+              this.lights[i].update();
+          }
 
 
-        // Change view
-        switch (this.selectedCamera) {
-            case 1:
-                this.updateCamera(this.selectedCamera);
-                break;
-            default:
-                this.updateCamera(this.selectedCamera);
-                break;
-        }
-
+         // Displays the scene (MySceneGraph function).
+         this.graph.displayScene();
         
-        if (this.sceneInited) {
-            // Draw axis
-            this.setDefaultAppearance();
-
-            // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+          this.popMatrix();
+          // ---- END Background, camera and axis setup
         }
+    }
 
-        this.popMatrix();
-        // ---- END Background, camera and axis setup
+    /*
+    * Calls the render and displays the tectangle object
+    */
+    display(){
+
+        let tempCam = this.selectedCamera; // holds current camera 
+        this.selectedCamera = 2;
+      
+        //renders main scene
+        this.render(this.selectedCamera);
+         
+        this.selectedCamera = tempCam;
+       
+        //renders scene (to be applied in secObject???)
+        this.secTexture.attachToFrameBuffer();
+        this.render(this.selectedCamera);
+        this.secTexture.detachFromFrameBuffer();
+   
+        //displays secObject and applies shasders propperties
+        this.gl.disable(this.gl.DEPTH_TEST);
+        this.secObject.display();
+        this.gl.enable(this.gl.DEPTH_TEST); 
+        
+        this.setActiveShader(this.defaultShader); //restores default shader
     }
 }
+
+
+

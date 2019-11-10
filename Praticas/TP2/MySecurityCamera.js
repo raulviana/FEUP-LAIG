@@ -11,21 +11,23 @@ class MySecurityCamera extends CGFobject {
 		
         this.securCamera = new MyRectangle(scene, 1, 0, 1, 0);
 
-        this.shader = new CGFshader(this.scene.gl, "shader/securityCamera.vert", "shader/securityCamera.frag");
+        this.shader = new CGFshader(this.scene.gl, "securityCamera.vert", "securityCamera.frag");
+        this.shader.setUniformsValues({ uSampler: 0 });
         
 		this.initBuffers();
     }
     
     display() {
 
-        // activate selected shader
-        this.scene.setActiveShader(this.shader);
+        
+        this.scene.setActiveShader(this.shader);     // activate selected shader
+        
         this.scene.pushMatrix();
-        this.scene.securityTexture.bind(0);
-        this.securCamera.display();
+        
+        this.scene.secTexture.bind(0);              // bind RTTtexture
+        
+        this.securCamera.display();                 //display retangle
 
         this.scene.popMatrix();
-
-        this.scene.setActiveShader(this.defaultShader);
     }
 }
