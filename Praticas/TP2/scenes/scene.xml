@@ -131,7 +131,7 @@
             <keyframe instant="5.0" >
                 <translate x="0.0" y="5.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
+                <scale x="3.0" y="3.0" z="3.0" />
             </keyframe>
             
             <keyframe instant="10.0" >
@@ -142,7 +142,7 @@
         </animation>
 
         <animation id="chair_move1" >
-            <keyframe instant="2.0" >
+            <keyframe instant="4.0" >
                 <translate x="0.0" y="-4.0" z="2.0" />
                 <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -156,18 +156,58 @@
         </animation>
         
         <animation id="chair_move2" >
-            <keyframe instant="2.0" >
-                <translate x="0.0" y="-4.0" z="2.0" />
-                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-            
-            <keyframe instant="5.0" >
-                <translate x="7.0" y="-4.0" z="2.0" />
-                <rotate angle_x="-90.0" angle_y="0.0" angle_z="0.0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
+          <keyframe instant="2.0" >
+            <translate x="4.2" y="0.0" z="0.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="141.5" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="4.0" >
+            <translate x="4.2" y="0.0" z="-7.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="141.5" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
+
+          <keyframe instant="5.0" >
+            <translate x="1.7" y="2.2" z="-7.0" />
+            <rotate angle_x="0.0" angle_y="0.0" angle_z="141.5" />
+            <scale x="1.0" y="1.0" z="1.0" />
+          </keyframe>
         </animation>
+
+      <animation id="table_move" >
+        <keyframe instant="2.0" >
+          <translate x="0.0" y="0.0" z="0.0" />
+          <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+          <scale x="1.0" y="1.0" z="1.0" />
+        </keyframe>
+
+        <keyframe instant="4.5" >
+          <translate x="0.0" y="0.0" z="0.0" />
+          <rotate angle_x="92.0" angle_y="0.0" angle_z="0.0" />
+          <scale x="1.0" y="1.0" z="1.0" />
+        </keyframe>
+      </animation>
+
+      <animation id="aquariumBase_move" >
+        <keyframe instant="2.0" >
+          <translate x="0.0" y="0.0" z="-14.0" />
+          <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+          <scale x="1.0" y="1.0" z="1.0" />
+        </keyframe>
+
+        <keyframe instant="4.0" >
+          <translate x="0.0" y="-10.5" z="-16.0" />
+          <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+          <scale x="1.0" y="1.0" z="1.0" />
+        </keyframe>
+
+        <keyframe instant="7.0" >
+          <translate x="0.0" y="-10.2" z="-10.5" />
+          <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+          <scale x="1.0" y="1.0" z="1.0" />
+        </keyframe>
+      </animation>
 
     </animations>
 
@@ -217,7 +257,9 @@
         <!--Table-->
         <component id="table">
             <transformation>
+              <rotate axis="x" angle="-90" />
             </transformation>
+          <animationref id="table_move" />
             <materials>
                 <material id="woodMaterial" />
                 <material id="demoMaterial" />
@@ -462,11 +504,11 @@
                    <!--Chair2-->
         <component id="chair2">
             <transformation>
-                <translate x="7" y="2.7" z="-3" />
-                <rotate axis="z" angle="135" />
+                <translate x="7" y="2.7" z="-4" />
+                <rotate axis="z" angle="140" />
                 <rotate axis="y" angle="180" />
             </transformation>
-            <animationref id="chair_move2" />
+            <animationref id="chair_move2" /> 
             <materials>
                 <material id="metalMaterial" />
             </materials>
@@ -612,10 +654,11 @@
         </component>
         <component id="aquariumBase">
             <transformation>
-                <translate x="3" y="3.2" z="2" />
+                <translate x="3" y="0.1" z="6" />
                 <scale x="0.4" y="0.3" z="0.4" />
                 <rotate axis="x" angle="90" />
             </transformation>
+          <animationref id="aquariumBase_move" />
             <materials>
                 <material id="whiterubberMaterial" />
                 <material id="woodMaterial" />
