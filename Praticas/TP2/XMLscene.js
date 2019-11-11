@@ -49,7 +49,7 @@ class XMLscene extends CGFscene {
 
         //TP2
         this.secObject = new MySecurityCamera(this);         //create retangle object
-        this.secTexture = new CGFtextureRTT(this, 900, 600); //create render-to-texture texture
+        this.secTexture = new CGFtextureRTT(this,  this.gl.canvas.width, this.gl.canvas.height); //create render-to-texture texture
     }
 
     /**
@@ -162,11 +162,9 @@ class XMLscene extends CGFscene {
         this.deltaTime = t - this.lastTime || 0.0;
         this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
-        
 
         this.ani = this.graph.animations;
         for (var key in this.ani) {
-            
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
@@ -255,16 +253,19 @@ class XMLscene extends CGFscene {
     * Calls the render and displays the tectangle object
     */
     display(){
+        
+       
 
-        let tempCam = this.selectedCamera; // holds current camera 
-        this.selectedCamera = 2;
+        // let tempCam = this.selectedCamera; // holds current camera 
+        // this.selectedCamera = 2;
       
-        //renders main scene
+        //renders main scene to be applied in secObject
         this.render(this.selectedCamera);
          
-        this.selectedCamera = tempCam;
        
-        //renders scene (to be applied in secObject???)
+    //    this.selectedCamera = tempCam; 
+
+        //renders scene 
         this.secTexture.attachToFrameBuffer();
         this.render(this.selectedCamera);
         this.secTexture.detachFromFrameBuffer();

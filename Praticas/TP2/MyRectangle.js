@@ -33,7 +33,7 @@ class MyRectangle extends CGFobject {
 			for (var j = 0; j < 101; j++) {
 				this.vertices.push(this.x1 + j * xDif, this.y1 + i * yDif, 0);
 				this.normals.push(0, 0, 1);
-				this.texCoords.push(0.01 * j, 1 - 0.01 * i);
+				this.texCoords.push(1 - 0.01 * j, 1 - 0.01 * i);
 			}
 		}
 
