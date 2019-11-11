@@ -7,30 +7,34 @@ class KeyFrameAnimation extends Animation{
     constructor(scene){
         super(scene);
         this.keyFrames = [];
-        this.currentTrans = {x:0.0, y:0.0, z:0.0};
-        this.currentRot = {x:0.0, y:0.0, z:0.0};
-        this.currentScale = {x:1.0, y:1.0, z:1.0};
+        this.currentTrans = {x:0.0, y:0.0, z:0.0}; // Initial value for translation
+        this.currentRot = {x:0.0, y:0.0, z:0.0}; // Initial value for rotation
+        this.currentScale = {x:1.0, y:1.0, z:1.0}; // Initial value for scaling
         this.startTime = 0;
         this.stage = 0;
     }
 
-
+    // Updates the initial values acording to the keyframe parameters and the time passed
     update(t){
         this.startTime += t;
         
         if(this.stage < this.keyFrames.length) {
             let breakTime = this.keyFrames[this.stage][0];
 
-
+            // Used to save the difference between keyframes intances
             let timeDiff;
+
+            // Translation parameters
             let transX;
             let transY;
             let transZ;
 
+            // Rotation parameters
             let rotX;
             let rotY;
             let rotZ;
 
+            // Scaling parameters
             let scaleX;
             let scaleY;
             let scaleZ;
@@ -60,8 +64,8 @@ class KeyFrameAnimation extends Animation{
                 scaleZ = this.keyFrames[this.stage][3][2] - 1;
             }
         
-            console.log(scaleX);
 
+            
             if(this.startTime <= breakTime) {
                 this.currentTrans.x += (transX / timeDiff) * t;
                 this.currentTrans.y += (transY / timeDiff) * t;
@@ -82,6 +86,7 @@ class KeyFrameAnimation extends Animation{
 
     }
 
+    // Applies current values to object
     apply(){
         this.scene.translate(this.currentTrans.x, this.currentTrans.y, this.currentTrans.z);
         this.scene.rotate(this.currentRot.z * Math.PI / 180, 0, 0, 1);

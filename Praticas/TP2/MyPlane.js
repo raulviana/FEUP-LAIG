@@ -5,8 +5,8 @@
 class MyPlane extends CGFobject {
     constructor(scene, npartsU, npartsV) {
         super(scene);
-        this.uParts = npartsU;
-        this.vParts = npartsV;
+        this.npartsU = npartsU;
+        this.npartsV = npartsV;
 
         this.initBuffers();
     }
@@ -18,23 +18,22 @@ class MyPlane extends CGFobject {
 
         // Creates vertices, normals and texCoords
         var cou = 0;
-        for (var i = 0; i < this.uParts + 1; i++) {
-            for (var j = 0; j < this.vParts + 1; j++) {
-                this.vertices.push(-0.5 + j / this.vParts, 0, -0.5 + i / this.uParts);
+        for (var i = 0; i < this.npartsU + 1; i++) {
+            for (var j = 0; j < this.npartsV + 1; j++) {
+                this.vertices.push(-0.5 + j / this.npartsV, 0, -0.5 + i / this.npartsU);
                 cou++;
             }
         }
 
         // Creates indices
 
-        for (var i = 0; i < ((this.uParts + 1) * (this.vParts + 1) - (this.vParts + 1)) ; i++) {
-            if ((i + 1) % (this.vParts + 1) != 0) {
-                this.indices.push(i + this.vParts + 2, i + 1, i);
-                this.indices.push(i, i + this.vParts + 1, i + this.vParts + 2)
+        for (var i = 0; i < ((this.npartsU + 1) * (this.npartsV + 1) - (this.npartsV + 1)) ; i++) {
+            if ((i + 1) % (this.npartsV + 1) != 0) {
+                this.indices.push(i + this.npartsV + 2, i + 1, i);
+                this.indices.push(i, i + this.npartsV + 1, i + this.npartsV + 2)
 
             }
         }
-        console.log(cou);
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
