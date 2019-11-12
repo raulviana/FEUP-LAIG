@@ -7,36 +7,45 @@ class MyPlane extends CGFobject {
         super(scene);
         this.npartsU = npartsU;
         this.npartsV = npartsV;
+        this.surface = [];
 
-        this.initBuffers();
+
+
+        this.makeSurface();
     }
-    initBuffers() {
-        this.vertices = [];
-        this.indices = [];
-        this.normals = [];
-        this.texCoords = [];
+    makeSurface() {
 
-        // Creates vertices, normals and texCoords
-        var cou = 0;
-        for (var i = 0; i < this.npartsU + 1; i++) {
-            for (var j = 0; j < this.npartsV + 1; j++) {
-                this.vertices.push(-0.5 + j / this.npartsV, 0, -0.5 + i / this.npartsU);
-                cou++;
-            }
+       
+
+        let controlvertexes = [
+							[
+								 [-2.0, -2.0, 0.0, 1],
+								 [-2.0, 2.0, 0.0, 1]
+
+							],
+							[
+								 [2.0, -2.0, 0.0, 1],
+								 [2.0, 2.0, 0.0, 1]
+							]
+        ];
+
+
+        var nurbsSurface = new CGFnurbsSurface(1, 1, controlvertexes);
+
+        let plane = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
+
+        this.surface.push(plane);
+
+    }
+
+    display() {
+        for (var i = 0; i < this.surface.length; i++) {
+            this.scene.pushMatrix();
+
+
+            this.surface[i].display();
+            this.scene.popMatrix();
         }
-
-        // Creates indices
-
-        for (var i = 0; i < ((this.npartsU + 1) * (this.npartsV + 1) - (this.npartsV + 1)) ; i++) {
-            if ((i + 1) % (this.npartsV + 1) != 0) {
-                this.indices.push(i + this.npartsV + 2, i + 1, i);
-                this.indices.push(i, i + this.npartsV + 1, i + this.npartsV + 2)
-
-            }
-        }
-
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
     }
 
     updateBuffers(complexity) {
