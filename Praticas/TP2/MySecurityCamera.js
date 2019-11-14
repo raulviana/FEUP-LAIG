@@ -13,6 +13,8 @@ class MySecurityCamera extends CGFobject {
 
         this.shader = new CGFshader(this.scene.gl, "securityCamera.vert", "securityCamera.frag");
         this.shader.setUniformsValues({ uSampler: 0 });
+        this.shader.setUniformsValues({h_res: this.scene.gl.canvas.width});
+        this.shader.setUniformsValues({v_res: this.scene.gl.canvas.heigth});
         
 		this.initBuffers();
     }
