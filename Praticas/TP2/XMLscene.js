@@ -162,9 +162,11 @@ class XMLscene extends CGFscene {
         this.deltaTime = t - this.lastTime || 0.0;
         this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
+        
 
         this.ani = this.graph.animations;
         for (var key in this.ani) {
+            
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
@@ -175,6 +177,7 @@ class XMLscene extends CGFscene {
         var cam = this.graph.cameraz[this.graph.viewIds[i]];
         this.camera = cam;
         this.interface.setActiveCamera(this.camera);
+        
     }
 
     /**
