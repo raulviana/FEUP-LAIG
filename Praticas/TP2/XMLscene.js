@@ -45,6 +45,7 @@ class XMLscene extends CGFscene {
         this.spotBlue = false;
        
         this.selectedCamera = 0;
+        this.defaultCamera = 0;
         this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
 
         //TP2
@@ -259,18 +260,16 @@ class XMLscene extends CGFscene {
         
        
 
-        // let tempCam = this.selectedCamera; // holds current camera 
-        // this.selectedCamera = 2;
+       
       
         //renders main scene to be applied in secObject
         this.render(this.selectedCamera);
          
        
-    //    this.selectedCamera = tempCam; 
 
         //renders scene 
         this.secTexture.attachToFrameBuffer();
-        this.render(this.selectedCamera);
+        this.render(this.defaultCamera);
         this.secTexture.detachFromFrameBuffer();
    
         //displays secObject and applies shasders propperties
