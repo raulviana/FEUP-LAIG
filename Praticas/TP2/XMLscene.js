@@ -171,6 +171,8 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
+        let timeFactor = t / 100 % 1000;
+        this.secObject.updateTime(timeFactor);
     }
       
 
