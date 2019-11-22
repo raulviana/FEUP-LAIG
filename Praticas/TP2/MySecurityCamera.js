@@ -21,7 +21,6 @@ class MySecurityCamera extends CGFobject {
 
     updateTime(t){
         this.shader.setUniformsValues({ timeFactor: t / 100 % 1000});
-        console.log("timesghader: " + t / 10 % 1000)
     }
     
     display() {

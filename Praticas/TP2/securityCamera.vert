@@ -13,10 +13,10 @@ varying vec3 vertex;
 
 void main() {
 	vec3 vertex = aVertexPosition;
-	vertex.x *= 0.5;           //Diminui o tamanho para metade e desloca-o para a posição pretendida
-	vertex.x += 0.5;
-	vertex.y *= 0.5;
-	vertex.y += -1.0;
+	vertex.x *= 0.5;           ///
+	vertex.x += 0.5;           //  Diminui o tamanho para metade
+	vertex.y *= 0.5;           //  e desloca-o para a posição pretendida
+	vertex.y += -1.0;          //
 
 	gl_Position = vec4(vertex, 1.0);
 
