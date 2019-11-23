@@ -11,7 +11,7 @@ class MySecurityCamera extends CGFobject {
 		
         this.securCamera = new MyRectangle(scene, 1, 0, 1, 0);
 
-        this.shader = new CGFshader(this.scene.gl, "securityCamera.vert", "securityCamera.frag");
+        this.shader = new CGFshader(this.scene.gl, "./shaders/securityCamera.vert", "./shaders/securityCamera.frag");
         this.shader.setUniformsValues({ uSampler: 0 });
        
        
