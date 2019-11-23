@@ -844,8 +844,7 @@ class MySceneGraph {
             }
          
         }
-
-        console.log(this.animations);
+        this.log("Parsed animations");
     }
 
 
@@ -1102,7 +1101,6 @@ class MySceneGraph {
 
                 controlPoints.push(controlpoint);
             }
-            console.log(controlPoints);
             var patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
 
             this.primitives[primitiveId] = patch;
@@ -1176,12 +1174,6 @@ class MySceneGraph {
             //creates a node in the graph
             this.nodes[componentID] = new GraphNode(this, componentID);
 
-            /*
-            if(this.idRoot != null) return "Only one root node possible";
-            else{
-                this.idRoot = componentID;
-            }*/
-
             // Checks for repeated IDs.
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
@@ -1201,36 +1193,39 @@ class MySceneGraph {
 
             // T2
             var animationIndex = nodeNames.indexOf("animationref");
+    
+                // Transformations
+                var compTransformations = grandChildren[transformationIndex].children;
+                for(var j = 0; j < compTransformations.length; j++){
+                    var values = [];
+                    switch(compTransformations[j].nodeName){
+                        case "translate":
+                            values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for translaction transformation");
+                            mat4.translate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values)
+                            break;
+                        case "scale":
+                            values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for scale transformation");
+                            mat4.scale(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values);
+                            break;
+                        case "rotate":
+                            var angle = this.reader.getFloat(compTransformations[j], 'angle');
+                            var axis = this.reader.getString(compTransformations[j], 'axis');
+                            if(axis == 'x') values = [1, 0, 0];
+                            else if(axis == 'y') values = [0, 1, 0];
+                            else values = [0 ,0 ,1];
+                            mat4.rotate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, DEGREE_TO_RAD * angle, values);
+                            break;
 
-            // Transformations
-            var compTransformations = grandChildren[transformationIndex].children;
-            for(var j = 0; j < compTransformations.length; j++){
-                var values = [];
-                switch(compTransformations[j].nodeName){
-                    case "translate":
-                        values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for translaction transformation");
-                        mat4.translate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values)
-                        break;
-                    case "scale":
-                        values = this.parseCoordinates3D(compTransformations[j], "Unable to read coordinates for scale transformation");
-                        mat4.scale(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, values);
-                        break;
-                    case "rotate":
-                        var angle = this.reader.getFloat(compTransformations[j], 'angle');
-                        var axis = this.reader.getString(compTransformations[j], 'axis');
-                        if(axis == 'x') values = [1, 0, 0];
-                        else if(axis == 'y') values = [0, 1, 0];
-                        else values = [0 ,0 ,1];
-                        mat4.rotate(this.nodes[componentID].transformMatrix, this.nodes[componentID].transformMatrix, DEGREE_TO_RAD * angle, values);
-                        break;
-
-                }
-            }
-
-            /* Animations - T2 */
-            var animationId = this.reader.getString(grandChildren[animationIndex], 'id');
-            this.nodes[componentID].animationID.push(animationId);
+                    }
+                
             
+                /* Animations - T2 */
+                if(animationIndex != -1){
+                     var animationId = this.reader.getString(grandChildren[animationIndex], 'id');
+                 this.nodes[componentID].animationID.push(animationId);
+                }
+            
+            }
 
             // Materials
             var compMaterials = grandChildren[materialsIndex].children;

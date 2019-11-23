@@ -272,7 +272,7 @@
             <transformation>
               <rotate axis="x" angle="-90" />
             </transformation>
-          <animationref id="table_move" />
+            <animationref id="table_move" />
             <materials>
                 <material id="woodMaterial" />
                 <material id="demoMaterial" />

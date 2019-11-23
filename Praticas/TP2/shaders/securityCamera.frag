@@ -11,6 +11,7 @@ varying vec2 vTextureCoord;
 
 void main() {
 	vec3 line = vec3(0.6, 0.6, 0.6);
+	vec3 max_color = vec3(0.8);
 	vec2 coords = vTextureCoord.xy;
 	vec2 st = vTextureCoord.xy;
 	float ptc = 0.0;
@@ -21,7 +22,7 @@ void main() {
 
 	ptc = distance(st, vec2(0.5, 0.5));    
 
-	vec4 filterGradient = vec4(abs(0.85 - ptc), abs(0.85 - ptc), abs(0.85 - ptc), 1.0);  //0.65 max color in the center, so it doesn't get to white/brigth in the center of the screen
+	vec4 filterGradient = vec4(abs(max_color.r - ptc), abs(max_color.g - ptc), abs(max_color.b - ptc), 1.0);  //0.65 max color in the center, so it doesn't get to white/brigth in the center of the screen
 	
 	vec4 texture = texture2D(uSampler, vTextureCoord);
 
