@@ -10,8 +10,8 @@ varying vec2 vTextureCoord;
 
 
 void main() {
-	vec3 line = vec3(0.6, 0.6, 0.6);
-	vec3 max_color = vec3(0.8);
+	vec3 line = vec3(0.6);
+	vec3 max_color = vec3(0.6);
 	vec2 coords = vTextureCoord.xy;
 	vec2 st = vTextureCoord.xy;
 	float ptc = 0.0;
