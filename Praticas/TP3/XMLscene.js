@@ -46,7 +46,7 @@ class XMLscene extends CGFscene {
        
         this.selectedCamera = 0;
         this.defaultCamera = 0;
-        this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
+        this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
 
        }
 
@@ -199,7 +199,7 @@ class XMLscene extends CGFscene {
             this.applyViewMatrix();
 
            this.pushMatrix();
-          // this.axis.display();
+           this.axis.display();
 
 
           //Updates View

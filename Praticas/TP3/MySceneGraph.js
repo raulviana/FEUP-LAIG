@@ -1442,6 +1442,7 @@ class MySceneGraph {
         //select material with M key
         var currentMaterial = this.materials[compMaterials[(this.scene.counterM % compMaterials.length)]];
 
+
         //Visit the node desendants, in case of primitive, display them, in case of intermediate nodes call descendants recursively
         for(var i = 0; i < descendants.length; i++){
             var descendantID = descendants[i];

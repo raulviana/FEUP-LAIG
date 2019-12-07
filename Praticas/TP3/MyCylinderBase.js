@@ -45,7 +45,6 @@ class MyCylinderBase extends CGFobject {
 		for(let i = 0; i < this.slices; i++) {
 			this.indices.push(0, i+1, i+2);
 		}
-		console.log(this.vertices);
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
