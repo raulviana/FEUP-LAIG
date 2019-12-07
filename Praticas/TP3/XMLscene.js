@@ -48,8 +48,7 @@ class XMLscene extends CGFscene {
         this.defaultCamera = 0;
         this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
 
-       
-    }
+       }
 
     /**
      * Initializes the scene cameras.
@@ -169,7 +168,6 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
-        let timeFactor = t / 100 % 1000;
     }
       
 
@@ -184,7 +182,7 @@ class XMLscene extends CGFscene {
      * Renders the scene.
     */
 
-    render(camIndex) {
+    display() {
         if(this.sceneInited){
 
             // ---- BEGIN Background, camera and axis setup
@@ -205,7 +203,7 @@ class XMLscene extends CGFscene {
 
 
           //Updates View
-         this.updateCamera(camIndex);
+         this.updateCamera(this.selectedCamera);
 
           // Turn On/Off Light 1
           if (this.light1)
@@ -252,18 +250,6 @@ class XMLscene extends CGFscene {
         }
     }
 
-    /*
-    * Calls the render and displays the tectangle object
-    */
-    display(){
-        
-       
-
-       
-      
-        this.render(this.defaultCamera);
-       
-    }
 }
 
 
