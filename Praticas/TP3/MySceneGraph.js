@@ -883,7 +883,8 @@ class MySceneGraph {
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'plane' &&
-                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2' && grandChildren[0].nodeName != 'cylinderbase')) {
+                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'cylinder2' && grandChildren[0].nodeName != 'cylinderbase' &&
+                    grandChildren[0].nodeName != 'gamepiece')) {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere, torus or plane)"
             }
 
@@ -1149,7 +1150,14 @@ class MySceneGraph {
 				var cylinbase = new MyCylinderBase(this.scene, slices, radius);
 
                 this.primitives[primitiveId] = cylinbase;
-		   }
+           }
+           
+           if(primitiveType == 'gamepiece'){
+            
+            var gamepiece = new MyOctoPiece(this.scene);
+
+            this.primitives[primitiveId] = gamepiece;
+            }
 
         }
 

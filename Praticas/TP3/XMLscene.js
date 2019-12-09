@@ -48,6 +48,9 @@ class XMLscene extends CGFscene {
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
 
+        this.board = new MyBoard(this);
+
+        this.setPickEnabled(true);
        }
 
     /**
@@ -178,11 +181,28 @@ class XMLscene extends CGFscene {
         
     }
 
-    /**
-     * Renders the scene.
-    */
+    logPicking() {
+		if (this.pickMode == false) {
+			if (this.pickResults != null && this.pickResults.length > 0) {
+				console.log(this.pickResults.slice());
+				for (var i = 0; i < this.pickResults.length; i++) {
+					console.log("yes");
+					var obj = this.pickResults[i][0];
+					if (obj) {
+						var customId = this.pickResults[i][1];
+						console.log("Picked object: " + obj + ", with pick id " + customId);						
+					}
+				}
+				this.pickResults.splice(0, this.pickResults.length);
+			}
+		}
+	}
 
     display() {
+
+        this.logPicking();
+		this.clearPickRegistration();
+
         if(this.sceneInited){
 
             // ---- BEGIN Background, camera and axis setup
@@ -199,7 +219,7 @@ class XMLscene extends CGFscene {
             this.applyViewMatrix();
 
            this.pushMatrix();
-           this.axis.display();
+           //this.axis.display();
 
 
           //Updates View
@@ -241,7 +261,10 @@ class XMLscene extends CGFscene {
               this.lights[i].update();
           }
 
-
+          this.pushMatrix();
+          this.translate(3, 3.2, 2);
+          this.board.display();
+          this.popMatrix();
          // Displays the scene (MySceneGraph function).
          this.graph.displayScene();
         
