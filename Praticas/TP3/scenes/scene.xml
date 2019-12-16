@@ -77,6 +77,10 @@
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
         <texture id="darkRubber" file="scenes/images/darkRubber.jpg" />
+        <texture id="newfloor" file="scenes/images/whitefloor.jpg" />
+        <texture id="newwood" file="scenes/images/lightgrey.jpg" />
+        <texture id="newchair" file="scenes/images/chaircolor.jpg" />
+        <texture id="newwall" file="scenes/images/newwall.jpg" />
     </textures>
 
     <materials>

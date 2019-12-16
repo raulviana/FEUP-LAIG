@@ -49,6 +49,7 @@ class XMLscene extends CGFscene {
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
 
         this.board = new MyBoard(this);
+        this.selectedAmbient = 0;
 
         this.setPickEnabled(true);
        }
@@ -171,6 +172,8 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
+
+       
     }
       
 
@@ -199,6 +202,7 @@ class XMLscene extends CGFscene {
 	}
 
     display() {
+
 
         this.logPicking();
 		this.clearPickRegistration();

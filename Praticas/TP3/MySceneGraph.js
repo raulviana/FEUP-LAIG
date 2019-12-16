@@ -47,7 +47,10 @@ class MySceneGraph {
         this.animations = {};
         this.isBind = false; //information about any texture is bind 
         this.textureBinded;
-
+        
+        this.scene1=[];
+        this.scene2=[];
+        
         /*
          * Read the contents of the xml file, and refer to this class for loading and error handlers.
          * After the file is read, the reader calls onXMLReady on this object.
@@ -1189,6 +1192,11 @@ class MySceneGraph {
             // Get id of the current component.
             var componentID = this.reader.getString(children[i], 'id');
             if (componentID == null)
+                return "no ID defined for componentID";
+
+            // Get code of the current component.
+            var componentCode = this.reader.getBoolean(children[i], 'cod');
+            if (componentCode == null)
                 return "no ID defined for componentID";
 
             //creates a node in the graph
