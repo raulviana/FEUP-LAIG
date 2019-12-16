@@ -1,30 +1,25 @@
 <lxs>
     <scene root="sceneRoot" axis_length="5"/>
 
-    <views default="defaultCamera">
-        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="3" y="5" z="7" />
-            <to x="3" y="2" z="-5" />
-        </perspective>
-        <perspective id="perspective1" near="0.1" far="500" angle="45">
-            <from x="15" y="15" z="-3" />
-            <to x="0" y="-2" z="0" />
-        </perspective>
-        <perspective id="perspective2" near="0.1" far="500" angle="45">
-            <from x="15" y="5.5" z="2.5" />
-            <to x="3" y="3.5" z="2" />
-        </perspective>
-        <ortho id="orthoCamera1" near="0.1" far="500" left="-30" right="30" top="30" bottom="-30">
-            <from x="30" y="15" z="30" />
-            <to x="0" y="-2" z="0" />
-            <up x="0" y="1" z="0" />
-        </ortho>
-        <ortho id="orthoCamera2" near="0.1" far="500" left="-20" right="20" top="20" bottom="-20">
-            <from x="0" y="15" z="15" />
-            <to x="0" y="-2" z="0" />
-            <up x="0" y="1" z="0" />
-        </ortho>
-    </views>
+     <views default="defaultCamera">
+    <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+      <from x="7" y="8.2" z="2" />
+      <to x="3" y="3.2" z="2" />
+    </perspective>
+    <perspective id="leftCamera" near="0.1" far="500" angle="45">
+      <from x="3" y="8.2" z="6" />
+      <to x="3" y="3.2" z="2" />
+    </perspective>
+    <perspective id="rightCamera" near="0.1" far="500" angle="45">
+      <from x="3" y="8.2" z="-2" />
+      <to x="3" y="3.2" z="2" />
+    </perspective>
+    <perspective id="backCamera" near="0.1" far="500" angle="45">
+      <from x="-1" y="8.2" z="2" />
+      <to x="3" y="3.2" z="2" />
+    </perspective>
+
+  </views>
 
     <globals>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -73,6 +68,7 @@
     </lights>
 
     <textures>
+        <texture id="aquarium" file="scenes/images/aquarium.jpg" />
         <texture id="fabric" file="scenes/images/grey-fabric.jpg" />
         <texture id="floor" file="scenes/images/floor.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
@@ -80,6 +76,7 @@
         <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
+        <texture id="darkRubber" file="scenes/images/darkRubber.jpg" />
     </textures>
 
     <materials>
@@ -124,8 +121,7 @@
         </transformation>
     </transformations>
 
-    <animations>
-    </animations>
+    <animations></animations>
 
     <primitives>
         <primitive id="Rectangle">
@@ -143,6 +139,8 @@
         <primitive id="Torus">
             <torus inner="0.5" outer="1" slices="100" loops="100" />
         </primitive>
+
+        
     </primitives>
 
     <components>
@@ -156,11 +154,10 @@
             <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="table" />
-                <componentref id="chairs" />
+                <!--<componentref id="chairs" />
                 <componentref id="floor" />
                 <componentref id="walls" />
-                <componentref id="painting" />
-                <componentref id="box" />
+                <componentref id="painting" />-->
                 
             </children>
         </component>
@@ -196,9 +193,6 @@
                 <componentref id="tableCube" />
             </children>
         </component>
-
-        <!-- BOX -->
-        
        
         <!--Table Legs-->
         <component id="tableLegs">
@@ -543,6 +537,7 @@
             </children>
         </component>
 
+       
 
         <!--FLOOR-->
         <component id="floor">

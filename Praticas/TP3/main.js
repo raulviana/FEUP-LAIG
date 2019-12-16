@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyRectangle.js', 'MyTriangle.js', 'MyCylinder.js', 'MySphere.js', 'MyTorus.js', 'GraphNode.js', 'Animation.js', 'KeyFrameAnimation.js', 'MyPlane.js', 'MyPatch.js', 'MyCylinder2.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyRectangle.js', 'MyTriangle.js', 'MyCylinder.js', 'MySphere.js', 'MyTorus.js', 'GraphNode.js', 'Animation.js', 'KeyFrameAnimation.js', 'MyPlane.js', 'MyPatch.js', 'MyCylinder2.js', 'MyCylinderBase.js', 'MyOctoPiece.js', 'MyUnitCube.js', 'MyGameBoard.js', 'MyPiece.js', 'MySquarePiece.js', 'MyTile.js', 'MyGameOrchestrator.js', 'MyAnimator.js', 'MyGameSequence.js', 'MyGameMove.js', 'MySideBoard.js',
 
 main=function()
 {

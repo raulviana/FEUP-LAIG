@@ -23,7 +23,7 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-       // this.initCameras();
+        // this.initCameras();
 
         this.enableTextures(true);
 
@@ -46,9 +46,12 @@ class XMLscene extends CGFscene {
        
         this.selectedCamera = 0;
         this.defaultCamera = 0;
-        this.view = { 'Default': 0, 'Perspective 1': 1, 'Perspective 2': 2, 'Ortho 1': 3, 'Ortho 2': 4 };
+        this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
 
-       
+        //this.board = new MyGameBoard(this);
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+
+        this.setPickEnabled(true);
     }
 
     /**
@@ -169,7 +172,6 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         this.lastTime = t;
-        let timeFactor = t / 100 % 1000;
     }
       
 
@@ -180,11 +182,31 @@ class XMLscene extends CGFscene {
         
     }
 
-    /**
-     * Renders the scene.
-    */
+    logPicking() {
+		if (this.pickMode == false) {
+			if (this.pickResults != null && this.pickResults.length > 0) {
+				console.log(this.pickResults.slice());
+				for (let i = 0; i < this.pickResults.length; i++) {
+					console.log("yes");
+					let obj = this.pickResults[i][0];
+					if (obj) {
+						let customId = this.pickResults[i][1];
+                        let row = (customId - 1) % 8 +1;
+                        let col = Math.floor((customId - 1) / 8) + 1;
+                        this.gameOrchestrator.changeMove([row, col]);
+						//console.log("Id = " + customId + "; Row = " + row + "; Col = " + col);						
+					}
+				}
+				this.pickResults.splice(0, this.pickResults.length);
+			}
+		}
+	}
 
-    render(camIndex) {
+    display() {
+
+        this.logPicking();
+		this.clearPickRegistration();
+
         if(this.sceneInited){
 
             // ---- BEGIN Background, camera and axis setup
@@ -194,76 +216,68 @@ class XMLscene extends CGFscene {
             this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         
             // Initialize Model-View matrix as identity (no transformation
-           this.updateProjectionMatrix();
-           this.loadIdentity();
+            this.updateProjectionMatrix();
+            this.loadIdentity();
         
-           // Apply transformations corresponding to the camera position relative to the origin
+            // Apply transformations corresponding to the camera position relative to the origin
             this.applyViewMatrix();
 
-           this.pushMatrix();
-          // this.axis.display();
+            this.pushMatrix();
+            //this.axis.display();
 
 
-          //Updates View
-         this.updateCamera(camIndex);
+            //Updates View
+            this.updateCamera(this.selectedCamera);
 
-          // Turn On/Off Light 1
-          if (this.light1)
-               this.lights[0].enable();
-          else
-               this.lights[0].disable();
+            // Turn On/Off Light 1
+            if (this.light1)
+                this.lights[0].enable();
+            else
+                this.lights[0].disable();
 
-           // Turn On/Off Light 2
-           if (this.light2)
-               this.lights[1].enable();
+            // Turn On/Off Light 2
+            if (this.light2)
+                this.lights[1].enable();
             else
                 this.lights[1].disable();
 
-           // Turn On/Off Red Spotlight
-          if (this.spotRed)
-              this.lights[2].enable();
-          else
-              this.lights[2].disable();
+            // Turn On/Off Red Spotlight
+            if (this.spotRed)
+                this.lights[2].enable();
+            else
+                this.lights[2].disable();
 
-           // Turn On/Off Green Spotlight
-           if (this.spotGreen)
-               this.lights[3].enable();
-           else
-              this.lights[3].disable();
+            // Turn On/Off Green Spotlight
+            if (this.spotGreen)
+                this.lights[3].enable();
+            else
+                this.lights[3].disable();
 
-           // Turn On/Off Blue Spotlight
-           if (this.spotBlue)
-              this.lights[4].enable();
-          else
-              this.lights[4].disable();    
+            // Turn On/Off Blue Spotlight
+            if (this.spotBlue)
+                this.lights[4].enable();
+            else
+                this.lights[4].disable();    
 
        
-           // Update all lights
-           for (var i = 0; i < this.lights.length; i++) {
-              this.lights[i].update();
-          }
+            // Update all lights
+            for (var i = 0; i < this.lights.length; i++) {
+               this.lights[i].update();
+            }
+            
+          
+            // Displays the scene (MySceneGraph function).
+            this.graph.displayScene();
+            this.pushMatrix();
+            this.translate(3, 3.2, 2);
+            this.gameOrchestrator.display();
+            this.popMatrix();
 
-
-         // Displays the scene (MySceneGraph function).
-         this.graph.displayScene();
-        
-          this.popMatrix();
-          // ---- END Background, camera and axis setup
+            this.popMatrix();
+            // ---- END Background, camera and axis setup
         }
     }
 
-    /*
-    * Calls the render and displays the tectangle object
-    */
-    display(){
-        
-       
-
-       
-      
-        this.render(this.defaultCamera);
-       
-    }
 }
 
 
