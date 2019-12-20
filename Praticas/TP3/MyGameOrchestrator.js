@@ -27,6 +27,7 @@ class MyGameOrchestrator extends CGFobject {
 
     changeMove(move) {
         this.move = move;
+        console.log("move: " + move);
         this.move.push(this.turn);
         this.gameSequence.addMove(move);
         this.turn = Math.abs(this.turn - 1);
