@@ -47,6 +47,7 @@ class XMLscene extends CGFscene {
         this.selectedCamera = 0;
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
+        this.viewAngle = 0;
 
         //this.board = new MyGameBoard(this);
         this.gameOrchestrator = new MyGameOrchestrator(this);
@@ -177,9 +178,25 @@ class XMLscene extends CGFscene {
 
     updateCamera(i){
         var cam = this.graph.cameraz[this.graph.viewIds[i]];
-        this.camera = cam;
-        this.interface.setActiveCamera(this.camera);
+        // this.interface.setActiveCamera(this.camera);
+        switch (this.gameOrchestrator.turn){
+            case 0:
+                if(this.viewAngle > 0 && this.gameOrchestrator.pause){
+                    this.camera.orbit((0, 0, 1), 5*DEGREE_TO_RAD);
+                    this.viewAngle -= 5;
+                }
+                else this.gameOrchestrator.pause = true;
+                break;
+            case 1:
+                if(this.viewAngle < 180 && this.gameOrchestrator.pause ){ 
+                    this.camera.orbit((0, 0, 1), -5*DEGREE_TO_RAD);
+                    this.viewAngle += 5;
+                }
+                else this.gameOrchestrator.pause = true; 
+                break;
+        }
         
+        this.camera = cam;
     }
 
     logPicking() {
@@ -187,13 +204,13 @@ class XMLscene extends CGFscene {
 			if (this.pickResults != null && this.pickResults.length > 0) {
 				console.log(this.pickResults.slice());
 				for (let i = 0; i < this.pickResults.length; i++) {
-					console.log("yes");
 					let obj = this.pickResults[i][0];
 					if (obj) {
 						let customId = this.pickResults[i][1];
                         let row = (customId - 1) % 8 +1;
                         let col = Math.floor((customId - 1) / 8) + 1;
                         this.gameOrchestrator.changeMove([row, col]);
+                        this.gameOrchestrator.pause = true;
 						//console.log("Id = " + customId + "; Row = " + row + "; Col = " + col);						
 					}
 				}
@@ -203,6 +220,8 @@ class XMLscene extends CGFscene {
 	}
 
     display() {
+
+
 
         this.logPicking();
 		this.clearPickRegistration();

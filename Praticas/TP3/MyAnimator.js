@@ -2,7 +2,7 @@
 * MyAnimator
 * @constructor
 */
-class MyAnimator extends extends Animation{
+class MyAnimator extends Animation{
     constructor(scene){
         super(scene);
         this.keyFrames = [];

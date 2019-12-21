@@ -15,6 +15,7 @@ class MyGameOrchestrator extends CGFobject {
 
         this.turn = 0;
         this.move = [];
+        this.pause = false;
     }
 
     display() {
