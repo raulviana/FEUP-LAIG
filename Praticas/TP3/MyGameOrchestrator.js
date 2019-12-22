@@ -6,7 +6,7 @@ class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
         super(scene);
         this.gameSequence = new MyGameSequence(this.scene);
-        /*this.animator = new MyAnimator(this.scene);*/
+        this.animator = new MyAnimator(this.scene);
         this.gameboard = new MyGameBoard(this.scene);
         this.sideboardBlack = new MySideBoard(this.scene, 1); // 1 for black
         this.sideboardWhite = new MySideBoard(this.scene, -1); // -1 for white
@@ -42,8 +42,42 @@ class MyGameOrchestrator extends CGFobject {
         this.sideboardBlack.display();
         this.sideboardWhite.display();
 
+        for (var i = 0; i < this.animator.animations.length; i++){
+            let animation = this.animator.animations[i];
+            // this.scene.multMatrix(currentNode.transformMatrix); ??????????????????????????????
+            animation.apply();
+        }
+
         //console.log(this.move);
-	}
+    }
+    
+    createKeyframes(turn, move){
+        this.animation = new KeyFrameAnimation(this.scene);
+        let frame = [];
+        frame.push(this.scene.deltaTime + 100);
+
+        let trans = [];
+        trans.push(0);
+        trans.push(3);
+        trans.push(0);
+        frame.push(trans);
+
+        let rot = [];
+        rot.push(0);
+        rot.push(0);
+        rot.push(0);
+        frame.push(rot);
+
+        let scale = [];
+        scale.push(1);
+        scale.push(1);
+        scale.push(1);
+        frame.push(scale);
+
+        this.animation.keyFrames.push(frame);
+        this.animator.animations.push(this.animation);
+        console.log(this.animator.animations);
+    }
 
     changeMove(move) {
         this.scene.setPickEnabled(false);
@@ -52,8 +86,9 @@ class MyGameOrchestrator extends CGFobject {
         this.move.push(this.turn);
         this.gameSequence.addMove(move);
         setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 2000);
+        this.createKeyframes(this.turn, this.move);
         //this.turn = Math.abs(this.turn - 1);
-	}
-
-
+    }
+    
+   
 }
