@@ -199,31 +199,11 @@ class XMLscene extends CGFscene {
         this.camera = cam;
     }
 
-    logPicking() {
-		if (this.pickMode == false) {
-			if (this.pickResults != null && this.pickResults.length > 0) {
-				console.log(this.pickResults.slice());
-				for (let i = 0; i < this.pickResults.length; i++) {
-					let obj = this.pickResults[i][0];
-					if (obj) {
-						let customId = this.pickResults[i][1];
-                        let row = (customId - 1) % 8 +1;
-                        let col = Math.floor((customId - 1) / 8) + 1;
-                        this.gameOrchestrator.changeMove([row, col]);
-                        this.gameOrchestrator.pause = true;
-						//console.log("Id = " + customId + "; Row = " + row + "; Col = " + col);						
-					}
-				}
-				this.pickResults.splice(0, this.pickResults.length);
-			}
-		}
-	}
+   
 
     display() {
 
-
-
-        this.logPicking();
+        this.gameOrchestrator.logPicking();
 		this.clearPickRegistration();
 
         if(this.sceneInited){
