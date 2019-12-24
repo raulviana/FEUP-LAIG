@@ -11,10 +11,10 @@ class MySideBoard extends CGFobject {
 
         this.boardMaterial = new CGFappearance(this.scene);
         this.boardMaterial.setShininess(1.0);
-        this.boardMaterial.setAmbient(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setDiffuse(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setSpecular(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setEmission(0.9, 0.6, 0.2, 1);
+        this.boardMaterial.setAmbient(0.57, 0.351, 0.12, 1);
+        this.boardMaterial.setDiffuse(0.57, 0.351, 0.12, 1);
+        this.boardMaterial.setSpecular(0.57, 0.351, 0.12, 1);
+        this.boardMaterial.setEmission(0.57, 0.351, 0.12, 1);
 
         this.pieceMaterial = new CGFappearance(this.scene);
         if(this.mat == 1) {
@@ -42,7 +42,7 @@ class MySideBoard extends CGFobject {
         this.pieceMaterial.apply();
         for(let i = 0; i < 32; i++) {
             this.scene.pushMatrix();
-            this.scene.translate(-0.3, 0.15, 1.5 * this.mat);
+            this.scene.translate(0.0, 0.15, 1.5 * this.mat);
             this.scene.rotate(Math.PI/8, 0, 1, 0);
             this.scene.scale(0.15, 0.1, 0.15);
             this.octoPiece.display();

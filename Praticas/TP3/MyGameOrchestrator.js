@@ -12,11 +12,29 @@ class MyGameOrchestrator extends CGFobject {
         this.sideboardWhite = new MySideBoard(this.scene, -1); // -1 for white
 /*        this.theme = new MyScenegraph(this.scene);
         this.prolog = new MyPrologInterface(this.scene);*/
+        this.piece = new MyOctoPiece(this.scene);
+        
+
 
         this.turn = 0;
         this.move = [];
         this.pause = false;
+
+
+        
+		this.blackMaterial = new CGFappearance(this);
+        this.blackMaterial.setAmbient(0.0, 0.0, 0.0, 1.0);
+        this.blackMaterial.setDiffuse(0, 0, 0, 1.0);
+        this.blackMaterial.setSpecular(0, 0, 0, 1.0);
+		this.blackMaterial.setShininess(10.0);
+
+		this.whiteMaterial = new CGFappearance(this);
+		this.whiteMaterial.setAmbient(0.9, 0.9, 0.9, 0.1);
+		this.whiteMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
+		this.whiteMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
+		this.whiteMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
     }
+
 
     logPicking() {
         if (this.scene.pickMode == false) {
@@ -42,10 +60,21 @@ class MyGameOrchestrator extends CGFobject {
         this.sideboardBlack.display();
         this.sideboardWhite.display();
 
-        for (var i = 0; i < this.animator.animations.length; i++){
+        // if(this.turn == 0){
+        //     this.whiteMaterial.apply();
+        // }
+        // else this.blackMaterial.apply();
+        
+		for (var i = 0; i < this.animator.animations.length; i++){
             let animation = this.animator.animations[i];
-            // this.scene.multMatrix(currentNode.transformMatrix); ??????????????????????????????
+			this.scene.pushMatrix();
+			let transformMatrix = mat4.create();
+			mat4.identity(transformMatrix);
+			this.scene.multMatrix(transformMatrix);
             animation.apply();
+            this.piece.display();
+
+            this.scene.popMatrix();
         }
 
         //console.log(this.move);
@@ -58,7 +87,7 @@ class MyGameOrchestrator extends CGFobject {
 
         let trans = [];
         trans.push(0);
-        trans.push(3);
+        trans.push(3); // teste
         trans.push(0);
         frame.push(trans);
 
@@ -76,7 +105,6 @@ class MyGameOrchestrator extends CGFobject {
 
         this.animation.keyFrames.push(frame);
         this.animator.animations.push(this.animation);
-        console.log(this.animator.animations);
     }
 
     changeMove(move) {
