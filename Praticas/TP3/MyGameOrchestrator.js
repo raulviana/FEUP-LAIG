@@ -22,13 +22,15 @@ class MyGameOrchestrator extends CGFobject {
 
 
         
-		this.blackMaterial = new CGFappearance(this);
+        this.blackMaterial = new CGFappearance(this.scene);
+        this.blackMaterial.setShininess(1.0);
         this.blackMaterial.setAmbient(0.0, 0.0, 0.0, 1.0);
         this.blackMaterial.setDiffuse(0, 0, 0, 1.0);
         this.blackMaterial.setSpecular(0, 0, 0, 1.0);
 		this.blackMaterial.setShininess(10.0);
 
-		this.whiteMaterial = new CGFappearance(this);
+        this.whiteMaterial = new CGFappearance(this.scene);
+        this.whiteMaterial.setShininess(0.1);
 		this.whiteMaterial.setAmbient(0.9, 0.9, 0.9, 0.1);
 		this.whiteMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
 		this.whiteMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
@@ -60,19 +62,20 @@ class MyGameOrchestrator extends CGFobject {
         this.sideboardBlack.display();
         this.sideboardWhite.display();
 
-        // if(this.turn == 0){
-        //     this.whiteMaterial.apply();
-        // }
-        // else this.blackMaterial.apply();
-        
+        console.log("animatins:" + this.animator.animations)
 		for (var i = 0; i < this.animator.animations.length; i++){
+            if(i%2 == 0){
+                this.whiteMaterial.apply();
+            }
+            else this.blackMaterial.apply();
             let animation = this.animator.animations[i];
 			this.scene.pushMatrix();
 			let transformMatrix = mat4.create();
 			mat4.identity(transformMatrix);
 			this.scene.multMatrix(transformMatrix);
             animation.apply();
-            this.scene.translate(2 + i, 0, 0); //teste
+
+            this.scene.scale(0.15, 0.1, 0.15);
             this.piece.display();
 
             this.scene.popMatrix();
@@ -81,11 +84,11 @@ class MyGameOrchestrator extends CGFobject {
         //console.log(this.move);
     }
     
-    createKeyframes(turn, move){
-        this.animation = new KeyFrameAnimation(this.scene);
+    createKeyframes(move){
+        this.animation = new KeyFrameAnimation(this.scene, this.turn);
         let frame = [];
-        frame.push(this.scene.deltaTime + 100);
-
+        //going up
+        frame.push(this.scene.deltaTime + 10); // instant
         let trans = [];
         trans.push(0);
         trans.push(3); // teste
@@ -105,6 +108,35 @@ class MyGameOrchestrator extends CGFobject {
         frame.push(scale);
 
         this.animation.keyFrames.push(frame);
+
+        //going center
+        frame.length = 0;
+        frame.push(this.scene.deltaTime + 200); // instant
+
+        trans.length = 0;
+        trans.push(1);
+        trans.push(3); // teste
+        trans.push(0);
+        frame.push(trans);
+
+        rot.length = 0;
+        rot.push(0);
+        rot.push(0);
+        rot.push(0);
+        frame.push(rot);
+
+        scale.length = 0;
+        scale.push(1);
+        scale.push(1);
+        scale.push(1);
+        frame.push(scale);
+
+        this.animation.keyFrames.push(frame);
+
+        //going final position
+        // (...)
+
+
         this.animator.animations.push(this.animation);
     }
 
@@ -115,7 +147,7 @@ class MyGameOrchestrator extends CGFobject {
         this.move.push(this.turn);
         this.gameSequence.addMove(move);
         setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 2000);
-        this.createKeyframes(this.turn, this.move);
+        this.createKeyframes( this.move);
         //this.turn = Math.abs(this.turn - 1);
     }
     

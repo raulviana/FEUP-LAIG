@@ -4,10 +4,13 @@
 */
 
 class KeyFrameAnimation extends Animation{
-    constructor(scene){
+    constructor(scene, turn){
         super(scene);
         this.keyFrames = [];
-        this.currentTrans = {x:0.0, y:0.0, z:0.0}; // Initial value for translation
+        if(turn == 1){
+            this.currentTrans = {x:0.0, y:0.15, z:1.5 }; // Initial value for translation
+        }
+        else this.currentTrans = {x:0.0, y:0.15, z:-1.5}; // Initial value for translation
         this.currentRot = {x:0.0, y:0.0, z:0.0}; // Initial value for rotation
         this.currentScale = {x:1.0, y:1.0, z:1.0}; // Initial value for scaling
         this.startTime = 0;
