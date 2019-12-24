@@ -72,6 +72,7 @@ class MyGameOrchestrator extends CGFobject {
 			mat4.identity(transformMatrix);
 			this.scene.multMatrix(transformMatrix);
             animation.apply();
+            this.scene.translate(2 + i, 0, 0); //teste
             this.piece.display();
 
             this.scene.popMatrix();
