@@ -23,7 +23,7 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-       // this.initCameras();
+        // this.initCameras();
 
         this.enableTextures(true);
 
@@ -44,15 +44,16 @@ class XMLscene extends CGFscene {
         this.spotGreen = false;
         this.spotBlue = false;
        
-        this.selectedCamera = 0;
+        this.selectedCamera = 3;
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
+        this.viewAngle = 0;
 
-        this.board = new MyBoard(this);
-        this.selectedAmbient = 0;
+        //this.board = new MyGameBoard(this);
+        this.gameOrchestrator = new MyGameOrchestrator(this);
 
         this.setPickEnabled(true);
-       }
+    }
 
     /**
      * Initializes the scene cameras.
@@ -171,40 +172,42 @@ class XMLscene extends CGFscene {
             
             this.ani[key].update(this.deltaTime);
         }
+        
+        for (var key in this.gameOrchestrator.animator.animation){
+            this.gameOrchestrator.animatir.animation[key].update(this.deltaTime);
+        }
         this.lastTime = t;
-
-       
     }
       
 
     updateCamera(i){
         var cam = this.graph.cameraz[this.graph.viewIds[i]];
-        this.camera = cam;
-        this.interface.setActiveCamera(this.camera);
+        // this.interface.setActiveCamera(this.camera);
+        switch (this.gameOrchestrator.turn){
+            case 0:
+                if(this.viewAngle > 0 && this.gameOrchestrator.pause){
+                    this.camera.orbit((0, 0, 1), 5*DEGREE_TO_RAD);
+                    this.viewAngle -= 5;
+                }
+                else this.gameOrchestrator.pause = true;
+                break;
+            case 1:
+                if(this.viewAngle < 180 && this.gameOrchestrator.pause ){ 
+                    this.camera.orbit((0, 0, 1), -5*DEGREE_TO_RAD);
+                    this.viewAngle += 5;
+                }
+                else this.gameOrchestrator.pause = true; 
+                break;
+        }
         
+        this.camera = cam;
     }
 
-    logPicking() {
-		if (this.pickMode == false) {
-			if (this.pickResults != null && this.pickResults.length > 0) {
-				console.log(this.pickResults.slice());
-				for (var i = 0; i < this.pickResults.length; i++) {
-					console.log("yes");
-					var obj = this.pickResults[i][0];
-					if (obj) {
-						var customId = this.pickResults[i][1];
-						console.log("Picked object: " + obj + ", with pick id " + customId);						
-					}
-				}
-				this.pickResults.splice(0, this.pickResults.length);
-			}
-		}
-	}
+   
 
     display() {
 
-
-        this.logPicking();
+        this.gameOrchestrator.logPicking();
 		this.clearPickRegistration();
 
         if(this.sceneInited){
@@ -216,64 +219,65 @@ class XMLscene extends CGFscene {
             this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         
             // Initialize Model-View matrix as identity (no transformation
-           this.updateProjectionMatrix();
-           this.loadIdentity();
+            this.updateProjectionMatrix();
+            this.loadIdentity();
         
-           // Apply transformations corresponding to the camera position relative to the origin
+            // Apply transformations corresponding to the camera position relative to the origin
             this.applyViewMatrix();
 
-           this.pushMatrix();
-           //this.axis.display();
+            this.pushMatrix();
+            //this.axis.display();
 
 
-          //Updates View
-         this.updateCamera(this.selectedCamera);
+            //Updates View
+            this.updateCamera(this.selectedCamera);
 
-          // Turn On/Off Light 1
-          if (this.light1)
-               this.lights[0].enable();
-          else
-               this.lights[0].disable();
+            // Turn On/Off Light 1
+            if (this.light1)
+                this.lights[0].enable();
+            else
+                this.lights[0].disable();
 
-           // Turn On/Off Light 2
-           if (this.light2)
-               this.lights[1].enable();
+            // Turn On/Off Light 2
+            if (this.light2)
+                this.lights[1].enable();
             else
                 this.lights[1].disable();
 
-           // Turn On/Off Red Spotlight
-          if (this.spotRed)
-              this.lights[2].enable();
-          else
-              this.lights[2].disable();
+            // Turn On/Off Red Spotlight
+            if (this.spotRed)
+                this.lights[2].enable();
+            else
+                this.lights[2].disable();
 
-           // Turn On/Off Green Spotlight
-           if (this.spotGreen)
-               this.lights[3].enable();
-           else
-              this.lights[3].disable();
+            // Turn On/Off Green Spotlight
+            if (this.spotGreen)
+                this.lights[3].enable();
+            else
+                this.lights[3].disable();
 
-           // Turn On/Off Blue Spotlight
-           if (this.spotBlue)
-              this.lights[4].enable();
-          else
-              this.lights[4].disable();    
+            // Turn On/Off Blue Spotlight
+            if (this.spotBlue)
+                this.lights[4].enable();
+            else
+                this.lights[4].disable();    
 
        
-           // Update all lights
-           for (var i = 0; i < this.lights.length; i++) {
-              this.lights[i].update();
-          }
+            // Update all lights
+            for (var i = 0; i < this.lights.length; i++) {
+               this.lights[i].update();
+            }
+            
+          
+            // Displays the scene (MySceneGraph function).
+            this.graph.displayScene();
+            this.pushMatrix();
+            this.translate(3, 3.2, 2);
+            this.gameOrchestrator.display();
+            this.popMatrix();
 
-          this.pushMatrix();
-          this.translate(3, 3.2, 2);
-          this.board.display();
-          this.popMatrix();
-         // Displays the scene (MySceneGraph function).
-         this.graph.displayScene();
-        
-          this.popMatrix();
-          // ---- END Background, camera and axis setup
+            this.popMatrix();
+            // ---- END Background, camera and axis setup
         }
     }
 
