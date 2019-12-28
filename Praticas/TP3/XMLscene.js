@@ -173,10 +173,13 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         
-        for (var key in this.gameOrchestrator.animator.animation){
-            this.gameOrchestrator.animator.animation[key].update(this.deltaTime);
-        }
+        this.gameOrchestrator.update(this.deltaTime);
+        /*for (var key in this.gameOrchestrator.animator.animation){
+            this.gameOrchestrator.animatir.animation[key].update(this.deltaTime);
+        }*/
         this.lastTime = t;
+
+        
     }
       
 

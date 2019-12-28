@@ -12,36 +12,19 @@ class MyGameOrchestrator extends CGFobject {
         this.sideboardWhite = new MySideBoard(this.scene, -1); // -1 for white
 /*        this.theme = new MyScenegraph(this.scene);
         this.prolog = new MyPrologInterface(this.scene);*/
-        this.piece = new MyOctoPiece(this.scene);
-        
 
-
+        this.boardCenter = [3, 3.2, 2];
         this.turn = 0;
         this.move = [];
         this.pause = false;
 
-
-        
-        this.blackMaterial = new CGFappearance(this.scene);
-        this.blackMaterial.setShininess(1.0);
-        this.blackMaterial.setAmbient(0.0, 0.0, 0.0, 1.0);
-        this.blackMaterial.setDiffuse(0, 0, 0, 1.0);
-        this.blackMaterial.setSpecular(0, 0, 0, 1.0);
-		this.blackMaterial.setShininess(10.0);
-
-        this.whiteMaterial = new CGFappearance(this.scene);
-        this.whiteMaterial.setShininess(0.1);
-		this.whiteMaterial.setAmbient(0.9, 0.9, 0.9, 0.1);
-		this.whiteMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
-		this.whiteMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
-		this.whiteMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
+        this.pieces = [];
     }
-
 
     logPicking() {
         if (this.scene.pickMode == false) {
             if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-                console.log(this.scene.pickResults.slice());
+               
                 for (let i = 0; i < this.scene.pickResults.length; i++) {
                     let obj = this.scene.pickResults[i][0];
                     if (obj) {
@@ -57,98 +40,42 @@ class MyGameOrchestrator extends CGFobject {
         }
     }
 
+    update(t) {
+        
+        this.animator.update(t);
+    }
+
     display() {
         this.gameboard.display();
         this.sideboardBlack.display();
         this.sideboardWhite.display();
 
-        console.log("animatins:" + this.animator.animations)
-		for (var i = 0; i < this.animator.animations.length; i++){
-            if(i%2 == 0){
-                this.whiteMaterial.apply();
-            }
-            else this.blackMaterial.apply();
-            let animation = this.animator.animations[i];
-			this.scene.pushMatrix();
-			let transformMatrix = mat4.create();
-			mat4.identity(transformMatrix);
-			this.scene.multMatrix(transformMatrix);
-            animation.apply();
-
-            this.scene.scale(0.15, 0.1, 0.15);
-            this.piece.display();
-
-            this.scene.popMatrix();
+        for (let i = 0; i < this.pieces.length; i++) {
+            this.pieces[i].display();
         }
 
-        //console.log(this.move);
     }
     
-    createKeyframes(move){
-        this.animation = new KeyFrameAnimation(this.scene, this.turn);
-        let frame = [];
-        //going up
-        frame.push(this.scene.deltaTime + 10); // instant
-        let trans = [];
-        trans.push(0);
-        trans.push(3); // teste
-        trans.push(0);
-        frame.push(trans);
-
-        let rot = [];
-        rot.push(0);
-        rot.push(0);
-        rot.push(0);
-        frame.push(rot);
-
-        let scale = [];
-        scale.push(1);
-        scale.push(1);
-        scale.push(1);
-        frame.push(scale);
-
-        this.animation.keyFrames.push(frame);
-
-        //going center
-        frame.length = 0;
-        frame.push(this.scene.deltaTime + 200); // instant
-
-        trans.length = 0;
-        trans.push(1);
-        trans.push(3); // teste
-        trans.push(0);
-        frame.push(trans);
-
-        rot.length = 0;
-        rot.push(0);
-        rot.push(0);
-        rot.push(0);
-        frame.push(rot);
-
-        scale.length = 0;
-        scale.push(1);
-        scale.push(1);
-        scale.push(1);
-        frame.push(scale);
-
-        this.animation.keyFrames.push(frame);
-
-        //going final position
-        // (...)
-
-
-        this.animator.animations.push(this.animation);
+    createAnimation(turn, move){
+        let animation = new KeyFrameAnimation(this.scene);
+        
+        
+        
+        console.log(animation.keyFrames);
+        this.animator.addAnimation(animation);
     }
 
     changeMove(move) {
         this.scene.setPickEnabled(false);
+
         this.move = move;
-        console.log("move: " + move);
         this.move.push(this.turn);
         this.gameSequence.addMove(move);
-        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 2000);
-        this.createKeyframes( this.move);
-        //this.turn = Math.abs(this.turn - 1);
+
+        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 5000);
+        this.createAnimation(this.turn, this.move);
+        let piece = new MyPiece(this.scene, move[0], move[1], this.turn, this.animator.animations[this.animator.animations.length - 1]);
+        this.pieces.push(piece);
     }
     
    
