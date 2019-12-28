@@ -10,12 +10,21 @@ class MyGameSequence extends CGFobject {
 
     }
 
-    undoMove(){}
+    undoMove() {
+        this.sequence.pop();
+    }
 
     addMove(move){
         this.sequence.push(move);
-        console.log("Player " + move[2] + " played in position " + move[0] + ", " + move[1]);
         console.log(this.sequence);
+    }
+
+    checkMove(move) {
+        for (let i = 0; i < this.sequence.length ; i++) {
+            if (this.sequence[i][0] == move[0] && this.sequence[i][1] == move[1])
+                return false;
+        }
+        return true;
     }
 
 }

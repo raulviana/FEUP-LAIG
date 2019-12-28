@@ -8,6 +8,16 @@ class MyAnimator extends Animation{
         this.animations = [];
     }
 
+    addAnimation(animation) {
+        this.animations.push(animation);
+    }
+
+    update(t) {
+        //console.log(t);
+        for (let i = 0; i < this.animations.length; i++)
+            this.animations[i].update(t);
+    }
+
     setKeyframes(){
 
     }

@@ -3,20 +3,20 @@
 
      <views default="defaultCamera">
     <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-      <from x="7" y="8.2" z="2" />
-      <to x="3" y="3.2" z="2" />
+      <from x="70" y="82" z="20" />
+      <to x="30" y="32" z="20" />
     </perspective>
     <perspective id="leftCamera" near="0.1" far="500" angle="45">
-      <from x="3" y="8.2" z="6" />
-      <to x="3" y="3.2" z="2" />
+      <from x="30" y="82" z="60" />
+      <to x="30" y="32" z="20" />
     </perspective>
     <perspective id="rightCamera" near="0.1" far="500" angle="45">
-      <from x="3" y="8.2" z="-2" />
-      <to x="3" y="3.2" z="2" />
+      <from x="30" y="82" z="-20" />
+      <to x="30" y="32" z="20" />
     </perspective>
     <perspective id="backCamera" near="0.1" far="500" angle="45">
-      <from x="-1" y="8.2" z="2" />
-      <to x="3" y="3.2" z="2" />
+      <from x="-10" y="82" z="20" />
+      <to x="30" y="32" z="20" />
     </perspective>
 
   </views>
@@ -28,38 +28,38 @@
 
     <lights>
         <omni id="ligth1" enabled="0">
-            <location x="10" y="10" z="2" w="1.0" />
+            <location x="100" y="100" z="20" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
         <omni id="ligth2" enabled="0">
-            <location x="-8" y="10" z="2" w="1.0" />
+            <location x="-80" y="100" z="20" w="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </omni>
         <spot id="spotRed" enabled="1" angle="45.0" exponent="1">
-            <location x="-1.0" y="10.0" z="-2.5" w="1.0" />
-            <target x="4.0" y="-6.5" z="4.0" />
+            <location x="-10" y="100" z="-25" w="1.0" />
+            <target x="40" y="-65" z="40" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </spot>
         <spot id="spotGreen" enabled="1" angle="45.0" exponent="1">
-            <location x="7.0" y="10.0" z="2.5" w="1.0" />
-            <target x="-5.0" y="-6.5" z="0.0" />
+            <location x="70" y="100" z="25" w="1.0" />
+            <target x="-50" y="-65" z="0.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.0" g="1.0" b="0.0" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
             <attenuation constant="1.0" linear="0" quadratic="0" />
         </spot>
         <spot id="spotBlue" enabled="0" angle="45.0" exponent="1">
-            <location x="-1.0" y="10.0" z="6.5" w="1.0" />
-            <target x="3.0" y="-6.5" z="-4.0" />
+            <location x="-10" y="100" z="65" w="1.0" />
+            <target x="30" y="-65" z="-40" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="1.0" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
@@ -166,6 +166,7 @@
         <!--Table-->
         <component id="table">
             <transformation>
+              <scale x="10" y="10" z="10" />
             </transformation>
             <materials>
                 <material id="woodMaterial" />

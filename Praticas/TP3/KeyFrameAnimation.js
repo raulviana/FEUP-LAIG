@@ -12,10 +12,12 @@ class KeyFrameAnimation extends Animation{
         this.currentScale = {x:1.0, y:1.0, z:1.0}; // Initial value for scaling
         this.startTime = 0;
         this.stage = 0;
+
     }
 
     // Updates the initial values acording to the keyframe parameters and the time passed
-    update(t){
+    update(t) {
+        
         this.startTime += t;
         
         if(this.stage < this.keyFrames.length) {
@@ -83,7 +85,7 @@ class KeyFrameAnimation extends Animation{
             if(this.startTime > breakTime) this.stage++;
 
         }
-
+        
     }
 
     // Applies current values to object

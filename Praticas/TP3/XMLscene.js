@@ -173,10 +173,13 @@ class XMLscene extends CGFscene {
             this.ani[key].update(this.deltaTime);
         }
         
-        for (var key in this.gameOrchestrator.animator.animation){
+        this.gameOrchestrator.update(this.deltaTime);
+        /*for (var key in this.gameOrchestrator.animator.animation){
             this.gameOrchestrator.animatir.animation[key].update(this.deltaTime);
-        }
+        }*/
         this.lastTime = t;
+
+        
     }
       
 
@@ -272,7 +275,7 @@ class XMLscene extends CGFscene {
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
             this.pushMatrix();
-            this.translate(3, 3.2, 2);
+            this.translate(30, 32, 20);
             this.gameOrchestrator.display();
             this.popMatrix();
 

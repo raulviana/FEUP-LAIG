@@ -17,7 +17,7 @@ class MySideBoard extends CGFobject {
         this.boardMaterial.setEmission(0.9, 0.6, 0.2, 1);
 
         this.pieceMaterial = new CGFappearance(this.scene);
-        if(this.mat == 1) {
+        if (this.mat == 1) {
             this.pieceMaterial.setShininess(1.0);
             this.pieceMaterial.setAmbient(0.1, 0.1, 0.1, 0.1);
             this.pieceMaterial.setDiffuse(0.1, 0.1, 0.1, 0.1);
@@ -29,34 +29,33 @@ class MySideBoard extends CGFobject {
             this.pieceMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
             this.pieceMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
             this.pieceMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
-		}
+        }
 
     }
 
-   
+
     display() {
-        
-        
-        
+
+
+
         if (this.scene.pickMode == false) {
-        this.pieceMaterial.apply();
-        for(let i = 0; i < 32; i++) {
+            this.pieceMaterial.apply();
             this.scene.pushMatrix();
-            this.scene.translate(-0.3, 0.15, 1.5 * this.mat);
-            this.scene.rotate(Math.PI/8, 0, 1, 0);
-            this.scene.scale(0.15, 0.1, 0.15);
+            this.scene.translate(0, 1.5, 15 * this.mat);
+            this.scene.rotate(Math.PI / 8, 0, 1, 0);
+            this.scene.scale(1.5, 1, 1.5);
             this.octoPiece.display();
             this.scene.popMatrix();
-        }
 
-        this.scene.pushMatrix();
-        this.boardMaterial.apply();
-        this.scene.translate(0, 0, 1.5 * this.mat);
-        this.scene.scale(1.15, 0.3, 0.4);
-        this.cube.display();
-        this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+            this.boardMaterial.apply();
+            this.scene.translate(0, 0, 15 * this.mat);
+            this.scene.scale(11.5, 3, 4);
+            this.cube.display();
+            this.scene.popMatrix();
         }
     }
 
-    
+
 }
