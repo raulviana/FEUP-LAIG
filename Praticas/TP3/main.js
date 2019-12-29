@@ -18,7 +18,7 @@ main=function()
 	// Standard application, scene and interface setup
     var app = new CGFapplication(document.body);
     var myInterface = new MyInterface();
-    var myScene = new XMLscene(myInterface);
+    var myScene = new XMLscene(myInterface, 2);
 
     app.init();
 
@@ -30,11 +30,13 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "scene.xml";
+    var filename1 = getUrlVars()['file'] || "ligth.xml";
+    var filename2 = getUrlVars()['file'] || "dark.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
+    var Graph1 = new MySceneGraph(filename1, myScene);
+    var Graph2 = new MySceneGraph(filename2, myScene);
 	
 	// start
     app.run();

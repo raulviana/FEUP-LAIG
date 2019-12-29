@@ -8,10 +8,14 @@ class XMLscene extends CGFscene {
      * @constructor
      * @param {MyInterface} myinterface 
      */
-    constructor(myinterface) {
+    constructor(myinterface, numGraphs) {
         super();
 
         this.interface = myinterface;
+        this.graphs = [];
+        this.numGraphs = numGraphs; 
+        this.graphsLoaded = 0;
+        this.currGraph = 0;
     }
 
     /**
@@ -49,6 +53,8 @@ class XMLscene extends CGFscene {
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
         this.viewAngle = 0;
 
+        this.ambient = {'Ligth': 0, 'Dark': 1};
+
         //this.board = new MyGameBoard(this);
         this.gameOrchestrator = new MyGameOrchestrator(this);
 
@@ -60,9 +66,9 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
   
-        var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
+        var defaultCamera = this.graphs[this.currGraph].cameraz[0]; // Gets ID of default view
 
-        var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
+        var cam = this.graphs[this.currGraph].cameraz[defaultCamera]; // Gets default view from array of views
         this.camera = cam; // Sets default view
         
         this.interface.setActiveCamera(this.camera);
@@ -79,13 +85,13 @@ class XMLscene extends CGFscene {
 
         // Reads the lights from the scene graph.
 
-        for (var key in this.graph.lightz) {
+        for (var key in this.graphs[this.currGraph].lightz) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
 
-            if (this.graph.lightz.hasOwnProperty(key)) {
+            if (this.graphs[this.currGraph].lightz.hasOwnProperty(key)) {
                 this.lights[i] = new CGFlight(this, i);
-                var light = this.graph.lightz[key];
+                var light = this.graphs[this.currGraph].lightz[key];
 
                 // Sets position
                 this.lights[i].setPosition(light[2][0], light[2][1], light[2][2], light[2][3]);
@@ -125,15 +131,20 @@ class XMLscene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
+    addGraph(graph){
+        this.graphs.push(graph);
+    }
+    
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        this.axis = new CGFaxis(this, this.graph.referenceLength);
+        this.axis = new CGFaxis(this, this.graphs[this.currGraph].referenceLength);
 
-        this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
+        this.gl.clearColor(this.graphs[this.currGraph].background[0], this.graphs[this.currGraph].background[1], this.graphs[this.currGraph].background[2], this.graphs[this.currGraph].background[3]);
 
-        this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
+        this.setGlobalAmbientLight(this.graphs[this.currGraph].ambient[0], this.graphs[this.currGraph].ambient[1], this.graphs[this.currGraph].ambient[2], this.graphs[this.currGraph].ambient[3]);
 
         this.initLights();
 
@@ -167,11 +178,11 @@ class XMLscene extends CGFscene {
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
         
 
-        this.ani = this.graph.animations;
-        for (var key in this.ani) {
+        // this.ani = this.graphs[this.currGraph].animations;
+        // for (var key in this.ani) {
             
-            this.ani[key].update(this.deltaTime);
-        }
+        //     this.ani[key].update(this.deltaTime);
+        // }
         
         this.gameOrchestrator.update(this.deltaTime);
         /*for (var key in this.gameOrchestrator.animator.animation){
@@ -184,7 +195,7 @@ class XMLscene extends CGFscene {
       
 
     updateCamera(i){
-        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+        var cam = this.graphs[this.currGraph].cameraz[this.graphs[this.currGraph].viewIds[i]];
         // this.interface.setActiveCamera(this.camera);
         switch (this.gameOrchestrator.turn){
             case 0:
@@ -273,7 +284,7 @@ class XMLscene extends CGFscene {
             
           
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            this.graphs[this.currGraph].displayScene();
             this.pushMatrix();
             this.translate(3, 3.2, 2);
             this.gameOrchestrator.display();

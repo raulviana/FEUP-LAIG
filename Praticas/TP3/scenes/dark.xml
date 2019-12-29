@@ -77,10 +77,6 @@
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
         <texture id="darkRubber" file="scenes/images/darkRubber.jpg" />
-        <texture id="newfloor" file="scenes/images/whitefloor.jpg" />
-        <texture id="newwood" file="scenes/images/lightgrey.jpg" />
-        <texture id="newchair" file="scenes/images/chaircolor.jpg" />
-        <texture id="newwall" file="scenes/images/newwall.jpg" />
     </textures>
 
     <materials>
@@ -125,7 +121,21 @@
         </transformation>
     </transformations>
 
-    <animations></animations>
+    <animations>
+        <animation id="y-line" >
+            <keyframe instant="5.0" >
+                <translate x="0.0" y="10.0" z="0.0" />
+                <rotate angle_x="360.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="3.0" y="3.0" z="3.0" />
+            </keyframe>
+            
+            <keyframe instant="10.0" >
+                <translate x="0.0" y="3" z="0.0" />
+                <rotate angle_x="720.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+    </animations>
 
     <primitives>
         <primitive id="Rectangle">

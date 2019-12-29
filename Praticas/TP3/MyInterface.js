@@ -26,13 +26,18 @@ class MyInterface extends CGFinterface {
 
         //Dropbox
         this.gui.add(this.scene, 'selectedCamera', this.scene.view).name('Select View');
-
+        
+        this.gui.add(this.scene, 'currGraph', this.scene.ambient).name('Select Ambient');
+        
+        
         //Checkbox
         f0.add(this.scene, 'light1').name('light 1');
         f0.add(this.scene, 'light2').name('light 2');
         f0.add(this.scene, 'spotRed').name('Spot Red');
         f0.add(this.scene, 'spotGreen').name('Spot Green');
         f0.add(this.scene, 'spotBlue').name('Spot Blue');
+
+        
 
         this.initKeys();
 

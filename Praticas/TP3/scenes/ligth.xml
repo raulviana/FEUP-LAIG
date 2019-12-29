@@ -68,15 +68,13 @@
     </lights>
 
     <textures>
-        <texture id="aquarium" file="scenes/images/aquarium.jpg" />
-        <texture id="fabric" file="scenes/images/grey-fabric.jpg" />
-        <texture id="floor" file="scenes/images/floor.jpg" />
-        <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="metalic" file="scenes/images/metalic.jpg" />
-        <texture id="wall" file="scenes/images/wall.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="photo" file="scenes/images/photo.jpg" />
-        <texture id="darkRubber" file="scenes/images/darkRubber.jpg" />
+        <texture id="newchair" file="scenes/images/newchair.jpg" />
+        <texture id="newfloor" file="scenes/images/newfloor.jpg" />
+        <texture id="new_wall" file="scenes/images/new_wall.jpg" />
+        <texture id="newtable" file="scenes/images/newtable.jpg" />
     </textures>
 
     <materials>
@@ -86,11 +84,11 @@
             <diffuse r="0.5" g="0.5" b="0.9" a="1.0" />
             <specular r="0.5" g="0.5" b="0.9" a="1.0" />
         </material>
-        <material id="woodMaterial" shininess="1">
-            <emission r="0.8" g="0.5" b="0" a="1.0" />
-            <ambient r="0.8" g="0.5" b="0" a="1.0" />
-            <diffuse r="0.8" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.2" g="0.5" b="0.0" a="1.0" />
+        <material id="woodMaterial" shininess="11.264">
+            <emission r="0.25" g="0.20725" b="0.20725" a="0.922" />
+            <ambient r="1" g="0.829" b="0.829" a="0.922" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.296648" g="0.296648" b="0.296648" a="0.922" />
         </material>
         <material id="glassMaterial" shininess="0.088">
             <emission r="0.01" g="0.01" b="0.01" a="1.0" />
@@ -121,7 +119,21 @@
         </transformation>
     </transformations>
 
-    <animations></animations>
+    <animations>
+        <animation id="y-line" >
+            <keyframe instant="5.0" >
+                <translate x="0.0" y="10.0" z="0.0" />
+                <rotate angle_x="360.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="3.0" y="3.0" z="3.0" />
+            </keyframe>
+            
+            <keyframe instant="10.0" >
+                <translate x="0.0" y="3" z="0.0" />
+                <rotate angle_x="720.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+    </animations>
 
     <primitives>
         <primitive id="Rectangle">
@@ -154,10 +166,10 @@
             <texture id="metalic" length_s="1" length_t="1" />
             <children>
                 <componentref id="table" />
-                <!--<componentref id="chairs" />
+                <componentref id="chairs" />
                 <componentref id="floor" />
                 <componentref id="walls" />
-                <componentref id="painting" />-->
+                <componentref id="painting" />
                 
             </children>
         </component>
@@ -173,7 +185,7 @@
                 <material id="glassMaterial" />
                 <material id="whiterubberMaterial" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="newtable" length_s="1" length_t="1" />
             <children>
                 <componentref id="tableTop" />
                 <componentref id="tableLegs" />
@@ -303,7 +315,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" length_s="1" length_t="1" />
+            <texture id="newchair" length_s="1" length_t="1" />
             <children>
                 <componentref id="chairCube" />
             </children>
@@ -319,7 +331,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" length_s="1" length_t="1" />
+            <texture id="newchair" length_s="1" length_t="1" />
             <children>
                 <componentref id="chairCube" />
             </children>
@@ -433,7 +445,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" length_s="1" length_t="1" />
+            <texture id="newchair" length_s="1" length_t="1" />
             <children>
                 <componentref id="chairCube" />
             </children>
@@ -449,7 +461,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="fabric" length_s="1" length_t="1" />
+            <texture id="newchair" length_s="1" length_t="1" />
             <children>
                 <componentref id="chairCube" />
             </children>
@@ -552,7 +564,7 @@
                 <material id="demoMaterial" />
                 <material id="glassMaterial" />
             </materials>
-            <texture id="floor" length_s="1" length_t="1" />
+            <texture id="newfloor" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -586,7 +598,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wall" length_s="1" length_t="1" />
+            <texture id="new_wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -601,7 +613,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wall" length_s="1" length_t="1" />
+            <texture id="new_wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -616,7 +628,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wall" length_s="1" length_t="1" />
+            <texture id="new_wall" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle"  />
             </children>
@@ -631,7 +643,7 @@
           <materials>
             <material id="inherit" />
           </materials>
-          <texture id="wall" length_s="1" length_t="1" />
+          <texture id="new_wall" length_s="1" length_t="1" />
           <children>
             <primitiveref id="Rectangle"  />
           </children>
@@ -788,7 +800,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="newtable" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -801,7 +813,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="newtable" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -814,7 +826,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="newtable" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
@@ -826,7 +838,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="newtable" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="Rectangle" />
             </children>
