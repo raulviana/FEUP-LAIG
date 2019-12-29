@@ -11,10 +11,10 @@ class MySideBoard extends CGFobject {
 
         this.boardMaterial = new CGFappearance(this.scene);
         this.boardMaterial.setShininess(1.0);
-        this.boardMaterial.setAmbient(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setDiffuse(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setSpecular(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setEmission(0.9, 0.6, 0.2, 1);
+        this.boardMaterial.setAmbient(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setDiffuse(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setSpecular(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setEmission(0.51, 0.41, 0.19, 1);
 
         this.pieceMaterial = new CGFappearance(this.scene);
         if (this.mat == 1) {
@@ -22,13 +22,13 @@ class MySideBoard extends CGFobject {
             this.pieceMaterial.setAmbient(0.1, 0.1, 0.1, 0.1);
             this.pieceMaterial.setDiffuse(0.1, 0.1, 0.1, 0.1);
             this.pieceMaterial.setSpecular(0.1, 0.1, 0.1, 0.1);
-            this.pieceMaterial.setEmission(0.1, 0.1, 0.1, 0.1);
+            this.pieceMaterial.setEmission(0.18, 0.18, 0.18, 0.1);
         } else {
             this.pieceMaterial.setShininess(0.1);
-            this.pieceMaterial.setAmbient(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
+            this.pieceMaterial.setAmbient(0.5, 0.5, 0.5, 0.1);
+            this.pieceMaterial.setDiffuse(0.8, 0.8, 0.8, 0.1);
+            this.pieceMaterial.setSpecular(0.8, 0.8, 0.8, 0.1);
+            this.pieceMaterial.setEmission(0.6, 0.6, 0.6, 0.1);
         }
 
     }

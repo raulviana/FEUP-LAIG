@@ -10,10 +10,10 @@ class MyGameBoard extends CGFobject {
 
         this.boardMaterial = new CGFappearance(this.scene);
         this.boardMaterial.setShininess(1.0);
-        this.boardMaterial.setAmbient(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setDiffuse(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setSpecular(0.9, 0.6, 0.2, 1);
-        this.boardMaterial.setEmission(0.9, 0.6, 0.2, 1);
+        this.boardMaterial.setAmbient(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setDiffuse(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setSpecular(0.51, 0.41, 0.19, 1);
+        this.boardMaterial.setEmission(0.51, 0.41, 0.19, 1);
 
         this.tileMaterial = new CGFappearance(this.scene);
         this.tileMaterial.setShininess(1.0);

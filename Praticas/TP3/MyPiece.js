@@ -22,13 +22,13 @@ class MyPiece extends CGFobject {
             this.pieceMaterial.setAmbient(0.1, 0.1, 0.1, 0.1);
             this.pieceMaterial.setDiffuse(0.1, 0.1, 0.1, 0.1);
             this.pieceMaterial.setSpecular(0.1, 0.1, 0.1, 0.1);
-            this.pieceMaterial.setEmission(0.1, 0.1, 0.1, 0.1);
+            this.pieceMaterial.setEmission(0.18, 0.18, 0.18, 0.1);
         } else {
             this.pieceMaterial.setShininess(0.1);
-            this.pieceMaterial.setAmbient(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setDiffuse(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
-            this.pieceMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
+            this.pieceMaterial.setAmbient(0.5, 0.5, 0.5, 0.1);
+            this.pieceMaterial.setDiffuse(0.8, 0.8, 0.8, 0.1);
+            this.pieceMaterial.setSpecular(0.8, 0.8, 0.8, 0.1);
+            this.pieceMaterial.setEmission(0.6, 0.6, 0.6, 0.1);
         }
 
         this.developAnimation();
