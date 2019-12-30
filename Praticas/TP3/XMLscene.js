@@ -8,10 +8,14 @@ class XMLscene extends CGFscene {
      * @constructor
      * @param {MyInterface} myinterface 
      */
-    constructor(myinterface) {
+    constructor(myinterface, numGraphs) {
         super();
 
         this.interface = myinterface;
+        this.graphs = [];
+        this.numGraphs = numGraphs;
+        this.graphsLoaded = 0;
+        this.currGraph = 0;
     }
 
     /**
@@ -43,28 +47,49 @@ class XMLscene extends CGFscene {
         this.spotRed = false;
         this.spotGreen = false;
         this.spotBlue = false;
-       
+
         this.selectedCamera = 3;
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
         this.viewAngle = 0;
 
+        this.ambient = { 'Ligth': 0, 'Dark': 1 };
+
+        this.setPickEnabled(true);
+
         //this.board = new MyGameBoard(this);
         this.gameOrchestrator = new MyGameOrchestrator(this);
 
-        this.setPickEnabled(true);
+        this.playGame = false;
+
+        this.undo = function () {
+            this.gameOrchestrator.undoMove();
+        }
+
+        this.startGame = function () {
+            this.playGame = true;
+        }
+
+        this.clear = function () {
+            this.playGame = false;
+            this.gameOrchestrator.clearGame();
+        }
+
+        this.video = function () {
+            this.gameOrchestrator.playVideo();
+        }
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-  
-        var defaultCamera = this.graph.cameraz[0]; // Gets ID of default view
 
-        var cam = this.graph.cameraz[defaultCamera]; // Gets default view from array of views
+        var defaultCamera = this.graphs[this.currGraph].cameraz[0]; // Gets ID of default view
+
+        var cam = this.graphs[this.currGraph].cameraz[defaultCamera]; // Gets default view from array of views
         this.camera = cam; // Sets default view
-        
+
         this.interface.setActiveCamera(this.camera);
     }
 
@@ -125,15 +150,20 @@ class XMLscene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
+    addGraph(graph) {
+        this.graphs.push(graph);
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
-        this.axis = new CGFaxis(this, this.graph.referenceLength);
+        this.axis = new CGFaxis(this, this.graphs[this.currGraph].referenceLength);
 
-        this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
+        this.gl.clearColor(this.graphs[this.currGraph].background[0], this.graphs[this.currGraph].background[1], this.graphs[this.currGraph].background[2], this.graphs[this.currGraph].background[3]);
 
-        this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
+        this.setGlobalAmbientLight(this.graphs[this.currGraph].ambient[0], this.graphs[this.currGraph].ambient[1], this.graphs[this.currGraph].ambient[2], this.graphs[this.currGraph].ambient[3]);
 
         this.initLights();
 
@@ -143,13 +173,13 @@ class XMLscene extends CGFscene {
     }
 
     checkKeys(t) {
-        var text="Keys pressed: ";
-        var keysPressed=false;
+        var text = "Keys pressed: ";
+        var keysPressed = false;
         // Check for key codes e.g. in ​ https://keycode.info/
         if (this.gui.isKeyPressed("KeyM")) {
             this.counterM++;
-            text+=" M ";
-            keysPressed=true;
+            text += " M ";
+            keysPressed = true;
         }
         if (this.gui.isKeyPressed("KeyV")) {
             this.counterV++;
@@ -159,72 +189,75 @@ class XMLscene extends CGFscene {
         if (keysPressed) console.log(text);
     }
 
-    update(t){
+    update(t) {
         //time management
         this.lastTime = this.lastTime || 0.0;
         this.deltaTime = t - this.lastTime || 0.0;
         this.deltaTime = this.deltaTime / 1000; //"deltaTime" is now in seconds
         this.currentTime = (this.currentTime + this.deltaTime) || 0.0; //"currentTime" keeps track of time in seconds
-        
+
 
         this.ani = this.graph.animations;
         for (var key in this.ani) {
-            
+
             this.ani[key].update(this.deltaTime);
         }
-        
+
         this.gameOrchestrator.update(this.deltaTime);
         /*for (var key in this.gameOrchestrator.animator.animation){
             this.gameOrchestrator.animatir.animation[key].update(this.deltaTime);
         }*/
         this.lastTime = t;
 
-        
-    }
-      
 
-    updateCamera(i){
-        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+    }
+
+
+    updateCamera(i) {
+        var cam = this.graphs[this.currGraph].cameraz[this.graphs[this.currGraph].viewIds[i]];
         // this.interface.setActiveCamera(this.camera);
-        switch (this.gameOrchestrator.turn){
+        switch (this.gameOrchestrator.turn) {
             case 0:
-                if(this.viewAngle > 0 && this.gameOrchestrator.pause){
-                    this.camera.orbit((0, 0, 1), 5*DEGREE_TO_RAD);
+                if (this.viewAngle > 0 && this.gameOrchestrator.pause) {
+                    this.camera.orbit((0, 0, 1), 5 * DEGREE_TO_RAD);
                     this.viewAngle -= 5;
                 }
                 else this.gameOrchestrator.pause = true;
                 break;
             case 1:
-                if(this.viewAngle < 180 && this.gameOrchestrator.pause ){ 
-                    this.camera.orbit((0, 0, 1), -5*DEGREE_TO_RAD);
+                if (this.viewAngle < 180 && this.gameOrchestrator.pause) {
+                    this.camera.orbit((0, 0, 1), -5 * DEGREE_TO_RAD);
                     this.viewAngle += 5;
                 }
-                else this.gameOrchestrator.pause = true; 
+                else this.gameOrchestrator.pause = true;
                 break;
         }
-        
+
         this.camera = cam;
     }
 
-   
+
 
     display() {
+        this.clearPickRegistration();
 
-        this.gameOrchestrator.logPicking();
-		this.clearPickRegistration();
+        if (this.playGame == true) {
+            this.gameOrchestrator.logPicking();
+            this.gameOrchestrator.gameRunning = true;
+        }
 
-        if(this.sceneInited){
+        if (this.sceneInited) {
 
             // ---- BEGIN Background, camera and axis setup
 
             // Clear image and depth buffer everytime we update the scene
             this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
             this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-        
+
             // Initialize Model-View matrix as identity (no transformation
             this.updateProjectionMatrix();
             this.loadIdentity();
-        
+
             // Apply transformations corresponding to the camera position relative to the origin
             this.applyViewMatrix();
 
@@ -263,19 +296,20 @@ class XMLscene extends CGFscene {
             if (this.spotBlue)
                 this.lights[4].enable();
             else
-                this.lights[4].disable();    
+                this.lights[4].disable();
 
-       
+
             // Update all lights
             for (var i = 0; i < this.lights.length; i++) {
-               this.lights[i].update();
+                this.lights[i].update();
             }
-            
-          
+
+
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            this.graphs[this.currGraph].displayScene();
+
             this.pushMatrix();
-            this.translate(30, 32, 20);
+            this.translate(3, 3.2, 2);
             this.gameOrchestrator.display();
             this.popMatrix();
 

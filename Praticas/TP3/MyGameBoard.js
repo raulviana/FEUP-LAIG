@@ -48,9 +48,9 @@ class MyGameBoard extends CGFobject {
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
                 this.scene.pushMatrix();
-                this.scene.translate(-9.74169 + j * 2.78334, 1.0101, 9.74169 - i * 2.78334);
+                this.scene.translate(-0.974169 + j * 0.278334, 0.10101, 0.974169 - i * 0.278334);
                 this.scene.rotate(Math.PI / 8, 0, 1, 0);
-                this.scene.scale(1.5, 1, 1.5);
+                this.scene.scale(0.15, 0.1, 0.15);
                 this.scene.registerForPick(i * 8 + j + 1, this.tile);
                 this.tile.display();
                 this.scene.popMatrix();
@@ -61,23 +61,23 @@ class MyGameBoard extends CGFobject {
         this.boardMaterial.apply();
         if (this.scene.pickMode == false) {
             this.scene.pushMatrix();
-            this.scene.scale(24, 3, 24);
+            this.scene.scale(2.4, 0.3, 2.4);
             this.cube.display();
             this.scene.popMatrix();
 
             for (let j = 0; j < 7; j++) {
                 this.whiteMaterial.apply();
                 this.scene.pushMatrix();
-                this.scene.translate(11.13336, 1.0101, -8.35002 + j * 2.78334);
+                this.scene.translate(1.113336, 0.10101, -0.835002 + j * 0.278334);
                 this.scene.rotate(Math.PI / 4, 0, 1, 0);
-                this.scene.scale(1.5, 1, 1.5);
+                this.scene.scale(0.15, 0.1, 0.15);
                 this.square.display();
                 this.scene.popMatrix();
 
                 this.scene.pushMatrix();
-                this.scene.translate(-11.13336, 1.0101, -8.35002 + j * 2.78334);
+                this.scene.translate(-1.113336, 0.10101, -0.835002 + j * 0.278334);
                 this.scene.rotate(Math.PI / 4, 0, 1, 0);
-                this.scene.scale(1.5, 1, 1.5);
+                this.scene.scale(0.15, 0.1, 0.15);
                 this.square.display();
                 this.scene.popMatrix();
             }
@@ -85,16 +85,16 @@ class MyGameBoard extends CGFobject {
             for (let j = 0; j < 7; j++) {
                 this.blackMaterial.apply();
                 this.scene.pushMatrix();
-                this.scene.translate(-8.35002 + j * 2.78334, 1.0101, 11.13336);
+                this.scene.translate(-0.835002 + j * 0.278334, 0.10101, 1.113336);
                 this.scene.rotate(Math.PI / 4, 0, 1, 0);
-                this.scene.scale(1.5, 1, 1.5);
+                this.scene.scale(0.15, 0.1, 0.15);
                 this.square.display();
                 this.scene.popMatrix();
 
                 this.scene.pushMatrix();
-                this.scene.translate(-8.35002 + j * 2.78334, 1.0101, -11.13336);
+                this.scene.translate(-0.835002 + j * 0.278334, 0.10101, -1.113336);
                 this.scene.rotate(Math.PI / 4, 0, 1, 0);
-                this.scene.scale(1.5, 1, 1.5);
+                this.scene.scale(0.15, 0.1, 0.15);
                 this.square.display();
                 this.scene.popMatrix();
             }

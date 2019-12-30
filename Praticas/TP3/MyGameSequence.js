@@ -6,7 +6,7 @@ class MyGameSequence extends CGFobject {
     constructor(scene) {
         super(scene);
         this.sequence = [];
-
+        this.oldSequence = [];
 
     }
 
@@ -16,7 +16,6 @@ class MyGameSequence extends CGFobject {
 
     addMove(move){
         this.sequence.push(move);
-        console.log(this.sequence);
     }
 
     checkMove(move) {
@@ -27,4 +26,8 @@ class MyGameSequence extends CGFobject {
         return true;
     }
 
+    clear() {
+        this.oldSequence = this.sequence;
+        this.sequence = [];
+    }
 }

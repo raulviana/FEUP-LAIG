@@ -22,17 +22,27 @@ class MyInterface extends CGFinterface {
 
         // add a group of controls (and open/expand by defult)
 
-        var f0 = this.gui.addFolder('Lights');
+        let folder = this.gui.addFolder('Scene');
 
         //Dropbox
-        this.gui.add(this.scene, 'selectedCamera', this.scene.view).name('Select View');
+        folder.add(this.scene, 'selectedCamera', this.scene.view).name('Select View');
+        folder.add(this.scene, 'currGraph', this.scene.ambient).name('Select Ambient');
 
+        let f0 = folder.addFolder('Lights');
         //Checkbox
         f0.add(this.scene, 'light1').name('light 1');
         f0.add(this.scene, 'light2').name('light 2');
         f0.add(this.scene, 'spotRed').name('Spot Red');
         f0.add(this.scene, 'spotGreen').name('Spot Green');
         f0.add(this.scene, 'spotBlue').name('Spot Blue');
+
+        this.gui.add(this.scene, 'startGame').name('Play Game!');
+
+        this.gui.add(this.scene, 'undo').name('Undo!');
+
+        this.gui.add(this.scene, 'clear').name('Clear Board!');
+
+        this.gui.add(this.scene, 'video').name('Play Video!');
 
         this.initKeys();
 

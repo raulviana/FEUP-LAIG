@@ -41,17 +41,17 @@ class MySideBoard extends CGFobject {
         if (this.scene.pickMode == false) {
             this.pieceMaterial.apply();
             this.scene.pushMatrix();
-            this.scene.translate(0, 1.5, 15 * this.mat);
+            this.scene.translate(0, 0.15, 1.5 * this.mat);
             this.scene.rotate(Math.PI / 8, 0, 1, 0);
-            this.scene.scale(1.5, 1, 1.5);
+            this.scene.scale(0.15, 0.1, 0.15);
             this.octoPiece.display();
             this.scene.popMatrix();
 
 
             this.scene.pushMatrix();
             this.boardMaterial.apply();
-            this.scene.translate(0, 0, 15 * this.mat);
-            this.scene.scale(11.5, 3, 4);
+            this.scene.translate(0, 0, 1.5 * this.mat);
+            this.scene.scale(1.15, 0.3, 0.4);
             this.cube.display();
             this.scene.popMatrix();
         }
