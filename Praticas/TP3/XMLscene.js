@@ -12,10 +12,9 @@ class XMLscene extends CGFscene {
         super();
 
         this.interface = myinterface;
-        this.graphs = [];
-        this.numGraphs = numGraphs; 
-        this.graphsLoaded = 0;
-        this.currGraph = 0;
+
+        this.numGraphs = numGraphs;
+        
     }
 
     /**
@@ -42,13 +41,17 @@ class XMLscene extends CGFscene {
         this.counterM = 0;
         this.counterV = 0;
 
+        this.graphs = []; 
+        this.graphsLoaded = 0;
+        this.currGraph = 0;
+
         this.light1 = true;
         this.light2 = true;
         this.spotRed = false;
         this.spotGreen = false;
         this.spotBlue = false;
        
-        this.selectedCamera = 3;
+        this.selectedCamera = 0;
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
         this.viewAngle = 0;
