@@ -57,7 +57,6 @@ class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
 
-        //this.board = new MyGameBoard(this);
         this.gameOrchestrator = new MyGameOrchestrator(this);
 
         this.playGame = false;
@@ -67,12 +66,15 @@ class XMLscene extends CGFscene {
         }
 
         this.startGame = function () {
+            alert("Game has started!");
             this.playGame = true;
+            this.gameOrchestrator.clearGame();
         }
 
         this.clear = function () {
             this.playGame = false;
             this.gameOrchestrator.clearGame();
+            alert("Game has ended!");
         }
 
         this.video = function () {

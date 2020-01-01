@@ -23,6 +23,7 @@ class MyGameOrchestrator extends CGFobject {
         this.pieces = [];
         this.oldPieces = [];
 
+        this.videoIndex = 0;
     }
 
     logPicking() {
@@ -35,7 +36,6 @@ class MyGameOrchestrator extends CGFobject {
                         let customId = this.scene.pickResults[i][1];
                         let row = (customId - 1) % 8 + 1;
                         let col = Math.floor((customId - 1) / 8) + 1;
-                        console.log(row + " " + col);
                         if (this.gameSequence.checkMove([row, col])) {
                             this.playPiece([row, col, this.turn]);
                         }
@@ -53,37 +53,34 @@ class MyGameOrchestrator extends CGFobject {
     }
 
 
-
+    //Displays the game according with it's state
     display() {
         this.gameboard.display();
         this.sideboardBlack.display();
         this.sideboardWhite.display();
-
+        console.log(this.pieces.length);
         for (let i = 0; i < this.pieces.length; i++) {
             this.pieces[i].display();
         }
     }
 
-    createAnimation(turn, move) {
-        let animation = new KeyFrameAnimation(this.scene);
-
-        this.animator.addAnimation(animation);
-    }
 
     playPiece(move) {
-        this.scene.setPickEnabled(false);
+        this.scene.setPickEnabled(false); //Disables picking
 
-       
-        //this.move.push(this.turn);
         this.gameSequence.addMove(move);
 
-        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 1500);
-        this.createAnimation(this.turn, move);
-        let piece = new MyPiece(this.scene, move[0], move[1], move[2], this.animator.animations[this.animator.animations.length - 1]);
+        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 1500); //Change turn and enables picking after animation has finished
+      
+        let animation = new KeyFrameAnimation(this.scene); // creates an animation to be used in a piece
+        this.animator.addAnimation(animation);
+
+        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation); //Creates a piece
         this.pieces.push(piece);
 
     }
 
+    //Removes previous move
     undoMove() {
         if (this.gameSequence.sequence.length > 0) {
             this.gameSequence.undoMove();
@@ -94,6 +91,7 @@ class MyGameOrchestrator extends CGFobject {
         }
     }
 
+    //Clears the board to it's initial state
     clearGame() {
         this.turn = 0;
         this.gameRunning = false;
@@ -102,14 +100,49 @@ class MyGameOrchestrator extends CGFobject {
         this.gameSequence.clear();
     }
 
+
+    playVideoPiece(move) {
+        //setTimeout(() => { this.videoIndex = this.videoIndex + 1; console.log("Finished Timeout"); }, 1500);
+        
+        let animation = new KeyFrameAnimation(this.scene); // creates an animation to be used in a piece
+        this.animator.addAnimation(animation);
+
+        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation);
+        this.pieces.push(piece);
+        let kik = 0;
+        for (let i = 0; i < 5000; i++) { kik++; };
+        console.log(kik);
+        this.videoIndex = this.videoIndex + 1;
+       
+    }
+
+    //Plays a video of the previous game
     playVideo() {
+        this.videoIndex = 0;
+
         if (this.gameRunning == true)
             alert("Game still running!");
         else {
-            for (let i = 0; i < this.gameSequence.oldSequence.length; i++) {
-                this.playPiece(this.gameSequence.oldSequence[i]);
+            if (this.gameSequence.oldSequence.length > 0) {
+                console.log(this.gameSequence.oldSequence.length);
+                let isPlayed = [];
+
+                for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
+                    isPlayed.push(0);
+                }
+                ///
+                while (this.videoIndex < this.gameSequence.oldSequence.length) {
+                    console.log(this.videoIndex);
+                    if (isPlayed[this.videoIndex] == 0) {
+                        isPlayed[this.videoIndex] = 1;
+                        console.log("here"); console.log(this.videoIndex);
+                        this.playVideoPiece(this.gameSequence.oldSequence[this.videoIndex]);
+                        console.log("there"); console.log(this.videoIndex);
+                        
+                    }
+                }
             }
         }
+        console.log("Ended video");
     }
-
 }

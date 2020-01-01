@@ -40,7 +40,7 @@ class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'undo').name('Undo!');
 
-        this.gui.add(this.scene, 'clear').name('Clear Board!');
+        this.gui.add(this.scene, 'clear').name('Quit Game/Clear Board!');
 
         this.gui.add(this.scene, 'video').name('Play Video!');
 
