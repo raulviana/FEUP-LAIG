@@ -117,7 +117,7 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     //Plays a video of the previous game
-    playVideo() {
+    async playVideo() {
         this.videoIndex = 0;
 
         if (this.gameRunning == true)
@@ -128,19 +128,25 @@ class MyGameOrchestrator extends CGFobject {
                 let isPlayed = [];
 
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
-                    isPlayed.push(0);
+                    // isPlayed.push(0);
+                    console.log("olesequence" + this.gameSequence.oldSequence.length);
+                    this.playPiece(this.gameSequence.oldSequence[k]);
+                    this.scene.updateCamera(this.scene.selectedCamera);
+                    await new Promise(r => setTimeout(r, 2000));
+                    
+                    
                 }
                 ///
-                while (this.videoIndex < this.gameSequence.oldSequence.length) {
-                    console.log(this.videoIndex);
-                    if (isPlayed[this.videoIndex] == 0) {
-                        isPlayed[this.videoIndex] = 1;
-                        console.log("here"); console.log(this.videoIndex);
-                        this.playVideoPiece(this.gameSequence.oldSequence[this.videoIndex]);
-                        console.log("there"); console.log(this.videoIndex);
+                // while (this.videoIndex < this.gameSequence.oldSequence.length) {
+                //     console.log(this.videoIndex);
+                //     if (isPlayed[this.videoIndex] == 0) {
+                //         isPlayed[this.videoIndex] = 1;
+                //         console.log("here"); console.log(this.videoIndex);
+                //         this.playVideoPiece(this.gameSequence.oldSequence[this.videoIndex]);
+                //         console.log("there"); console.log(this.videoIndex);
                         
-                    }
-                }
+                //     }
+                // }
             }
         }
         console.log("Ended video");
