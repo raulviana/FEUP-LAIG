@@ -2,14 +2,19 @@
 * MyAnimator
 * @constructor
 */
-class MyAnimator extends Animation{
-    constructor(scene){
+class MyAnimator extends Animation {
+    constructor(scene) {
         super(scene);
         this.animations = [];
+        this.oldAnimations = [];
     }
 
     addAnimation(animation) {
         this.animations.push(animation);
+    }
+
+    removeAnimation() {
+        this.animations.pop();
     }
 
     update(t) {
@@ -18,9 +23,13 @@ class MyAnimator extends Animation{
             this.animations[i].update(t);
     }
 
-    setKeyframes(){
+    clear() {
+        this.animations = [];
+    }
+
+    setKeyframes() {
 
     }
 
-    display(){}
+    display() { }
 }

@@ -20,7 +20,11 @@ class MyGameMove extends CGFobject {
     unset(){}
 
     movePiece(){
-      
+        //TODO
+        //criar tres pontos: 1 acima da posição de origem da peça [x, 0.010101 + 3, z]
+        //outro no centro do tabuleiro com y igual ao ponto anterior, 
+        //final corresspondente À posição fianal [x * colluna, y, z + linha]
+        //fazer push em keyframes e fica criada a animação. 
     }
 
     display(){} //necessároio criar uma variável para saber se a animação ainda não acabou e de seguida passar a vez ao próximo jogador

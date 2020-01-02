@@ -13,7 +13,6 @@ class KeyFrameAnimation extends Animation{
         this.startTime = 0;
         this.stage = 0;
 
-        console.log(this.currentTrans);
     }
 
     // Updates the initial values acording to the keyframe parameters and the time passed

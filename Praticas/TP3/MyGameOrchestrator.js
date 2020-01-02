@@ -129,6 +129,7 @@ class MyGameOrchestrator extends CGFobject {
 
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
                     // isPlayed.push(0);
+                    console.log("olesequence" + this.gameSequence.oldSequence.length);
                     this.playPiece(this.gameSequence.oldSequence[k]);
                     this.scene.updateCamera(this.scene.selectedCamera);
                     await new Promise(r => setTimeout(r, 2000));

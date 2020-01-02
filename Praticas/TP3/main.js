@@ -33,8 +33,8 @@ main=function()
     var filename1 = getUrlVars()['file'] || "ligth.xml";
     var filename2 = getUrlVars()['file'] || "dark.xml";
 
-	// create and load graph, and associate it to scene. 
-	// Check console for loading errors
+    // create and load graph, and associate it to scene. 
+    // Check console for loading errors
     var Graph1 = new MySceneGraph(filename1, myScene);
     var Graph2 = new MySceneGraph(filename2, myScene);
 	
