@@ -48,7 +48,7 @@ class XMLscene extends CGFscene {
         this.spotGreen = false;
         this.spotBlue = false;
 
-        this.selectedCamera = 3;
+        this.selectedCamera = 0;
         this.defaultCamera = 0;
         this.view = { 'Front View': 0, 'Left View': 1, 'Right View': 2, 'Back View': 3 };
         this.viewAngle = 0;
