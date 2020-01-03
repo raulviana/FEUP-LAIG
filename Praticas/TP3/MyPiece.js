@@ -36,7 +36,7 @@ class MyPiece extends CGFobject {
     }
 
     developAnimation() {
-        let frame1 = [];
+        /*let frame1 = [];
         frame1.push(1);
 
         let trans = [0, 0.15, 0];
@@ -49,84 +49,83 @@ class MyPiece extends CGFobject {
         frame1.push(scale);
 
         this.animation.keyFrames.push(frame1);
+        */
       
-      
-        // let frame1 = [];
-        // frame1.push(1);
+        let frame1 = [];
+        frame1.push(1);
 
-        // let trans = [0, 0.5, 0];
-        // frame1.push(trans);
+        let trans = [0, 0.5, 0];
+        frame1.push(trans);
 
-        // let rot = [0, 0, 0];
-        // frame1.push(rot);
+        let rot = [0, 0, 0];
+        frame1.push(rot);
 
-        // let scale = [1, 1, 1];
-        // frame1.push(scale);
+        let scale = [1, 1, 1];
+        frame1.push(scale);
 
-        // this.animation.keyFrames.push(frame1);
+        this.animation.keyFrames.push(frame1);
 
-        // let frame2 = [];
-        // frame2.push(2);
+        let frame2 = [];
+        frame2.push(2);
 
-        // trans = [0, 0.5, (1.53 * this.temp)];
-        // frame2.push(trans);
+        trans = [0, 0.5, (1.53 * this.temp)];
+        frame2.push(trans);
 
-        // rot = [0, 0, 0];
-        // frame2.push(rot);
+        rot = [0, 0, 0];
+        frame2.push(rot);
 
-        // scale = [1, 1, 1];
-        // frame2.push(scale);
+        scale = [1, 1, 1];
+        frame2.push(scale);
 
-        // this.animation.keyFrames.push(frame2);
+        this.animation.keyFrames.push(frame2);
         
-        // let frame3 = [];
-        // frame3.push(3);
+        let frame3 = [];
+        frame3.push(3);
 
-        // trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0.5, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
-        // frame3.push(trans);
+        trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0.5, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
+        frame3.push(trans);
 
-        // rot = [0, 0, 0];
-        // frame3.push(rot);
+        rot = [0, 0, 0];
+        frame3.push(rot);
 
-        // scale = [1, 1, 1];
-        // frame3.push(scale);
+        scale = [1, 1, 1];
+        frame3.push(scale);
 
-        // this.animation.keyFrames.push(frame3);
+        this.animation.keyFrames.push(frame3);
         
-        // let frame4 = [];
-        // frame4.push(4);
+        let frame4 = [];
+        frame4.push(4);
 
-        // trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
-        // console.log("trans: " + trans);
-        // frame4.push(trans);
+        trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
+        frame4.push(trans);
 
-        // rot = [0, 0, 0];
-        // frame4.push(rot);
+        rot = [0, 0, 0];
+        frame4.push(rot);
 
-        // scale = [1, 1, 1];
-        // frame4.push(scale);
+        scale = [1, 1, 1];
+        frame4.push(scale);
 
-        // this.animation.keyFrames.push(frame4);
+        this.animation.keyFrames.push(frame4);
     }
 
     display() {
         if (this.scene.pickMode == false) {
 
-
+        
             this.scene.pushMatrix();
             this.pieceMaterial.apply();
             this.animation.apply();
-            this.scene.translate(-0.974169 + (this.row - 1) * 0.278334, 0, 0.974169 - (this.col - 1) * 0.278334);
+            /*this.scene.translate(-0.974169 + (this.row - 1) * 0.278334, 0, 0.974169 - (this.col - 1) * 0.278334);
             this.scene.rotate(Math.PI / 8, 0, 1, 0);
             this.scene.scale(0.15, 0.1, 0.15);
-           
-            /*if (this.turn == 1)
-                this.scene.translate(0, 1.5, 15);
+            */
+            if (this.turn == 1)
+                this.scene.translate(0, 0.15, 1.5);
             else
-                this.scene.translate(0, 1.5, -15);
+                this.scene.translate(0, 0.15, -1.5);
 
             this.scene.rotate(Math.PI / 8, 0, 1, 0);
-            this.scene.scale(1.3, 1, 1.3);*/
+            this.scene.scale(0.13, 0.1, 0.13);
 
             this.octoPiece.display();
             this.scene.popMatrix();

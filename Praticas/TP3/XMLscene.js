@@ -82,7 +82,9 @@ class XMLscene extends CGFscene {
         }
 
         this.video = function () {
-            this.gameOrchestrator.playVideo();
+            if(this.gameOrchestrator.videoRunning == false) {
+                this.gameOrchestrator.playVideo();
+            }
         }
     }
 

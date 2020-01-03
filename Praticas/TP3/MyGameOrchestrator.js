@@ -8,10 +8,10 @@ class MyGameOrchestrator extends CGFobject {
         this.gameSequence = new MyGameSequence(this.scene);
         this.animator = new MyAnimator(this.scene);
         this.gameboard = new MyGameBoard(this.scene);
-        this.sideboardBlack = new MySideBoard(this.scene, 1); // 1 for black
-        this.sideboardWhite = new MySideBoard(this.scene, -1); // -1 for white
-        /*        this.theme = new MyScenegraph(this.scene);
-                this.prolog = new MyPrologInterface(this.scene);*/
+        this.sideboardBlack = new MySideBoard(this.scene, 1);   // 1 for black
+        this.sideboardWhite = new MySideBoard(this.scene, -1);  // -1 for white
+
+//      this.prolog = new MyPrologInterface(this.scene);
 
         this.boardCenter = [3, 3.2, 2];
         this.turn = 0;
@@ -19,11 +19,11 @@ class MyGameOrchestrator extends CGFobject {
         this.pause = false;
 
         this.gameRunning = false;
+        this.videoRunning = false;
 
         this.pieces = [];
         this.oldPieces = [];
 
-        this.videoIndex = 0;
     }
 
     logPicking() {
@@ -58,7 +58,7 @@ class MyGameOrchestrator extends CGFobject {
         this.gameboard.display();
         this.sideboardBlack.display();
         this.sideboardWhite.display();
-        console.log(this.pieces.length);
+
         for (let i = 0; i < this.pieces.length; i++) {
             this.pieces[i].display();
         }
@@ -66,28 +66,28 @@ class MyGameOrchestrator extends CGFobject {
 
 
     playPiece(move) {
-        this.scene.setPickEnabled(false); //Disables picking
+        this.scene.setPickEnabled(false);                   //Disables picking
 
-        this.gameSequence.addMove(move);
+        this.gameSequence.addMove(move);                    // adds new move to game sequence
 
         setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 1500); //Change turn and enables picking after animation has finished
       
-        let animation = new KeyFrameAnimation(this.scene); // creates an animation to be used in a piece
-        this.animator.addAnimation(animation);
+        let animation = new KeyFrameAnimation(this.scene);  // creates an animation to be used in a piece
+        this.animator.addAnimation(animation);              // adds animation to array of animations
 
-        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation); //Creates a piece
-        this.pieces.push(piece);
+        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation);  //Creates a piece
+        this.pieces.push(piece);                                                    // adds piece to array of pieces
 
     }
 
     //Removes previous move
     undoMove() {
-        if (this.gameSequence.sequence.length > 0) {
-            this.gameSequence.undoMove();
-            this.pieces.pop();
-            this.animator.removeAnimation();
+        if (this.gameSequence.sequence.length > 0) {    // only removes move if game sequence has moves to be removed
+            this.gameSequence.undoMove();               // removes move from game sequence
+            this.pieces.pop();                          // removes piece from array of pieces
+            this.animator.removeAnimation();            // removes animation from array of animations
 
-            this.turn = Math.abs(this.turn - 1);
+            this.turn = Math.abs(this.turn - 1);        // corrects the turn
         }
     }
 
@@ -102,53 +102,40 @@ class MyGameOrchestrator extends CGFobject {
 
 
     playVideoPiece(move) {
-        //setTimeout(() => { this.videoIndex = this.videoIndex + 1; console.log("Finished Timeout"); }, 1500);
-        
+        this.gameSequence.addMove(move); // adds new move to game sequence
+      
         let animation = new KeyFrameAnimation(this.scene); // creates an animation to be used in a piece
-        this.animator.addAnimation(animation);
+        this.animator.addAnimation(animation); // adds animation to array of animations
 
-        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation);
-        this.pieces.push(piece);
-        let kik = 0;
-        for (let i = 0; i < 5000; i++) { kik++; };
-        console.log(kik);
-        this.videoIndex = this.videoIndex + 1;
+        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation); //Creates a piece
+        this.pieces.push(piece); // adds piece to array of pieces
        
     }
 
     //Plays a video of the previous game
     async playVideo() {
-        this.videoIndex = 0;
+        this.videoRunning = true;
+
+        this.pieces = [];
+        this.animator.clear();
 
         if (this.gameRunning == true)
             alert("Game still running!");
         else {
+            console.log(this.gameSequence.oldSequence);
             if (this.gameSequence.oldSequence.length > 0) {
                 console.log(this.gameSequence.oldSequence.length);
                 let isPlayed = [];
 
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
-                    // isPlayed.push(0);
                     await new Promise(r => setTimeout(r, 600));
-                    this.playPiece(this.gameSequence.oldSequence[k]);
-                    this.scene.updateCamera(this.scene.selectedCamera);
-                    await new Promise(r => setTimeout(r, 2000));
-                    
-                    
+                    this.playVideoPiece(this.gameSequence.oldSequence[k]);
+                    await new Promise(r => setTimeout(r, 4000));
                 }
-                ///
-                // while (this.videoIndex < this.gameSequence.oldSequence.length) {
-                //     console.log(this.videoIndex);
-                //     if (isPlayed[this.videoIndex] == 0) {
-                //         isPlayed[this.videoIndex] = 1;
-                //         console.log("here"); console.log(this.videoIndex);
-                //         this.playVideoPiece(this.gameSequence.oldSequence[this.videoIndex]);
-                //         console.log("there"); console.log(this.videoIndex);
-                        
-                //     }
-                // }
+               
             }
         }
         console.log("Ended video");
+        this.videoRunning = false;
     }
 }
