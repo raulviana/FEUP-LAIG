@@ -65,7 +65,7 @@ class MyPiece extends CGFobject {
 
         this.animation.keyFrames.push(frame1);
 
-        let frame2 = [];
+        /*let frame2 = [];
         frame2.push(2);
 
         trans = [0, 0.5, (1.53 * this.temp)];
@@ -77,12 +77,12 @@ class MyPiece extends CGFobject {
         scale = [1, 1, 1];
         frame2.push(scale);
 
-        this.animation.keyFrames.push(frame2);
+        this.animation.keyFrames.push(frame2);*/
         
         let frame3 = [];
         frame3.push(3);
 
-        trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0.5, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
+        trans = [parseFloat(-1.05 + (0.299 * (this.row - 1))).toFixed(3), 0.5, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
         frame3.push(trans);
 
         rot = [0, 0, 0];
@@ -96,7 +96,7 @@ class MyPiece extends CGFobject {
         let frame4 = [];
         frame4.push(4);
 
-        trans = [parseFloat(-1.05 + (0.3 * (this.row - 1))).toFixed(3), 0, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
+        trans = [parseFloat(-1.05 + (0.299 * (this.row - 1))).toFixed(3), 0, parseFloat((1.53 * this.temp) + 1.05 - (0.3 * (this.col - 1))).toFixed(3)];
         frame4.push(trans);
 
         rot = [0, 0, 0];
@@ -125,7 +125,7 @@ class MyPiece extends CGFobject {
                 this.scene.translate(0, 0.15, -1.5);
 
             this.scene.rotate(Math.PI / 8, 0, 1, 0);
-            this.scene.scale(0.13, 0.1, 0.13);
+            this.scene.scale(0.11, 0.09, 0.11);
 
             this.octoPiece.display();
             this.scene.popMatrix();

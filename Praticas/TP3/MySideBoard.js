@@ -43,7 +43,7 @@ class MySideBoard extends CGFobject {
             this.scene.pushMatrix();
             this.scene.translate(0, 0.15, 1.5 * this.mat);
             this.scene.rotate(Math.PI / 8, 0, 1, 0);
-            this.scene.scale(0.15, 0.1, 0.15);
+            this.scene.scale(0.11, 0.09, 0.11);
             this.octoPiece.display();
             this.scene.popMatrix();
 

@@ -70,7 +70,7 @@ class MyGameOrchestrator extends CGFobject {
 
         this.gameSequence.addMove(move);                    // adds new move to game sequence
 
-        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 1500); //Change turn and enables picking after animation has finished
+        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 3500); //Change turn and enables picking after animation has finished
       
         let animation = new KeyFrameAnimation(this.scene);  // creates an animation to be used in a piece
         this.animator.addAnimation(animation);              // adds animation to array of animations
@@ -102,13 +102,13 @@ class MyGameOrchestrator extends CGFobject {
 
 
     playVideoPiece(move) {
-        this.gameSequence.addMove(move); // adds new move to game sequence
+        this.gameSequence.addMove(move);    // adds new move to game sequence
       
-        let animation = new KeyFrameAnimation(this.scene); // creates an animation to be used in a piece
-        this.animator.addAnimation(animation); // adds animation to array of animations
+        let animation = new KeyFrameAnimation(this.scene);  // creates an animation to be used in a piece
+        this.animator.addAnimation(animation);  // adds animation to array of animations
 
-        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation); //Creates a piece
-        this.pieces.push(piece); // adds piece to array of pieces
+        let piece = new MyPiece(this.scene, move[0], move[1], move[2], animation);  //Creates a piece
+        this.pieces.push(piece);    // adds piece to array of pieces
        
     }
 
@@ -130,7 +130,7 @@ class MyGameOrchestrator extends CGFobject {
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
                     await new Promise(r => setTimeout(r, 600));
                     this.playVideoPiece(this.gameSequence.oldSequence[k]);
-                    await new Promise(r => setTimeout(r, 4000));
+                    await new Promise(r => setTimeout(r, 3500));
                 }
                
             }
