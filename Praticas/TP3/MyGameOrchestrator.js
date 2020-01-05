@@ -70,7 +70,7 @@ class MyGameOrchestrator extends CGFobject {
 
         this.gameSequence.addMove(move);                    // adds new move to game sequence
 
-        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 3500); //Change turn and enables picking after animation has finished
+        setTimeout(() => { this.turn = Math.abs(this.turn - 1); this.scene.setPickEnabled(true); }, 4000); //Change turn and enables picking after animation has finished
       
         let animation = new KeyFrameAnimation(this.scene);  // creates an animation to be used in a piece
         this.animator.addAnimation(animation);              // adds animation to array of animations
@@ -122,14 +122,11 @@ class MyGameOrchestrator extends CGFobject {
         if (this.gameRunning == true)
             alert("Game still running!");
         else {
-            console.log(this.gameSequence.oldSequence);
             if (this.gameSequence.oldSequence.length > 0) {
-                console.log(this.gameSequence.oldSequence.length);
-                let isPlayed = [];
-
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
                     await new Promise(r => setTimeout(r, 600));
-                    this.playVideoPiece(this.gameSequence.oldSequence[k]);
+                    this.playVideoPiece(this.gameSequence.oldSequence[k]);                    
+                    this.scene.updateCamera(this.scene.selectedCamera);
                     await new Promise(r => setTimeout(r, 3500));
                 }
                

@@ -37,6 +37,8 @@ class MyGameBoard extends CGFobject {
         this.whiteMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
         this.whiteMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
 
+        
+
 
     }
 

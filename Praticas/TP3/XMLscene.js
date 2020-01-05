@@ -15,7 +15,6 @@ class XMLscene extends CGFscene {
         this.graphs = [];
         this.numGraphs = numGraphs;
         this.graphsLoaded = 0;
-        this.currGraph = 0;
     }
 
     /**
@@ -242,7 +241,6 @@ class XMLscene extends CGFscene {
 
         this.camera = cam;
     }
-
 
 
     display() {
