@@ -37,6 +37,8 @@ class MyGameBoard extends CGFobject {
         this.whiteMaterial.setSpecular(0.9, 0.9, 0.9, 0.1);
         this.whiteMaterial.setEmission(0.9, 0.9, 0.9, 0.1);
 
+
+        this.boardTexture = new CGFtexture(this.scene, "/scenes/images/yellow.jpg");
         
 
 
@@ -49,22 +51,26 @@ class MyGameBoard extends CGFobject {
         this.tileMaterial.apply();
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
+                
                 this.scene.pushMatrix();
                 this.scene.translate(-0.974169 + j * 0.278334, 0.10101, 0.974169 - i * 0.278334);
                 this.scene.rotate(Math.PI / 8, 0, 1, 0);
                 this.scene.scale(0.15, 0.1, 0.15);
                 this.scene.registerForPick(i * 8 + j + 1, this.tile);
                 this.tile.display();
+                
                 this.scene.popMatrix();
 
             }
         }
 
-        this.boardMaterial.apply();
+        this.boardMaterial.apply(); 
         if (this.scene.pickMode == false) {
+           this.boardTexture.bind();
             this.scene.pushMatrix();
             this.scene.scale(2.4, 0.3, 2.4);
             this.cube.display();
+            this.boardTexture.unbind();
             this.scene.popMatrix();
 
             for (let j = 0; j < 7; j++) {

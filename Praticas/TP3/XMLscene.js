@@ -244,12 +244,7 @@ class XMLscene extends CGFscene {
 
 
     display() {
-        this.clearPickRegistration();
-
-        if (this.playGame == true) {
-            this.gameOrchestrator.logPicking();
-            this.gameOrchestrator.gameRunning = true;
-        }
+        
 
         if (this.sceneInited) {
 
@@ -269,8 +264,6 @@ class XMLscene extends CGFscene {
             //this.axis.display();
 
 
-            //Updates View
-            this.updateCamera(this.selectedCamera);
 
             // Turn On/Off Light 1
             if (this.light1)
@@ -307,6 +300,16 @@ class XMLscene extends CGFscene {
             for (var i = 0; i < this.lights.length; i++) {
                 this.lights[i].update();
             }
+            
+            this.clearPickRegistration();
+
+        if (this.playGame == true) {
+            this.gameOrchestrator.logPicking();
+            this.gameOrchestrator.gameRunning = true;
+        }
+        
+            //Updates View
+            this.updateCamera(this.selectedCamera);
 
 
             // Displays the scene (MySceneGraph function).

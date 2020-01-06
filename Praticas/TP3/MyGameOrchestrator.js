@@ -125,14 +125,12 @@ class MyGameOrchestrator extends CGFobject {
             if (this.gameSequence.oldSequence.length > 0) {
                 for (let k = 0; k < this.gameSequence.oldSequence.length; k++) {
                     await new Promise(r => setTimeout(r, 600));
-                    this.playVideoPiece(this.gameSequence.oldSequence[k]);                    
-                    this.scene.updateCamera(this.scene.selectedCamera);
+                    this.playVideoPiece(this.gameSequence.oldSequence[k]);
                     await new Promise(r => setTimeout(r, 3500));
                 }
                
             }
         }
-        console.log("Ended video");
         this.videoRunning = false;
     }
 }

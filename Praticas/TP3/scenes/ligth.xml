@@ -348,7 +348,7 @@
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
                 <componenref id="backrest" />
-                <componenref id="armrest" />
+                <componenref id="armrest1" />
         </children>
         </component>
 
@@ -384,7 +384,7 @@
             </children>
         </component>
 
-        <component id="armrest">
+        <component id="armrest1">
             <transformation>
                 <rotate axis="x" angle="-90" />
                 <scale x="2.2" y="0.1" z="1" />
@@ -398,6 +398,21 @@
             <children>
                 <componentref id="armrest1R" />
                 <componentref id="armrest1L" />
+            </children>
+        </component>
+
+        <component id="armrest2">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+                <scale x="2.2" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="whiterubberMaterial" />
+                <material id="demoMaterial" />
+                <material id="glassMaterial" />
+            </materials>
+            <texture id="newchair" length_s="1" length_t="1" />
+            <children>
                 <componentref id="armrest2R" />
                 <componentref id="armrest2L" />
             </children>
@@ -434,7 +449,7 @@
         </component>
          <component id="armrest2R">
             <transformation>
-                <translate x="0.45" y="0.5" z="10" />
+                <translate x="0.45" y="0.5" z="2.2" />
                 
             </transformation>
             <materials>
@@ -449,7 +464,7 @@
         </component>
         <component id="armrest2L">
             <transformation>
-                <translate x="0.45" y="-20.5" z="10" />
+                <translate x="0.45" y="-20.5" z="2.2" />
             </transformation>
             <materials>
                 <material id="whiterubberMaterial" />
@@ -558,7 +573,7 @@
                 <componenref id="seat" />
                 <componenref id="chairLegs" />
                 <componenref id="backrest" />
-                <componentref id="armrest" />
+                 <componenref id="armrest2" />
         </children>
         </component>
 
