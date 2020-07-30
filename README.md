@@ -24,6 +24,8 @@ Scene 1 screenshot
 
 Scene 2 screenshot
 
+[Video](https://youtu.be/f0NCVJbwDX4)
+
 ### Scene 3 screenshots and video
 
 ![Scene 3 screenshot - dark](https://github.com/raulviana/FEUP-LAIG/blob/master/Praticas/screenshots/shot3_dark.png)
