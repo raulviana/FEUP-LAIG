@@ -14,6 +14,10 @@ The project goal was to develop three simple scenes to apply theoretical concept
 
 ### Scene 1 screenshots
 
+![Scene 1 screenshot](https://github.com/raulviana/FEUP-LAIG/blob/master/Praticas/screenshots/shot1.png)
+
+Scene 1 screenshot
+
 ### Scene 2 screenshots and video
 
 ### Scene 3 screenshots and video
