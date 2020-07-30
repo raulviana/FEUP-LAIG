@@ -162,11 +162,9 @@ class XMLscene extends CGFscene {
       
 
     updateCamera(i){
-        if(this.scene){
-            var cam = this.graph.cameraz[this.graph.viewIds[i]];
-            this.camera = cam;
-            this.interface.setActiveCamera(this.camera);
-        }
+        var cam = this.graph.cameraz[this.graph.viewIds[i]];
+        this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
     }
 
     /**
@@ -181,16 +179,12 @@ class XMLscene extends CGFscene {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
         
 
-        
-       if(this.sceneInited){
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
+        
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-       } 
-        
-        
 
         
         this.pushMatrix();
