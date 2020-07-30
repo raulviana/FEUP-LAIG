@@ -20,4 +20,16 @@ Scene 1 screenshot
 
 ### Scene 2 screenshots and video
 
+![Scene 2 screenshot](https://github.com/raulviana/FEUP-LAIG/blob/master/Praticas/screenshots/shot2.png)
+
+Scene 2 screenshot
+
 ### Scene 3 screenshots and video
+
+![Scene 3 screenshot - dark](https://github.com/raulviana/FEUP-LAIG/blob/master/Praticas/screenshots/shot3_dark.png)
+
+Scene 3 screenshot - dark ambience
+
+![Scene 3 screenshot - light](https://github.com/raulviana/FEUP-LAIG/blob/master/Praticas/screenshots/shot3_light.png)
+
+Scene 3 screenshot - light ambience
