@@ -9,7 +9,7 @@ To test the program you will need to setup a server. This can be done in multipl
 
 ## Description
 The project goal was to develop three simple scenes to apply theoretical concepts.
-- Scene one and two represent a room, with a table and a couple of chairs. The table has an aquarium in it.  The first scene is static, with only interaction being turning on and off the several lights. The second one has an animation done with the keyframe technic. The objects and textures are loaded from an XML file. 
+- Scene one and two represent a room, with a table and a couple of chairs. The table has an aquarium in it.  The first scene is static, with only interaction being turning on and off the several lights. The second one has an animation done with the keyframe technic and other with a shader representing a security camera to the room. The objects and textures are loaded from an XML file. 
 - The third one is a puzzle game with its logic in prolog language. Sadly wasn't possible to integrate the prolog logic, so the interface runs with no game rules, no score, and no ending the game. There are some commands for beginning the game, ending it, and replay it in video mode. 
 
 ### Scene 1 screenshots
