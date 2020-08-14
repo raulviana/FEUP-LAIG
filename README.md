@@ -1,5 +1,5 @@
 # FEUP-LAIG
-Repository for the "Laboratory of Graphical Interfaces and Applications" course
+Repository for the "Laboratory of Graphical Interfaces and Applications" course [(**LAIG**)](https://sigarra.up.pt/feup/pt/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=436446)
 
 ## Tools
 JavaScript, WebGL, CGF
